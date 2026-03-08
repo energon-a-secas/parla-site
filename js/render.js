@@ -168,14 +168,36 @@ export function showDiagram(concept, matchedVariant, s) {
       <div class="center-category">${categoryIcon(concept.category)} ${categoryLabel(concept.category)}</div>
     `;
   } else {
-    s.matchedTerm = null;
+    const heroFlags = (matchedVariant?.countries || concept.variants[0].countries)
+      .map(c => countries[c]?.flag || '').join(' ');
     center.innerHTML = `
-      <div class="center-term">${escHtml(concept.meaning_en)}</div>
+      <div class="center-term">${escHtml(s.matchedTerm)} <span class="center-flag">${heroFlags}</span></div>
+      <div class="center-meaning">${escHtml(concept.meaning_en)}</div>
       <div class="center-category">${categoryIcon(concept.category)} ${categoryLabel(concept.category)}</div>
     `;
   }
 
-  history.replaceState(null, '', '#w=' + encodeURIComponent(concept.id));
+  center.insertAdjacentHTML('beforeend', `
+    <div class="diagram-controls">
+      <button class="diagram-back" id="diagramBack" aria-label="Back to search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5m0 0l7 7m-7-7l7-7"/></svg>
+        Back
+      </button>
+      <button class="diagram-share" id="diagramShare" aria-label="Share this word">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        Share
+      </button>
+    </div>
+  `);
+
+  const newHash = '#w=' + encodeURIComponent(concept.id);
+  if (window.location.hash === newHash) {
+    history.replaceState(null, '', newHash);
+    s.diagramPushedState = false;
+  } else {
+    history.pushState(null, '', newHash);
+    s.diagramPushedState = true;
+  }
 
   // Group variants: merge those with same term
   const grouped = [];
@@ -200,16 +222,7 @@ export function showDiagram(concept, matchedVariant, s) {
   const displayNodes = outerNodes.length > 0 ? outerNodes : grouped;
   const count = displayNodes.length;
 
-  const backHtml = `<button class="diagram-back" id="diagramBack">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5m0 0l7 7m-7-7l7-7"/></svg>
-    Back
-  </button>
-  <button class="diagram-share" id="diagramShare">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-    Share
-  </button>`;
-
-  nodes.innerHTML = backHtml + displayNodes.map((v, i) => {
+  nodes.innerHTML = displayNodes.map((v, i) => {
     const flags = v.countries.map(c => countries[c]?.flag || c).join(' ');
     const colorList = v.countries.map(c => countries[c]?.color || '#888');
     const borderColor = colorList[0];

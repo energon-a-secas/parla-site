@@ -1,12 +1,36 @@
 {
   "version": "1.0.0",
   "countries": {
-    "CL": { "name": "Chile", "flag": "\ud83c\udde8\ud83c\uddf1", "color": "#dc2626" },
-    "CO": { "name": "Colombia", "flag": "\ud83c\udde8\ud83c\uddf4", "color": "#eab308" },
-    "AR": { "name": "Argentina", "flag": "\ud83c\udde6\ud83c\uddf7", "color": "#38bdf8" },
-    "MX": { "name": "M\u00e9xico", "flag": "\ud83c\uddf2\ud83c\uddfd", "color": "#22c55e" },
-    "PE": { "name": "Per\u00fa", "flag": "\ud83c\uddf5\ud83c\uddea", "color": "#f97316" },
-    "VE": { "name": "Venezuela", "flag": "\ud83c\uddfb\ud83c\uddea", "color": "#a855f7" }
+    "CL": {
+      "name": "Chile",
+      "flag": "🇨🇱",
+      "color": "#dc2626"
+    },
+    "CO": {
+      "name": "Colombia",
+      "flag": "🇨🇴",
+      "color": "#eab308"
+    },
+    "AR": {
+      "name": "Argentina",
+      "flag": "🇦🇷",
+      "color": "#38bdf8"
+    },
+    "MX": {
+      "name": "México",
+      "flag": "🇲🇽",
+      "color": "#22c55e"
+    },
+    "PE": {
+      "name": "Perú",
+      "flag": "🇵🇪",
+      "color": "#f97316"
+    },
+    "VE": {
+      "name": "Venezuela",
+      "flag": "🇻🇪",
+      "color": "#a855f7"
+    }
   },
   "concepts": [
     {
@@ -14,12 +38,44 @@
       "meaning_en": "cool, awesome",
       "category": "adjectives",
       "variants": [
-        { "term": "bac\u00e1n", "countries": ["CL"] },
-        { "term": "bacano", "countries": ["CO"] },
-        { "term": "ch\u00e9vere", "countries": ["CO", "PE", "VE"] },
-        { "term": "copado", "countries": ["AR"] },
-        { "term": "chido", "countries": ["MX"] },
-        { "term": "bravazo", "countries": ["PE"] }
+        {
+          "term": "bacán",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "bacano",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "chévere",
+          "countries": [
+            "CO",
+            "PE",
+            "VE"
+          ]
+        },
+        {
+          "term": "copado",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "chido",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "bravazo",
+          "countries": [
+            "PE"
+          ]
+        }
       ]
     },
     {
@@ -27,12 +83,43 @@
       "meaning_en": "amazing, badass",
       "category": "adjectives",
       "variants": [
-        { "term": "la raja", "countries": ["CL"] },
-        { "term": "una chimba", "countries": ["CO"] },
-        { "term": "grosso", "countries": ["AR"] },
-        { "term": "ching\u00f3n", "countries": ["MX"] },
-        { "term": "bravazo", "countries": ["PE"] },
-        { "term": "arrecho", "countries": ["VE"], "note": "can also mean angry" }
+        {
+          "term": "la raja",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "una chimba",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "grosso",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "chingón",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "bravazo",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "arrecho",
+          "countries": [
+            "VE"
+          ],
+          "note": "can also mean angry"
+        }
       ]
     },
     {
@@ -40,12 +127,43 @@
       "meaning_en": "lame, boring, bad",
       "category": "adjectives",
       "variants": [
-        { "term": "fome", "countries": ["CL"] },
-        { "term": "maluco", "countries": ["CO"] },
-        { "term": "embole", "countries": ["AR"] },
-        { "term": "gacho", "countries": ["MX"] },
-        { "term": "palta", "countries": ["PE"], "note": "also means awkward" },
-        { "term": "chimbo", "countries": ["VE"] }
+        {
+          "term": "fome",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "maluco",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "embole",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "gacho",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "palta",
+          "countries": [
+            "PE"
+          ],
+          "note": "also means awkward"
+        },
+        {
+          "term": "chimbo",
+          "countries": [
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -53,11 +171,37 @@
       "meaning_en": "crappy, lousy",
       "category": "adjectives",
       "variants": [
-        { "term": "penca", "countries": ["CL"] },
-        { "term": "chimbo", "countries": ["CO", "VE"] },
-        { "term": "garr\u00f3n", "countries": ["AR"] },
-        { "term": "chafa", "countries": ["MX"] },
-        { "term": "huachafo", "countries": ["PE"] }
+        {
+          "term": "penca",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "chimbo",
+          "countries": [
+            "CO",
+            "VE"
+          ]
+        },
+        {
+          "term": "garrón",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "chafa",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "huachafo",
+          "countries": [
+            "PE"
+          ]
+        }
       ]
     },
     {
@@ -65,11 +209,37 @@
       "meaning_en": "hard, tough, intense",
       "category": "adjectives",
       "variants": [
-        { "term": "br\u00edgido", "countries": ["CL"] },
-        { "term": "tenaz", "countries": ["CO"] },
-        { "term": "jodido", "countries": ["AR", "PE"] },
-        { "term": "cabr\u00f3n", "countries": ["MX"] },
-        { "term": "arrecho", "countries": ["VE"] }
+        {
+          "term": "brígido",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "tenaz",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "jodido",
+          "countries": [
+            "AR",
+            "PE"
+          ]
+        },
+        {
+          "term": "cabrón",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "arrecho",
+          "countries": [
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -77,12 +247,43 @@
       "meaning_en": "a lot, very much",
       "category": "adjectives",
       "variants": [
-        { "term": "caleta", "countries": ["CL"] },
-        { "term": "un poco\u00f3n", "countries": ["CO"] },
-        { "term": "re", "countries": ["AR"], "note": "prefix: re lindo, re bueno" },
-        { "term": "un chingo", "countries": ["MX"] },
-        { "term": "un mont\u00f3n", "countries": ["PE"] },
-        { "term": "burda", "countries": ["VE"] }
+        {
+          "term": "caleta",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "un pocoón",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "re",
+          "countries": [
+            "AR"
+          ],
+          "note": "prefix: re lindo, re bueno"
+        },
+        {
+          "term": "un chingo",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "un montón",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "burda",
+          "countries": [
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -90,12 +291,42 @@
       "meaning_en": "angry, pissed off",
       "category": "adjectives",
       "variants": [
-        { "term": "choreado", "countries": ["CL"] },
-        { "term": "emputado", "countries": ["CO"] },
-        { "term": "caliente", "countries": ["AR"] },
-        { "term": "encabronado", "countries": ["MX"] },
-        { "term": "arrecho", "countries": ["PE"] },
-        { "term": "arrechado", "countries": ["VE"] }
+        {
+          "term": "choreado",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "emputado",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "caliente",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "encabronado",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "arrecho",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "arrechado",
+          "countries": [
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -103,11 +334,37 @@
       "meaning_en": "embarrassed, awkward moment",
       "category": "adjectives",
       "variants": [
-        { "term": "plancha", "countries": ["CL"] },
-        { "term": "oso", "countries": ["CO", "MX"] },
-        { "term": "vergüenza ajena", "countries": ["AR"] },
-        { "term": "roche", "countries": ["PE"] },
-        { "term": "pena ajena", "countries": ["VE"] }
+        {
+          "term": "plancha",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "oso",
+          "countries": [
+            "CO",
+            "MX"
+          ]
+        },
+        {
+          "term": "vergüenza ajena",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "roche",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "pena ajena",
+          "countries": [
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -115,12 +372,42 @@
       "meaning_en": "exhausted, wiped out",
       "category": "adjectives",
       "variants": [
-        { "term": "hecho pico", "countries": ["CL"] },
-        { "term": "mamado", "countries": ["CO"] },
-        { "term": "hecho percha", "countries": ["AR"] },
-        { "term": "madreado", "countries": ["MX"] },
-        { "term": "molido", "countries": ["PE"] },
-        { "term": "fundido", "countries": ["VE"] }
+        {
+          "term": "hecho pico",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "mamado",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "hecho percha",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "madreado",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "molido",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "fundido",
+          "countries": [
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -128,11 +415,37 @@
       "meaning_en": "money, cash",
       "category": "adjectives",
       "variants": [
-        { "term": "lucas", "countries": ["CL"] },
-        { "term": "plata", "countries": ["CO", "PE"] },
-        { "term": "guita", "countries": ["AR"] },
-        { "term": "lana", "countries": ["MX"] },
-        { "term": "real", "countries": ["VE"] }
+        {
+          "term": "lucas",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "plata",
+          "countries": [
+            "CO",
+            "PE"
+          ]
+        },
+        {
+          "term": "guita",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "lana",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "real",
+          "countries": [
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -140,12 +453,42 @@
       "meaning_en": "drunk, wasted",
       "category": "adjectives",
       "variants": [
-        { "term": "curado", "countries": ["CL"] },
-        { "term": "jincho", "countries": ["CO"] },
-        { "term": "en pedo", "countries": ["AR"] },
-        { "term": "pedo", "countries": ["MX"] },
-        { "term": "borracho", "countries": ["PE"] },
-        { "term": "curdo", "countries": ["VE"] }
+        {
+          "term": "curado",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "jincho",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "en pedo",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "pedo",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "borracho",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "curdo",
+          "countries": [
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -153,12 +496,42 @@
       "meaning_en": "snob, posh, preppy",
       "category": "adjectives",
       "variants": [
-        { "term": "cuico", "countries": ["CL"] },
-        { "term": "gomelo", "countries": ["CO"] },
-        { "term": "cheto", "countries": ["AR"] },
-        { "term": "fresa", "countries": ["MX"] },
-        { "term": "pituco", "countries": ["PE"] },
-        { "term": "sifrino", "countries": ["VE"] }
+        {
+          "term": "cuico",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "gomelo",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "cheto",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "fresa",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "pituco",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "sifrino",
+          "countries": [
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -166,9 +539,27 @@
       "meaning_en": "clever, street-smart",
       "category": "adjectives",
       "variants": [
-        { "term": "avispado", "countries": ["CL", "CO", "VE"] },
-        { "term": "vivo", "countries": ["AR", "PE"] },
-        { "term": "abusado", "countries": ["MX"] }
+        {
+          "term": "avispado",
+          "countries": [
+            "CL",
+            "CO",
+            "VE"
+          ]
+        },
+        {
+          "term": "vivo",
+          "countries": [
+            "AR",
+            "PE"
+          ]
+        },
+        {
+          "term": "abusado",
+          "countries": [
+            "MX"
+          ]
+        }
       ]
     },
     {
@@ -176,12 +567,42 @@
       "meaning_en": "hey, hi (casual greeting)",
       "category": "greetings",
       "variants": [
-        { "term": "wena", "countries": ["CL"] },
-        { "term": "quiubo", "countries": ["CO"] },
-        { "term": "che", "countries": ["AR"] },
-        { "term": "qu\u00e9 onda", "countries": ["MX"] },
-        { "term": "habla", "countries": ["PE"] },
-        { "term": "\u00e9pale", "countries": ["VE"] }
+        {
+          "term": "wena",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "quiubo",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "che",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "qué onda",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "habla",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "épale",
+          "countries": [
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -189,12 +610,44 @@
       "meaning_en": "dude, buddy, mate",
       "category": "greetings",
       "variants": [
-        { "term": "we\u00f3n", "countries": ["CL"], "note": "used between friends" },
-        { "term": "parcero", "countries": ["CO"] },
-        { "term": "boludo", "countries": ["AR"], "note": "friendly between mates" },
-        { "term": "g\u00fcey", "countries": ["MX"] },
-        { "term": "causa", "countries": ["PE"] },
-        { "term": "pana", "countries": ["VE"] }
+        {
+          "term": "weón",
+          "countries": [
+            "CL"
+          ],
+          "note": "used between friends"
+        },
+        {
+          "term": "parcero",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "boludo",
+          "countries": [
+            "AR"
+          ],
+          "note": "friendly between mates"
+        },
+        {
+          "term": "güey",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "causa",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "pana",
+          "countries": [
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -202,12 +655,42 @@
       "meaning_en": "close friend, bro",
       "category": "greetings",
       "variants": [
-        { "term": "compadre", "countries": ["CL"] },
-        { "term": "parce", "countries": ["CO"] },
-        { "term": "loco", "countries": ["AR"] },
-        { "term": "carnal", "countries": ["MX"] },
-        { "term": "pata", "countries": ["PE"] },
-        { "term": "chamo", "countries": ["VE"] }
+        {
+          "term": "compadre",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "parce",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "loco",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "carnal",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "pata",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "chamo",
+          "countries": [
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -215,11 +698,37 @@
       "meaning_en": "what's up, what's going on",
       "category": "greetings",
       "variants": [
-        { "term": "qu\u00e9 onda", "countries": ["CL"] },
-        { "term": "qu\u00e9 m\u00e1s", "countries": ["CO"] },
-        { "term": "qu\u00e9 hac\u00e9s", "countries": ["AR"] },
-        { "term": "qu\u00e9 pedo", "countries": ["MX"] },
-        { "term": "qu\u00e9 fue", "countries": ["PE", "VE"] }
+        {
+          "term": "qué onda",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "qué más",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "qué hacés",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "qué pedo",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "qué fue",
+          "countries": [
+            "PE",
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -227,11 +736,37 @@
       "meaning_en": "party, night out",
       "category": "greetings",
       "variants": [
-        { "term": "carrete", "countries": ["CL"] },
-        { "term": "rumba", "countries": ["CO", "VE"] },
-        { "term": "joda", "countries": ["AR"] },
-        { "term": "peda", "countries": ["MX"] },
-        { "term": "tono", "countries": ["PE"] }
+        {
+          "term": "carrete",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "rumba",
+          "countries": [
+            "CO",
+            "VE"
+          ]
+        },
+        {
+          "term": "joda",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "peda",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "tono",
+          "countries": [
+            "PE"
+          ]
+        }
       ]
     },
     {
@@ -239,12 +774,42 @@
       "meaning_en": "let's go, come on",
       "category": "greetings",
       "variants": [
-        { "term": "dale po", "countries": ["CL"] },
-        { "term": "dale pues", "countries": ["CO"] },
-        { "term": "dale", "countries": ["AR"] },
-        { "term": "\u00f3rale", "countries": ["MX"] },
-        { "term": "vamos pe", "countries": ["PE"] },
-        { "term": "vamos pues", "countries": ["VE"] }
+        {
+          "term": "dale po",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "dale pues",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "dale",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "órale",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "vamos pe",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "vamos pues",
+          "countries": [
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -252,12 +817,42 @@
       "meaning_en": "for real, seriously",
       "category": "greetings",
       "variants": [
-        { "term": "en serio we\u00f3n", "countries": ["CL"] },
-        { "term": "de verdad parce", "countries": ["CO"] },
-        { "term": "posta", "countries": ["AR"] },
-        { "term": "neta", "countries": ["MX"] },
-        { "term": "de verdad pe", "countries": ["PE"] },
-        { "term": "de pana", "countries": ["VE"] }
+        {
+          "term": "en serio weón",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "de verdad parce",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "posta",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "neta",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "de verdad pe",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "de pana",
+          "countries": [
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -265,10 +860,32 @@
       "meaning_en": "right away, immediately",
       "category": "greetings",
       "variants": [
-        { "term": "al tiro", "countries": ["CL"] },
-        { "term": "de una", "countries": ["CO", "AR", "VE"] },
-        { "term": "ahorita", "countries": ["MX"] },
-        { "term": "al toque", "countries": ["PE"] }
+        {
+          "term": "al tiro",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "de una",
+          "countries": [
+            "CO",
+            "AR",
+            "VE"
+          ]
+        },
+        {
+          "term": "ahorita",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "al toque",
+          "countries": [
+            "PE"
+          ]
+        }
       ]
     },
     {
@@ -276,11 +893,39 @@
       "meaning_en": "idiot, fool (casual)",
       "category": "insults",
       "variants": [
-        { "term": "we\u00f3n", "countries": ["CL"], "note": "context-dependent" },
-        { "term": "guev\u00f3n", "countries": ["CO", "VE"] },
-        { "term": "boludo", "countries": ["AR"], "note": "context-dependent" },
-        { "term": "pendejo", "countries": ["MX"] },
-        { "term": "cojudo", "countries": ["PE"] }
+        {
+          "term": "weón",
+          "countries": [
+            "CL"
+          ],
+          "note": "context-dependent"
+        },
+        {
+          "term": "guevón",
+          "countries": [
+            "CO",
+            "VE"
+          ]
+        },
+        {
+          "term": "boludo",
+          "countries": [
+            "AR"
+          ],
+          "note": "context-dependent"
+        },
+        {
+          "term": "pendejo",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "cojudo",
+          "countries": [
+            "PE"
+          ]
+        }
       ]
     },
     {
@@ -288,12 +933,42 @@
       "meaning_en": "trashy, low-class, ghetto",
       "category": "insults",
       "variants": [
-        { "term": "flaite", "countries": ["CL"] },
-        { "term": "\u00f1ero", "countries": ["CO"] },
-        { "term": "villero", "countries": ["AR"] },
-        { "term": "naco", "countries": ["MX"] },
-        { "term": "achorado", "countries": ["PE"] },
-        { "term": "tierr\u00fao", "countries": ["VE"] }
+        {
+          "term": "flaite",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "ñero",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "villero",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "naco",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "achorado",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "tierrúo",
+          "countries": [
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -301,12 +976,42 @@
       "meaning_en": "thief, crook",
       "category": "insults",
       "variants": [
-        { "term": "lanza", "countries": ["CL"] },
-        { "term": "ratero", "countries": ["CO"] },
-        { "term": "chorro", "countries": ["AR"] },
-        { "term": "rata", "countries": ["MX"] },
-        { "term": "choro", "countries": ["PE"] },
-        { "term": "malandro", "countries": ["VE"] }
+        {
+          "term": "lanza",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "ratero",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "chorro",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "rata",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "choro",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "malandro",
+          "countries": [
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -314,12 +1019,42 @@
       "meaning_en": "annoying, obnoxious",
       "category": "insults",
       "variants": [
-        { "term": "latero", "countries": ["CL"] },
-        { "term": "cans\u00f3n", "countries": ["CO"] },
-        { "term": "pesado", "countries": ["AR"] },
-        { "term": "latoso", "countries": ["MX"] },
-        { "term": "fregado", "countries": ["PE"] },
-        { "term": "ladilla", "countries": ["VE"] }
+        {
+          "term": "latero",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "cansón",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "pesado",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "latoso",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "fregado",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "ladilla",
+          "countries": [
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -327,12 +1062,42 @@
       "meaning_en": "cheapskate, stingy",
       "category": "insults",
       "variants": [
-        { "term": "cagado", "countries": ["CL"] },
-        { "term": "amarrado", "countries": ["CO"] },
-        { "term": "rata", "countries": ["AR"] },
-        { "term": "codo", "countries": ["MX"] },
-        { "term": "misio", "countries": ["PE"] },
-        { "term": "pichirre", "countries": ["VE"] }
+        {
+          "term": "cagado",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "amarrado",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "rata",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "codo",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "misio",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "pichirre",
+          "countries": [
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -340,10 +1105,32 @@
       "meaning_en": "snitch, tattletale",
       "category": "insults",
       "variants": [
-        { "term": "sapo", "countries": ["CL", "CO", "VE"] },
-        { "term": "buch\u00f3n", "countries": ["AR"] },
-        { "term": "chismoso", "countries": ["MX"] },
-        { "term": "sopl\u00f3n", "countries": ["PE"] }
+        {
+          "term": "sapo",
+          "countries": [
+            "CL",
+            "CO",
+            "VE"
+          ]
+        },
+        {
+          "term": "buchón",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "chismoso",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "soplón",
+          "countries": [
+            "PE"
+          ]
+        }
       ]
     },
     {
@@ -351,11 +1138,37 @@
       "meaning_en": "coward, chicken",
       "category": "insults",
       "variants": [
-        { "term": "pavo", "countries": ["CL"] },
-        { "term": "gallina", "countries": ["CO"] },
-        { "term": "cag\u00f3n", "countries": ["AR", "MX"] },
-        { "term": "cobarde", "countries": ["PE"] },
-        { "term": "cagao", "countries": ["VE"] }
+        {
+          "term": "pavo",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "gallina",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "cagón",
+          "countries": [
+            "AR",
+            "MX"
+          ]
+        },
+        {
+          "term": "cobarde",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "cagao",
+          "countries": [
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -363,10 +1176,32 @@
       "meaning_en": "liar, bullshitter",
       "category": "insults",
       "variants": [
-        { "term": "chanta", "countries": ["CL", "AR"] },
-        { "term": "echador", "countries": ["CO"] },
-        { "term": "mentiroso", "countries": ["MX", "PE"] },
-        { "term": "paj\u00fao", "countries": ["VE"] }
+        {
+          "term": "chanta",
+          "countries": [
+            "CL",
+            "AR"
+          ]
+        },
+        {
+          "term": "echador",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "mentiroso",
+          "countries": [
+            "MX",
+            "PE"
+          ]
+        },
+        {
+          "term": "pajúo",
+          "countries": [
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -374,12 +1209,42 @@
       "meaning_en": "show-off, braggart",
       "category": "insults",
       "variants": [
-        { "term": "pantalla", "countries": ["CL"] },
-        { "term": "pisado", "countries": ["CO"] },
-        { "term": "agrandado", "countries": ["AR"] },
-        { "term": "mam\u00f3n", "countries": ["MX"] },
-        { "term": "conchudo", "countries": ["PE"] },
-        { "term": "echador", "countries": ["VE"] }
+        {
+          "term": "pantalla",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "pisado",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "agrandado",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "mamón",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "conchudo",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "echador",
+          "countries": [
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -387,10 +1252,32 @@
       "meaning_en": "job, work",
       "category": "work",
       "variants": [
-        { "term": "pega", "countries": ["CL"] },
-        { "term": "camello", "countries": ["CO", "VE"] },
-        { "term": "laburo", "countries": ["AR"] },
-        { "term": "chamba", "countries": ["MX", "PE"] }
+        {
+          "term": "pega",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "camello",
+          "countries": [
+            "CO",
+            "VE"
+          ]
+        },
+        {
+          "term": "laburo",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "chamba",
+          "countries": [
+            "MX",
+            "PE"
+          ]
+        }
       ]
     },
     {
@@ -398,11 +1285,37 @@
       "meaning_en": "to work hard, grind",
       "category": "work",
       "variants": [
-        { "term": "sacarse la cresta", "countries": ["CL"] },
-        { "term": "camellar", "countries": ["CO"] },
-        { "term": "laburar", "countries": ["AR"] },
-        { "term": "chambear", "countries": ["MX", "PE"] },
-        { "term": "echarle bola", "countries": ["VE"] }
+        {
+          "term": "sacarse la cresta",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "camellar",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "laburar",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "chambear",
+          "countries": [
+            "MX",
+            "PE"
+          ]
+        },
+        {
+          "term": "echarle bola",
+          "countries": [
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -410,12 +1323,43 @@
       "meaning_en": "boss, expert, ace",
       "category": "work",
       "variants": [
-        { "term": "capo", "countries": ["CL", "AR"] },
-        { "term": "teso", "countries": ["CO"] },
-        { "term": "groso", "countries": ["AR"] },
-        { "term": "ching\u00f3n", "countries": ["MX"] },
-        { "term": "maestro", "countries": ["PE"] },
-        { "term": "crack", "countries": ["VE"] }
+        {
+          "term": "capo",
+          "countries": [
+            "CL",
+            "AR"
+          ]
+        },
+        {
+          "term": "teso",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "groso",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "chingón",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "maestro",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "crack",
+          "countries": [
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -423,10 +1367,32 @@
       "meaning_en": "connection, hookup, pull strings",
       "category": "work",
       "variants": [
-        { "term": "pituto", "countries": ["CL"] },
-        { "term": "palanca", "countries": ["CO", "MX", "VE"] },
-        { "term": "acomodo", "countries": ["AR"] },
-        { "term": "vara", "countries": ["PE"] }
+        {
+          "term": "pituto",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "palanca",
+          "countries": [
+            "CO",
+            "MX",
+            "VE"
+          ]
+        },
+        {
+          "term": "acomodo",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "vara",
+          "countries": [
+            "PE"
+          ]
+        }
       ]
     },
     {
@@ -434,11 +1400,37 @@
       "meaning_en": "to get it, to understand",
       "category": "work",
       "variants": [
-        { "term": "cachar", "countries": ["CL", "PE"] },
-        { "term": "pillar", "countries": ["CO"] },
-        { "term": "agarrar la onda", "countries": ["AR"] },
-        { "term": "captar", "countries": ["MX"] },
-        { "term": "entender", "countries": ["VE"] }
+        {
+          "term": "cachar",
+          "countries": [
+            "CL",
+            "PE"
+          ]
+        },
+        {
+          "term": "pillar",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "agarrar la onda",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "captar",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "entender",
+          "countries": [
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -446,12 +1438,42 @@
       "meaning_en": "to screw up, to blow it",
       "category": "work",
       "variants": [
-        { "term": "cagarla", "countries": ["CL"] },
-        { "term": "embarrarla", "countries": ["CO"] },
-        { "term": "mandarse una cagada", "countries": ["AR"] },
-        { "term": "regarla", "countries": ["MX"] },
-        { "term": "meter la pata", "countries": ["PE"] },
-        { "term": "meter la pata", "countries": ["VE"] }
+        {
+          "term": "cagarla",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "embarrarla",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "mandarse una cagada",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "regarla",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "meter la pata",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "meter la pata",
+          "countries": [
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -459,10 +1481,32 @@
       "meaning_en": "to steal, to swipe",
       "category": "work",
       "variants": [
-        { "term": "chorear", "countries": ["CL", "PE"] },
-        { "term": "tumbar", "countries": ["CO", "VE"] },
-        { "term": "afanar", "countries": ["AR"] },
-        { "term": "clavar", "countries": ["MX"] }
+        {
+          "term": "chorear",
+          "countries": [
+            "CL",
+            "PE"
+          ]
+        },
+        {
+          "term": "tumbar",
+          "countries": [
+            "CO",
+            "VE"
+          ]
+        },
+        {
+          "term": "afanar",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "clavar",
+          "countries": [
+            "MX"
+          ]
+        }
       ]
     },
     {
@@ -470,12 +1514,42 @@
       "meaning_en": "to eat, to chow down",
       "category": "greetings",
       "variants": [
-        { "term": "jalar", "countries": ["CL"] },
-        { "term": "jambar", "countries": ["CO"] },
-        { "term": "morfar", "countries": ["AR"] },
-        { "term": "tragar", "countries": ["MX"] },
-        { "term": "jalar", "countries": ["PE"] },
-        { "term": "jambar", "countries": ["VE"] }
+        {
+          "term": "jalar",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "jambar",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "morfar",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "tragar",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "jalar",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "jambar",
+          "countries": [
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -483,11 +1557,37 @@
       "meaning_en": "to nail it, to get it right",
       "category": "work",
       "variants": [
-        { "term": "achuntar", "countries": ["CL"] },
-        { "term": "pegarle", "countries": ["CO", "VE"] },
-        { "term": "embocarla", "countries": ["AR"] },
-        { "term": "atinarle", "countries": ["MX"] },
-        { "term": "atinar", "countries": ["PE"] }
+        {
+          "term": "achuntar",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "pegarle",
+          "countries": [
+            "CO",
+            "VE"
+          ]
+        },
+        {
+          "term": "embocarla",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "atinarle",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "atinar",
+          "countries": [
+            "PE"
+          ]
+        }
       ]
     },
     {
@@ -495,11 +1595,37 @@
       "meaning_en": "to get fired, sacked",
       "category": "work",
       "variants": [
-        { "term": "lo echaron", "countries": ["CL"] },
-        { "term": "lo sacaron", "countries": ["CO"] },
-        { "term": "lo rajaron", "countries": ["AR"] },
-        { "term": "lo corrieron", "countries": ["MX"] },
-        { "term": "lo botaron", "countries": ["PE", "VE"] }
+        {
+          "term": "lo echaron",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "lo sacaron",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "lo rajaron",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "lo corrieron",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "lo botaron",
+          "countries": [
+            "PE",
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -507,12 +1633,43 @@
       "meaning_en": "well-behaved, obedient (child)",
       "category": "adjectives",
       "variants": [
-        { "term": "aplicado", "countries": ["CL"] },
-        { "term": "juicioso", "countries": ["CO"], "note": "very Colombian" },
-        { "term": "portado", "countries": ["AR"] },
-        { "term": "aplicado", "countries": ["MX"] },
-        { "term": "tranquilo", "countries": ["PE"] },
-        { "term": "juicioso", "countries": ["VE"] }
+        {
+          "term": "aplicado",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "juicioso",
+          "countries": [
+            "CO"
+          ],
+          "note": "very Colombian"
+        },
+        {
+          "term": "portado",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "aplicado",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "tranquilo",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "juicioso",
+          "countries": [
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -520,11 +1677,37 @@
       "meaning_en": "hangover",
       "category": "adjectives",
       "variants": [
-        { "term": "ca\u00f1a", "countries": ["CL"] },
-        { "term": "guayabo", "countries": ["CO"] },
-        { "term": "resaca", "countries": ["AR", "PE"] },
-        { "term": "cruda", "countries": ["MX"] },
-        { "term": "rat\u00f3n", "countries": ["VE"] }
+        {
+          "term": "caña",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "guayabo",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "resaca",
+          "countries": [
+            "AR",
+            "PE"
+          ]
+        },
+        {
+          "term": "cruda",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "ratón",
+          "countries": [
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -532,11 +1715,37 @@
       "meaning_en": "stupid, dumb, airhead",
       "category": "insults",
       "variants": [
-        { "term": "gil", "countries": ["CL"] },
-        { "term": "bobo", "countries": ["CO", "VE"] },
-        { "term": "tarado", "countries": ["AR"] },
-        { "term": "menso", "countries": ["MX"] },
-        { "term": "opa", "countries": ["PE"] }
+        {
+          "term": "gil",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "bobo",
+          "countries": [
+            "CO",
+            "VE"
+          ]
+        },
+        {
+          "term": "tarado",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "menso",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "opa",
+          "countries": [
+            "PE"
+          ]
+        }
       ]
     },
     {
@@ -544,12 +1753,45 @@
       "meaning_en": "jerk, asshole (strong)",
       "category": "insults",
       "variants": [
-        { "term": "culiao", "countries": ["CL"], "note": "very strong" },
-        { "term": "malparido", "countries": ["CO"], "note": "very strong" },
-        { "term": "pelotudo", "countries": ["AR"] },
-        { "term": "cabr\u00f3n", "countries": ["MX"] },
-        { "term": "otario", "countries": ["PE"] },
-        { "term": "mamag\u00fcevo", "countries": ["VE"], "note": "very strong" }
+        {
+          "term": "culiao",
+          "countries": [
+            "CL"
+          ],
+          "note": "very strong"
+        },
+        {
+          "term": "malparido",
+          "countries": [
+            "CO"
+          ],
+          "note": "very strong"
+        },
+        {
+          "term": "pelotudo",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "cabrón",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "otario",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "mamagüevo",
+          "countries": [
+            "VE"
+          ],
+          "note": "very strong"
+        }
       ]
     },
     {
@@ -557,11 +1799,38 @@
       "meaning_en": "lazy bum, slacker",
       "category": "insults",
       "variants": [
-        { "term": "flojo", "countries": ["CL", "PE"] },
-        { "term": "vago", "countries": ["CO"] },
-        { "term": "fiaca", "countries": ["AR"] },
-        { "term": "huev\u00f3n", "countries": ["MX"], "note": "lazy in this context" },
-        { "term": "gandul", "countries": ["VE"] }
+        {
+          "term": "flojo",
+          "countries": [
+            "CL",
+            "PE"
+          ]
+        },
+        {
+          "term": "vago",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "fiaca",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "huevón",
+          "countries": [
+            "MX"
+          ],
+          "note": "lazy in this context"
+        },
+        {
+          "term": "gandul",
+          "countries": [
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -569,10 +1838,32 @@
       "meaning_en": "creep, pervert",
       "category": "insults",
       "variants": [
-        { "term": "baboso", "countries": ["CL", "CO", "MX"] },
-        { "term": "pajero", "countries": ["AR"] },
-        { "term": "ruco", "countries": ["PE"] },
-        { "term": "paj\u00fao", "countries": ["VE"] }
+        {
+          "term": "baboso",
+          "countries": [
+            "CL",
+            "CO",
+            "MX"
+          ]
+        },
+        {
+          "term": "pajero",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "ruco",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "pajúo",
+          "countries": [
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -580,12 +1871,42 @@
       "meaning_en": "loser, deadbeat",
       "category": "insults",
       "variants": [
-        { "term": "pato", "countries": ["CL"] },
-        { "term": "perdedor", "countries": ["CO"] },
-        { "term": "nabo", "countries": ["AR"] },
-        { "term": "mamerto", "countries": ["MX"] },
-        { "term": "pata rota", "countries": ["PE"] },
-        { "term": "salame", "countries": ["VE"] }
+        {
+          "term": "pato",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "perdedor",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "nabo",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "mamerto",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "pata rota",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "salame",
+          "countries": [
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -593,11 +1914,37 @@
       "meaning_en": "arrogant, cocky, full of themselves",
       "category": "insults",
       "variants": [
-        { "term": "cre\u00eddo", "countries": ["CL"] },
-        { "term": "engallado", "countries": ["CO"] },
-        { "term": "sobrado", "countries": ["AR"] },
-        { "term": "alzado", "countries": ["MX", "PE"] },
-        { "term": "engre\u00eddo", "countries": ["VE"] }
+        {
+          "term": "creído",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "engallado",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "sobrado",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "alzado",
+          "countries": [
+            "MX",
+            "PE"
+          ]
+        },
+        {
+          "term": "engreído",
+          "countries": [
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -605,10 +1952,32 @@
       "meaning_en": "nosy, busybody",
       "category": "insults",
       "variants": [
-        { "term": "metido", "countries": ["CL", "PE"] },
-        { "term": "entrometido", "countries": ["CO", "VE"] },
-        { "term": "metete", "countries": ["AR"] },
-        { "term": "metiche", "countries": ["MX"] }
+        {
+          "term": "metido",
+          "countries": [
+            "CL",
+            "PE"
+          ]
+        },
+        {
+          "term": "entrometido",
+          "countries": [
+            "CO",
+            "VE"
+          ]
+        },
+        {
+          "term": "metete",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "metiche",
+          "countries": [
+            "MX"
+          ]
+        }
       ]
     },
     {
@@ -616,11 +1985,37 @@
       "meaning_en": "troublemaker, shit-stirrer",
       "category": "insults",
       "variants": [
-        { "term": "revoltoso", "countries": ["CL"] },
-        { "term": "pendenciero", "countries": ["CO", "VE"] },
-        { "term": "quilombero", "countries": ["AR"] },
-        { "term": "gandalla", "countries": ["MX"] },
-        { "term": "buscapleitos", "countries": ["PE"] }
+        {
+          "term": "revoltoso",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "pendenciero",
+          "countries": [
+            "CO",
+            "VE"
+          ]
+        },
+        {
+          "term": "quilombero",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "gandalla",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "buscapleitos",
+          "countries": [
+            "PE"
+          ]
+        }
       ]
     },
     {
@@ -628,11 +2023,37 @@
       "meaning_en": "crazy, nuts, off the rails",
       "category": "adjectives",
       "variants": [
-        { "term": "rayado", "countries": ["CL"] },
-        { "term": "chiflado", "countries": ["CO", "MX"] },
-        { "term": "zafado", "countries": ["AR"] },
-        { "term": "chalado", "countries": ["PE"] },
-        { "term": "pirolo", "countries": ["VE"] }
+        {
+          "term": "rayado",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "chiflado",
+          "countries": [
+            "CO",
+            "MX"
+          ]
+        },
+        {
+          "term": "zafado",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "chalado",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "pirolo",
+          "countries": [
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -640,11 +2061,37 @@
       "meaning_en": "sketchy, shady, dodgy",
       "category": "adjectives",
       "variants": [
-        { "term": "turbio", "countries": ["CL", "VE"] },
-        { "term": "ma\u00f1oso", "countries": ["CO"] },
-        { "term": "trucho", "countries": ["AR"] },
-        { "term": "chueco", "countries": ["MX"] },
-        { "term": "mosca", "countries": ["PE"] }
+        {
+          "term": "turbio",
+          "countries": [
+            "CL",
+            "VE"
+          ]
+        },
+        {
+          "term": "mañoso",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "trucho",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "chueco",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "mosca",
+          "countries": [
+            "PE"
+          ]
+        }
       ]
     },
     {
@@ -652,8 +2099,22 @@
       "meaning_en": "bad luck, jinxed",
       "category": "adjectives",
       "variants": [
-        { "term": "salado", "countries": ["CL", "CO", "AR", "PE", "VE"] },
-        { "term": "gafe", "countries": ["MX"] }
+        {
+          "term": "salado",
+          "countries": [
+            "CL",
+            "CO",
+            "AR",
+            "PE",
+            "VE"
+          ]
+        },
+        {
+          "term": "gafe",
+          "countries": [
+            "MX"
+          ]
+        }
       ]
     },
     {
@@ -661,12 +2122,42 @@
       "meaning_en": "broke, no money",
       "category": "adjectives",
       "variants": [
-        { "term": "pelado", "countries": ["CL"] },
-        { "term": "limpio", "countries": ["CO"] },
-        { "term": "en la lona", "countries": ["AR"] },
-        { "term": "tronado", "countries": ["MX"] },
-        { "term": "misio", "countries": ["PE"] },
-        { "term": "pelando bolas", "countries": ["VE"] }
+        {
+          "term": "pelado",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "limpio",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "en la lona",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "tronado",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "misio",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "pelando bolas",
+          "countries": [
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -674,12 +2165,42 @@
       "meaning_en": "no way, hell no",
       "category": "greetings",
       "variants": [
-        { "term": "ni a palos", "countries": ["CL"] },
-        { "term": "ni por el chiras", "countries": ["CO"] },
-        { "term": "ni en pedo", "countries": ["AR"] },
-        { "term": "ni madres", "countries": ["MX"] },
-        { "term": "ni de vainas", "countries": ["PE"] },
-        { "term": "ni loco", "countries": ["VE"] }
+        {
+          "term": "ni a palos",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "ni por el chiras",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "ni en pedo",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "ni madres",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "ni de vainas",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "ni loco",
+          "countries": [
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -687,10 +2208,32 @@
       "meaning_en": "no problem, no worries",
       "category": "greetings",
       "variants": [
-        { "term": "no hay drama", "countries": ["CL", "AR"] },
-        { "term": "tranquilo", "countries": ["CO", "VE"] },
-        { "term": "no hay pedo", "countries": ["MX"] },
-        { "term": "no hay rollo", "countries": ["PE"] }
+        {
+          "term": "no hay drama",
+          "countries": [
+            "CL",
+            "AR"
+          ]
+        },
+        {
+          "term": "tranquilo",
+          "countries": [
+            "CO",
+            "VE"
+          ]
+        },
+        {
+          "term": "no hay pedo",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "no hay rollo",
+          "countries": [
+            "PE"
+          ]
+        }
       ]
     },
     {
@@ -698,11 +2241,37 @@
       "meaning_en": "two-faced, fake, backstabber",
       "category": "insults",
       "variants": [
-        { "term": "cuero", "countries": ["CL"] },
-        { "term": "falso", "countries": ["CO", "VE"] },
-        { "term": "careta", "countries": ["AR"] },
-        { "term": "víbora", "countries": ["MX"] },
-        { "term": "doble cara", "countries": ["PE"] }
+        {
+          "term": "cuero",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "falso",
+          "countries": [
+            "CO",
+            "VE"
+          ]
+        },
+        {
+          "term": "careta",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "víbora",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "doble cara",
+          "countries": [
+            "PE"
+          ]
+        }
       ]
     },
     {
@@ -710,9 +2279,27 @@
       "meaning_en": "gossip, blabbermouth",
       "category": "insults",
       "variants": [
-        { "term": "alcahuete", "countries": ["CL", "PE"] },
-        { "term": "chismoso", "countries": ["CO", "MX", "VE"] },
-        { "term": "chusma", "countries": ["AR"] }
+        {
+          "term": "alcahuete",
+          "countries": [
+            "CL",
+            "PE"
+          ]
+        },
+        {
+          "term": "chismoso",
+          "countries": [
+            "CO",
+            "MX",
+            "VE"
+          ]
+        },
+        {
+          "term": "chusma",
+          "countries": [
+            "AR"
+          ]
+        }
       ]
     },
     {
@@ -720,11 +2307,37 @@
       "meaning_en": "brown-noser, ass-kisser, sycophant",
       "category": "insults",
       "variants": [
-        { "term": "patero", "countries": ["CL"] },
-        { "term": "lambón", "countries": ["CO", "VE"] },
-        { "term": "chupamedias", "countries": ["AR"] },
-        { "term": "lambiscón", "countries": ["MX"] },
-        { "term": "cobista", "countries": ["PE"] }
+        {
+          "term": "patero",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "lambón",
+          "countries": [
+            "CO",
+            "VE"
+          ]
+        },
+        {
+          "term": "chupamedias",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "lambiscón",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "cobista",
+          "countries": [
+            "PE"
+          ]
+        }
       ]
     },
     {
@@ -732,8 +2345,22 @@
       "meaning_en": "freeloader, moocher",
       "category": "insults",
       "variants": [
-        { "term": "gorrón", "countries": ["CL", "AR", "MX"] },
-        { "term": "aprovechado", "countries": ["CO", "PE", "VE"] }
+        {
+          "term": "gorrón",
+          "countries": [
+            "CL",
+            "AR",
+            "MX"
+          ]
+        },
+        {
+          "term": "aprovechado",
+          "countries": [
+            "CO",
+            "PE",
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -741,11 +2368,37 @@
       "meaning_en": "oversensitive, easily offended",
       "category": "insults",
       "variants": [
-        { "term": "picao", "countries": ["CL"] },
-        { "term": "molestón", "countries": ["CO"] },
-        { "term": "resentido", "countries": ["AR"] },
-        { "term": "berrinchudo", "countries": ["MX"] },
-        { "term": "picado", "countries": ["PE", "VE"] }
+        {
+          "term": "picao",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "molestón",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "resentido",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "berrinchudo",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "picado",
+          "countries": [
+            "PE",
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -753,9 +2406,27 @@
       "meaning_en": "high, stoned (weed)",
       "category": "adjectives",
       "variants": [
-        { "term": "fumado", "countries": ["CL"] },
-        { "term": "trabado", "countries": ["CO", "AR", "PE", "VE"] },
-        { "term": "grifo", "countries": ["MX"] }
+        {
+          "term": "fumado",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "trabado",
+          "countries": [
+            "CO",
+            "AR",
+            "PE",
+            "VE"
+          ]
+        },
+        {
+          "term": "grifo",
+          "countries": [
+            "MX"
+          ]
+        }
       ]
     },
     {
@@ -763,11 +2434,37 @@
       "meaning_en": "hot, attractive, good-looking",
       "category": "adjectives",
       "variants": [
-        { "term": "macizo", "countries": ["CL"] },
-        { "term": "mamacita", "countries": ["CO"] },
-        { "term": "cañón", "countries": ["AR"] },
-        { "term": "buenota", "countries": ["MX", "PE"] },
-        { "term": "ricura", "countries": ["VE"] }
+        {
+          "term": "macizo",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "mamacita",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "cañón",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "buenota",
+          "countries": [
+            "MX",
+            "PE"
+          ]
+        },
+        {
+          "term": "ricura",
+          "countries": [
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -775,11 +2472,37 @@
       "meaning_en": "chaos, total mess",
       "category": "adjectives",
       "variants": [
-        { "term": "cagada", "countries": ["CL", "PE"] },
-        { "term": "reguero", "countries": ["CO"] },
-        { "term": "quilombo", "countries": ["AR"] },
-        { "term": "desmadre", "countries": ["MX"] },
-        { "term": "un peo", "countries": ["VE"] }
+        {
+          "term": "cagada",
+          "countries": [
+            "CL",
+            "PE"
+          ]
+        },
+        {
+          "term": "reguero",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "quilombo",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "desmadre",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "un peo",
+          "countries": [
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -787,10 +2510,32 @@
       "meaning_en": "to goof off, waste time, mess around",
       "category": "work",
       "variants": [
-        { "term": "huevear", "countries": ["CL", "PE"] },
-        { "term": "pendejear", "countries": ["CO", "VE"] },
-        { "term": "boludear", "countries": ["AR"] },
-        { "term": "güevonear", "countries": ["MX"] }
+        {
+          "term": "huevear",
+          "countries": [
+            "CL",
+            "PE"
+          ]
+        },
+        {
+          "term": "pendejear",
+          "countries": [
+            "CO",
+            "VE"
+          ]
+        },
+        {
+          "term": "boludear",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "güevonear",
+          "countries": [
+            "MX"
+          ]
+        }
       ]
     },
     {
@@ -798,10 +2543,32 @@
       "meaning_en": "side hustle, odd job, gig",
       "category": "work",
       "variants": [
-        { "term": "cachuelo", "countries": ["CL", "PE"] },
-        { "term": "rebusque", "countries": ["CO", "VE"] },
-        { "term": "changuita", "countries": ["AR"] },
-        { "term": "chambita", "countries": ["MX"] }
+        {
+          "term": "cachuelo",
+          "countries": [
+            "CL",
+            "PE"
+          ]
+        },
+        {
+          "term": "rebusque",
+          "countries": [
+            "CO",
+            "VE"
+          ]
+        },
+        {
+          "term": "changuita",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "chambita",
+          "countries": [
+            "MX"
+          ]
+        }
       ]
     },
     {
@@ -809,12 +2576,43 @@
       "meaning_en": "wow, damn (exclamation of surprise)",
       "category": "greetings",
       "variants": [
-        { "term": "la chucha", "countries": ["CL"], "note": "strong" },
-        { "term": "juepucha", "countries": ["CO"] },
-        { "term": "la pucha", "countries": ["AR"] },
-        { "term": "híjole", "countries": ["MX"] },
-        { "term": "caracho", "countries": ["PE"] },
-        { "term": "coño", "countries": ["VE"] }
+        {
+          "term": "la chucha",
+          "countries": [
+            "CL"
+          ],
+          "note": "strong"
+        },
+        {
+          "term": "juepucha",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "la pucha",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "híjole",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "caracho",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "coño",
+          "countries": [
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -822,11 +2620,37 @@
       "meaning_en": "just kidding, I'm joking",
       "category": "greetings",
       "variants": [
-        { "term": "de weá", "countries": ["CL"] },
-        { "term": "en chiste", "countries": ["CO", "PE"] },
-        { "term": "de joda", "countries": ["AR"] },
-        { "term": "de relajo", "countries": ["MX"] },
-        { "term": "en broma", "countries": ["VE"] }
+        {
+          "term": "de weá",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "en chiste",
+          "countries": [
+            "CO",
+            "PE"
+          ]
+        },
+        {
+          "term": "de joda",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "de relajo",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "en broma",
+          "countries": [
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -834,10 +2658,34 @@
       "meaning_en": "thing, stuff, whatchamacallit",
       "category": "greetings",
       "variants": [
-        { "term": "weá", "countries": ["CL"], "note": "extremely versatile, can mean anything" },
-        { "term": "vaina", "countries": ["CO", "PE", "VE"], "note": "the ultimate filler word" },
-        { "term": "mambo", "countries": ["AR"] },
-        { "term": "chingadera", "countries": ["MX"] }
+        {
+          "term": "weá",
+          "countries": [
+            "CL"
+          ],
+          "note": "extremely versatile, can mean anything"
+        },
+        {
+          "term": "vaina",
+          "countries": [
+            "CO",
+            "PE",
+            "VE"
+          ],
+          "note": "the ultimate filler word"
+        },
+        {
+          "term": "mambo",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "chingadera",
+          "countries": [
+            "MX"
+          ]
+        }
       ]
     },
     {
@@ -845,11 +2693,37 @@
       "meaning_en": "to mess with, joke, pull someone's leg",
       "category": "greetings",
       "variants": [
-        { "term": "lesear", "countries": ["CL"] },
-        { "term": "mamar gallo", "countries": ["CO", "VE"] },
-        { "term": "cargar", "countries": ["AR"] },
-        { "term": "tomar el pelo", "countries": ["MX"] },
-        { "term": "vacilar", "countries": ["PE"] }
+        {
+          "term": "lesear",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "mamar gallo",
+          "countries": [
+            "CO",
+            "VE"
+          ]
+        },
+        {
+          "term": "cargar",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "tomar el pelo",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "vacilar",
+          "countries": [
+            "PE"
+          ]
+        }
       ]
     },
     {
@@ -857,10 +2731,32 @@
       "meaning_en": "okay, agreed, got it, done",
       "category": "greetings",
       "variants": [
-        { "term": "ya po", "countries": ["CL"] },
-        { "term": "listo", "countries": ["CO", "PE", "VE"] },
-        { "term": "dale", "countries": ["AR"] },
-        { "term": "sale", "countries": ["MX"] }
+        {
+          "term": "ya po",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "listo",
+          "countries": [
+            "CO",
+            "PE",
+            "VE"
+          ]
+        },
+        {
+          "term": "dale",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "sale",
+          "countries": [
+            "MX"
+          ]
+        }
       ]
     },
     {
@@ -868,12 +2764,43 @@
       "meaning_en": "I don't care, whatever, couldn't care less",
       "category": "greetings",
       "variants": [
-        { "term": "me la pela", "countries": ["CL"] },
-        { "term": "me resbala", "countries": ["CO"] },
-        { "term": "me chupa un huevo", "countries": ["AR"], "note": "strong" },
-        { "term": "me vale", "countries": ["MX"] },
-        { "term": "me pela", "countries": ["PE"] },
-        { "term": "me importa un comino", "countries": ["VE"] }
+        {
+          "term": "me la pela",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "me resbala",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "me chupa un huevo",
+          "countries": [
+            "AR"
+          ],
+          "note": "strong"
+        },
+        {
+          "term": "me vale",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "me pela",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "me importa un comino",
+          "countries": [
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -881,11 +2808,37 @@
       "meaning_en": "to hang out, chill with friends",
       "category": "greetings",
       "variants": [
-        { "term": "quedar", "countries": ["CL"] },
-        { "term": "parchar", "countries": ["CO"] },
-        { "term": "juntarse", "countries": ["AR", "VE"] },
-        { "term": "cotorrear", "countries": ["MX"] },
-        { "term": "janguear", "countries": ["PE"] }
+        {
+          "term": "quedar",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "parchar",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "juntarse",
+          "countries": [
+            "AR",
+            "VE"
+          ]
+        },
+        {
+          "term": "cotorrear",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "janguear",
+          "countries": [
+            "PE"
+          ]
+        }
       ]
     },
     {
@@ -893,12 +2846,42 @@
       "meaning_en": "your squad, crew, group of friends",
       "category": "greetings",
       "variants": [
-        { "term": "la combo", "countries": ["CL"] },
-        { "term": "el parche", "countries": ["CO"] },
-        { "term": "la barra", "countries": ["AR"] },
-        { "term": "la banda", "countries": ["MX"] },
-        { "term": "el combo", "countries": ["PE"] },
-        { "term": "las panas", "countries": ["VE"] }
+        {
+          "term": "la combo",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "el parche",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "la barra",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "la banda",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "el combo",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "las panas",
+          "countries": [
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -906,12 +2889,42 @@
       "meaning_en": "what a drag, how annoying (exclamation)",
       "category": "greetings",
       "variants": [
-        { "term": "qué lata", "countries": ["CL"] },
-        { "term": "qué jartera", "countries": ["CO"] },
-        { "term": "qué plomo", "countries": ["AR"] },
-        { "term": "qué hueva", "countries": ["MX"] },
-        { "term": "qué palta", "countries": ["PE"] },
-        { "term": "qué ladilla", "countries": ["VE"] }
+        {
+          "term": "qué lata",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "qué jartera",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "qué plomo",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "qué hueva",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "qué palta",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "qué ladilla",
+          "countries": [
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -919,10 +2932,32 @@
       "meaning_en": "fight, brawl, scuffle",
       "category": "greetings",
       "variants": [
-        { "term": "tole tole", "countries": ["CL"] },
-        { "term": "tropel", "countries": ["CO"] },
-        { "term": "agarrada", "countries": ["AR"] },
-        { "term": "bronca", "countries": ["MX", "PE", "VE"] }
+        {
+          "term": "tole tole",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "tropel",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "agarrada",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "bronca",
+          "countries": [
+            "MX",
+            "PE",
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -930,12 +2965,42 @@
       "meaning_en": "to get drunk, get wasted",
       "category": "greetings",
       "variants": [
-        { "term": "curarse", "countries": ["CL"] },
-        { "term": "jincharse", "countries": ["CO"] },
-        { "term": "empedarse", "countries": ["AR"] },
-        { "term": "ponerse pedo", "countries": ["MX"] },
-        { "term": "emborracharse", "countries": ["PE"] },
-        { "term": "curdarse", "countries": ["VE"] }
+        {
+          "term": "curarse",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "jincharse",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "empedarse",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "ponerse pedo",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "emborracharse",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "curdarse",
+          "countries": [
+            "VE"
+          ]
+        }
       ]
     },
     {
@@ -943,11 +3008,37 @@
       "meaning_en": "to gossip, talk trash about someone",
       "category": "greetings",
       "variants": [
-        { "term": "pelar", "countries": ["CL"] },
-        { "term": "poner los cuentos", "countries": ["CO"] },
-        { "term": "chusmerear", "countries": ["AR"] },
-        { "term": "chismear", "countries": ["MX", "VE"] },
-        { "term": "sapear", "countries": ["PE"] }
+        {
+          "term": "pelar",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "poner los cuentos",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "chusmerear",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "chismear",
+          "countries": [
+            "MX",
+            "VE"
+          ]
+        },
+        {
+          "term": "sapear",
+          "countries": [
+            "PE"
+          ]
+        }
       ]
     },
     {
@@ -955,11 +3046,37 @@
       "meaning_en": "to skip class, play hooky",
       "category": "work",
       "variants": [
-        { "term": "hacer la cimarra", "countries": ["CL"] },
-        { "term": "capar clase", "countries": ["CO", "VE"] },
-        { "term": "hacer la rata", "countries": ["AR"] },
-        { "term": "irse de pinta", "countries": ["MX"] },
-        { "term": "hacer la rabona", "countries": ["PE"] }
+        {
+          "term": "hacer la cimarra",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "capar clase",
+          "countries": [
+            "CO",
+            "VE"
+          ]
+        },
+        {
+          "term": "hacer la rata",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "irse de pinta",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "hacer la rabona",
+          "countries": [
+            "PE"
+          ]
+        }
       ]
     },
     {
@@ -967,11 +3084,798 @@
       "meaning_en": "to leave quickly, bounce, take off",
       "category": "greetings",
       "variants": [
-        { "term": "picar", "countries": ["CL"] },
-        { "term": "arrancar", "countries": ["CO"] },
-        { "term": "tomarse el piro", "countries": ["AR"] },
-        { "term": "pelarse", "countries": ["MX", "VE"] },
-        { "term": "jalarse", "countries": ["PE"] }
+        {
+          "term": "picar",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "arrancar",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "tomarse el piro",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "pelarse",
+          "countries": [
+            "MX",
+            "VE"
+          ]
+        },
+        {
+          "term": "jalarse",
+          "countries": [
+            "PE"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "salty",
+      "meaning_en": "salty, butthurt, bitter about something",
+      "category": "adjectives",
+      "variants": [
+        {
+          "term": "picado",
+          "countries": [
+            "CL"
+          ],
+          "note": "quedó picado = got salty about it"
+        },
+        {
+          "term": "ardido",
+          "countries": [
+            "MX"
+          ],
+          "note": "lit. burning; can't let go of an offense"
+        }
+      ]
+    },
+    {
+      "id": "gut-feeling",
+      "meaning_en": "gut feeling, hunch — an intuitive sense or vibe about something",
+      "category": "adjectives",
+      "variants": [
+        {
+          "term": "tinca",
+          "countries": [
+            "CL"
+          ],
+          "note": "me tinca = I have a feeling / I dig it; ¿te tinca? = are you down?"
+        }
+      ]
+    },
+    {
+      "id": "significant-other",
+      "meaning_en": "boyfriend or girlfriend",
+      "category": "greetings",
+      "variants": [
+        {
+          "term": "pololo / polola",
+          "countries": [
+            "CL"
+          ],
+          "note": "pololear = to date someone"
+        },
+        {
+          "term": "enamorado / enamorada",
+          "countries": [
+            "PE"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nerd",
+      "meaning_en": "nerd, study grind, academic overachiever",
+      "category": "insults",
+      "variants": [
+        {
+          "term": "mateo / matea",
+          "countries": [
+            "CL"
+          ],
+          "note": "from San Mateo, the diligent apostle"
+        },
+        {
+          "term": "traga",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "matado / matada",
+          "countries": [
+            "MX"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bullshitter",
+      "meaning_en": "bullshitter, someone who wildly exaggerates or makes things up",
+      "category": "insults",
+      "variants": [
+        {
+          "term": "cuentero / cuentera",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "chamuyero / chamuyera",
+          "countries": [
+            "AR"
+          ],
+          "note": "from chamuyo = smooth talk"
+        }
+      ]
+    },
+    {
+      "id": "gutsy",
+      "meaning_en": "gutsy, bold, tough, badass (personal quality)",
+      "category": "adjectives",
+      "variants": [
+        {
+          "term": "choro / chora",
+          "countries": [
+            "CL"
+          ],
+          "note": "ese gallo es bien choro = that guy is really gutsy"
+        }
+      ]
+    },
+    {
+      "id": "intense",
+      "meaning_en": "intense, wild, over the top, extreme",
+      "category": "adjectives",
+      "variants": [
+        {
+          "term": "cuático / cuática",
+          "countries": [
+            "CL"
+          ],
+          "note": "esa situación estuvo cuática = that situation was intense/wild"
+        }
+      ]
+    },
+    {
+      "id": "fraud",
+      "meaning_en": "fraud, fake person — someone who talks big but never delivers",
+      "category": "insults",
+      "variants": [
+        {
+          "term": "chanta",
+          "countries": [
+            "CL",
+            "AR"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gullible",
+      "meaning_en": "naive, gullible, easily tricked",
+      "category": "insults",
+      "variants": [
+        {
+          "term": "caído del zarzo",
+          "countries": [
+            "CO"
+          ],
+          "note": "lit. fallen from the attic; oblivious and out of touch"
+        },
+        {
+          "term": "gil",
+          "countries": [
+            "AR"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "to-flirt",
+      "meaning_en": "to flirt with or hit on someone romantically",
+      "category": "greetings",
+      "variants": [
+        {
+          "term": "echar los perros",
+          "countries": [
+            "CO",
+            "MX"
+          ],
+          "note": "lit. to throw the dogs at someone"
+        },
+        {
+          "term": "encarar",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "tirar la onda",
+          "countries": [
+            "MX"
+          ],
+          "note": "to send vibes, make a move"
+        }
+      ]
+    },
+    {
+      "id": "resilient-tough",
+      "meaning_en": "resilient, tough, impressive — someone who pushes through anything",
+      "category": "adjectives",
+      "variants": [
+        {
+          "term": "berraco / berraca",
+          "countries": [
+            "CO"
+          ],
+          "note": "also as exclamation: ¡qué berraquera! = how impressive!"
+        }
+      ]
+    },
+    {
+      "id": "worthless",
+      "meaning_en": "worthless, pathetic, of very poor quality or character",
+      "category": "adjectives",
+      "variants": [
+        {
+          "term": "pichurria",
+          "countries": [
+            "CO"
+          ],
+          "note": "also for a person who is a pushover or disappointment"
+        }
+      ]
+    },
+    {
+      "id": "settled-comfortable",
+      "meaning_en": "settled in, comfortable, feeling at home in a new place or situation",
+      "category": "adjectives",
+      "variants": [
+        {
+          "term": "amañado / amañada",
+          "countries": [
+            "CO"
+          ],
+          "note": "ya me amañé aquí = I've settled in nicely here"
+        }
+      ]
+    },
+    {
+      "id": "leave-opening",
+      "meaning_en": "to leave yourself open, be careless and vulnerable to being taken advantage of",
+      "category": "greetings",
+      "variants": [
+        {
+          "term": "dar papaya",
+          "countries": [
+            "CO"
+          ],
+          "note": "used as warning: no dé papaya — don't make yourself an easy target"
+        }
+      ]
+    },
+    {
+      "id": "parent-informal",
+      "meaning_en": "mom or dad, parent — informal address",
+      "category": "greetings",
+      "variants": [
+        {
+          "term": "cucho / cucha",
+          "countries": [
+            "CO",
+            "PE"
+          ],
+          "note": "los cuchos = parents; cucho = old man/dad, cucha = mom/old woman"
+        },
+        {
+          "term": "jefe / jefa",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "el viejo / la vieja",
+          "countries": [
+            "AR"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hooked-obsessed",
+      "meaning_en": "hooked, obsessed — deeply invested in something or head over heels for someone",
+      "category": "adjectives",
+      "variants": [
+        {
+          "term": "encarretado / encarretada",
+          "countries": [
+            "CO"
+          ],
+          "note": "estoy encarretado con esa serie = I'm hooked on that show"
+        },
+        {
+          "term": "apepado / apepada",
+          "countries": [
+            "PE"
+          ],
+          "note": "often romantic but also works for things"
+        }
+      ]
+    },
+    {
+      "id": "fake",
+      "meaning_en": "fake, counterfeit, inauthentic — object or person",
+      "category": "adjectives",
+      "variants": [
+        {
+          "term": "trucho / trucha",
+          "countries": [
+            "AR"
+          ],
+          "note": "used for counterfeit goods or people who are inauthentic"
+        },
+        {
+          "term": "chafa",
+          "countries": [
+            "MX"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sweet-talk",
+      "meaning_en": "smooth talk, charming BS used to seduce or con someone",
+      "category": "greetings",
+      "variants": [
+        {
+          "term": "chamuyo",
+          "countries": [
+            "AR"
+          ],
+          "note": "chamuyar = the verb; classic porteño pickup/con-artist energy"
+        }
+      ]
+    },
+    {
+      "id": "favor",
+      "meaning_en": "a favor, a solid done out of solidarity",
+      "category": "work",
+      "variants": [
+        {
+          "term": "gauchada",
+          "countries": [
+            "AR"
+          ],
+          "note": "from gaucho culture — helping with no strings attached"
+        },
+        {
+          "term": "paro",
+          "countries": [
+            "MX"
+          ],
+          "note": "hacerle un paro = to do someone a solid"
+        }
+      ]
+    },
+    {
+      "id": "bad-vibe",
+      "meaning_en": "bad energy, negative atmosphere from a person or place",
+      "category": "adjectives",
+      "variants": [
+        {
+          "term": "mala onda",
+          "countries": [
+            "AR",
+            "CL"
+          ]
+        },
+        {
+          "term": "mala vibra",
+          "countries": [
+            "MX"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "police",
+      "meaning_en": "the police, the cops — informal or pejorative",
+      "category": "insults",
+      "variants": [
+        {
+          "term": "la yuta",
+          "countries": [
+            "AR"
+          ],
+          "note": "vesre (syllable reversal) of policía"
+        },
+        {
+          "term": "la cana",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "los pacos",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "la chota",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "el tamarindo",
+          "countries": [
+            "MX"
+          ],
+          "note": "from the tan uniform color; chilango slang"
+        },
+        {
+          "term": "los tombos",
+          "countries": [
+            "CO",
+            "PE"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "effortlessly",
+      "meaning_en": "done with such ease it looks effortless — pulled off smoothly",
+      "category": "adjectives",
+      "variants": [
+        {
+          "term": "de taquito",
+          "countries": [
+            "AR"
+          ],
+          "note": "from the backheel goal in soccer — executed so smoothly it seems accidental"
+        }
+      ]
+    },
+    {
+      "id": "nightclub",
+      "meaning_en": "nightclub, dance bar, place to party at night",
+      "category": "greetings",
+      "variants": [
+        {
+          "term": "boliche",
+          "countries": [
+            "AR"
+          ],
+          "note": "in Argentina exclusively means nightclub; elsewhere it means small shop"
+        },
+        {
+          "term": "antro",
+          "countries": [
+            "MX"
+          ],
+          "note": "standard Spanish antro = dive bar, but MX slang for any nightclub"
+        }
+      ]
+    },
+    {
+      "id": "scared",
+      "meaning_en": "scared, terrified, freaked out",
+      "category": "adjectives",
+      "variants": [
+        {
+          "term": "cagado / cagada",
+          "countries": [
+            "CL",
+            "CO",
+            "AR",
+            "MX"
+          ],
+          "note": "lit. shat yourself; used for extreme fear"
+        },
+        {
+          "term": "con la greña parada",
+          "countries": [
+            "MX"
+          ],
+          "note": "lit. with hair standing on end"
+        }
+      ]
+    },
+    {
+      "id": "youngster",
+      "meaning_en": "kid, teenager, young person — casual address",
+      "category": "greetings",
+      "variants": [
+        {
+          "term": "chibolo / chibola",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "pibe / piba",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "cabro / cabra",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "pelado / pelada",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "chamaco / chamaca",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "morro / morra",
+          "countries": [
+            "MX"
+          ],
+          "note": "norteño slang: Sinaloa, Sonora, Jalisco"
+        },
+        {
+          "term": "chamo / chama",
+          "countries": [
+            "VE"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bribe",
+      "meaning_en": "bribe, under-the-table payment to an official",
+      "category": "work",
+      "variants": [
+        {
+          "term": "la mordida",
+          "countries": [
+            "MX"
+          ],
+          "note": "lit. the bite; iconic for petty corruption, especially traffic cops"
+        },
+        {
+          "term": "la coima",
+          "countries": [
+            "AR",
+            "PE"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "in-trouble",
+      "meaning_en": "in trouble, screwed, in a bad spot",
+      "category": "adjectives",
+      "variants": [
+        {
+          "term": "en el horno",
+          "countries": [
+            "MX"
+          ],
+          "note": "lit. in the oven"
+        },
+        {
+          "term": "fregado / fregada",
+          "countries": [
+            "MX"
+          ],
+          "note": "done for; softer substitute for chingado"
+        },
+        {
+          "term": "al horno",
+          "countries": [
+            "AR"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "to-tease",
+      "meaning_en": "to tease, roast, or rib someone — usually affectionately among friends",
+      "category": "greetings",
+      "variants": [
+        {
+          "term": "echar carrilla",
+          "countries": [
+            "MX"
+          ],
+          "note": "le echaron carrilla toda la noche = they roasted him all night"
+        }
+      ]
+    },
+    {
+      "id": "home",
+      "meaning_en": "home, house — where you live",
+      "category": "greetings",
+      "variants": [
+        {
+          "term": "jato",
+          "countries": [
+            "PE"
+          ],
+          "note": "me voy a mi jato = I'm going home; quintessential limeño slang"
+        }
+      ]
+    },
+    {
+      "id": "to-pool-money",
+      "meaning_en": "to chip in, pool money together among a group",
+      "category": "work",
+      "variants": [
+        {
+          "term": "chancha",
+          "countries": [
+            "PE"
+          ],
+          "note": "hacer una chancha = to pass the hat / chip in together"
+        },
+        {
+          "term": "vaquita",
+          "countries": [
+            "AR",
+            "CL"
+          ],
+          "note": "hacer una vaquita = to chip in"
+        }
+      ]
+    },
+    {
+      "id": "to-notice",
+      "meaning_en": "to notice, spot, or catch on to something",
+      "category": "adjectives",
+      "variants": [
+        {
+          "term": "manyar",
+          "countries": [
+            "PE"
+          ],
+          "note": "mánya eso = check that out; from Italian immigrant mangiare, repurposed in Lima street speech"
+        }
+      ]
+    },
+    {
+      "id": "to-fail",
+      "meaning_en": "to fail a test or class",
+      "category": "work",
+      "variants": [
+        {
+          "term": "jalar",
+          "countries": [
+            "PE"
+          ],
+          "note": "jalado/a = failed; me jalaron = they failed me; unique Peruvian academic usage"
+        }
+      ]
+    },
+    {
+      "id": "to-sweet-talk",
+      "meaning_en": "to flatter insincerely, sweet-talk someone with hollow compliments",
+      "category": "greetings",
+      "variants": [
+        {
+          "term": "florear",
+          "countries": [
+            "PE"
+          ],
+          "note": "floreo = hollow flattery; no me floreés = don't sweet-talk me"
+        }
+      ]
+    },
+    {
+      "id": "top-notch",
+      "meaning_en": "first-rate, excellent, the absolute real deal",
+      "category": "adjectives",
+      "variants": [
+        {
+          "term": "vergatario / vergataria",
+          "countries": [
+            "VE"
+          ],
+          "note": "superlative praise; used when something or someone is genuinely top-tier"
+        }
+      ]
+    },
+    {
+      "id": "fair-skinned",
+      "meaning_en": "fair-skinned or light-haired person — used as casual address",
+      "category": "adjectives",
+      "variants": [
+        {
+          "term": "catire / catira",
+          "countries": [
+            "VE"
+          ],
+          "note": "common term of address, not necessarily derogatory"
+        },
+        {
+          "term": "mono / mona",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "güero / güera",
+          "countries": [
+            "MX"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "toxic-partner",
+      "meaning_en": "jealous, controlling, or possessive person — especially a romantic partner",
+      "category": "insults",
+      "variants": [
+        {
+          "term": "cuaima",
+          "countries": [
+            "VE"
+          ],
+          "note": "also the name of a venomous Venezuelan viper; me tiene una cuaima encima = my partner is suffocating me with jealousy"
+        }
+      ]
+    },
+    {
+      "id": "watered-down",
+      "meaning_en": "weak, spineless, lacking substance or conviction",
+      "category": "adjectives",
+      "variants": [
+        {
+          "term": "guayoyo",
+          "countries": [
+            "VE"
+          ],
+          "note": "from the iconic thin Venezuelan drip coffee; ese man es un guayoyo = that guy has no backbone"
+        }
+      ]
+    },
+    {
+      "id": "to-extort",
+      "meaning_en": "to shake someone down for a bribe, especially corrupt police demanding payment",
+      "category": "work",
+      "variants": [
+        {
+          "term": "matraquear",
+          "countries": [
+            "VE"
+          ],
+          "note": "also dar la matraca; los tombos me matraquearon = the cops shook me down"
+        }
+      ]
+    },
+    {
+      "id": "foreigner",
+      "meaning_en": "foreigner, outsider — someone not from here",
+      "category": "adjectives",
+      "variants": [
+        {
+          "term": "musiú",
+          "countries": [
+            "VE"
+          ],
+          "note": "from French monsieur via European immigrants; ese musiú no entiende nada = that foreigner doesn't get it"
+        }
       ]
     }
   ]

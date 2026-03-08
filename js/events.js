@@ -74,23 +74,68 @@ export function bindEvents(s) {
     showDiagram(concept, variant, s);
   });
 
-  // Back & share buttons in diagram
-  $('diagramNodes').addEventListener('click', (e) => {
-    if (e.target.closest('#diagramShare')) {
-      navigator.clipboard.writeText(window.location.href).then(() => showToast('Link copied'));
-      return;
-    }
-    const back = e.target.closest('#diagramBack');
-    if (!back) return;
+  // Close diagram: called by Back button, ESC, and popstate
+  function closeDiagram(clearHistory = true) {
+    if ($('diagramArea').classList.contains('hidden')) return;
     s.activeConcept = null;
     s.matchedTerm = null;
-    history.replaceState(null, '', window.location.pathname + window.location.search);
+    if (clearHistory) {
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
     $('diagramArea').classList.add('hidden');
     if (s.query) {
-      const results = search(s.dictionary, s.query, s.activeCountry, s.activeCategory);
-      renderResults(results, s);
+      renderResults(search(s.dictionary, s.query, s.activeCountry, s.activeCategory), s);
     } else {
       renderBrowse(s);
+    }
+  }
+
+  // Back & share buttons (delegated on diagramArea — controls live inside diagramCenter)
+  $('diagramArea').addEventListener('click', (e) => {
+    if (e.target.closest('#diagramShare')) {
+      const btn = e.target.closest('#diagramShare');
+      const url = window.location.href;
+      const term = document.querySelector('.center-term')?.textContent?.trim() || 'a slang word';
+      const shareData = { title: `Parla — ${term}`, text: `Check out "${term}" on Parla, the Latin American slang map`, url };
+      const doShare = navigator.share && navigator.canShare?.(shareData)
+        ? navigator.share(shareData)
+        : navigator.clipboard.writeText(url);
+      doShare.then(() => {
+        const originalHTML = btn.innerHTML;
+        btn.classList.add('copied');
+        btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Copied!`;
+        showToast('Link copied');
+        setTimeout(() => { btn.innerHTML = originalHTML; btn.classList.remove('copied'); }, 2000);
+      }).catch(() => {});
+      return;
+    }
+    if (e.target.closest('#diagramBack')) {
+      if (s.diagramPushedState) {
+        s.diagramPushedState = false;
+        history.back(); // triggers popstate → closeDiagram
+      } else {
+        closeDiagram(true);
+      }
+    }
+  });
+
+  // ESC to close diagram
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !$('diagramArea').classList.contains('hidden')) {
+      if (s.diagramPushedState) {
+        s.diagramPushedState = false;
+        history.back();
+      } else {
+        closeDiagram(true);
+      }
+    }
+  });
+
+  // Trackpad / browser back gesture
+  window.addEventListener('popstate', () => {
+    if (!$('diagramArea').classList.contains('hidden')) {
+      s.diagramPushedState = false;
+      closeDiagram(false); // browser already updated URL
     }
   });
 
