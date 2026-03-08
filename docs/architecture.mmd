@@ -1,0 +1,36 @@
+---
+config:
+  theme: base
+  themeVariables:
+    primaryColor: "#0f172a"
+    primaryTextColor: "#e2e8f0"
+    primaryBorderColor: "#0063e5"
+    lineColor: "#38bdf8"
+    secondaryColor: "#1e293b"
+    tertiaryColor: "#1e293b"
+    clusterBkg: "#f0f7ff"
+    clusterBorder: "#bfdbfe"
+    edgeLabelBackground: "#e8f0ff"
+    mainBkg: "#0f172a"
+    nodeBorder: "#0063e5"
+    titleColor: "#1e1b4b"
+    fontFamily: "ui-sans-serif, system-ui, -apple-system, sans-serif"
+    fontSize: "13px"
+---
+
+flowchart TB
+    User([User]) --> HTML["index.html\nApp shell"]
+    APIClient([API Client]) --> API["/api/v1/dictionary.json\nStatic JSON endpoint"]
+
+    subgraph App["ES Modules"]
+        HTML --> app["app.js\nEntry point"]
+        app --> state["state.js\nSearch + filter state"]
+        app --> data["data.js\nDictionary load + search index"]
+        app --> render["render.js\nDOM + radial word diagram"]
+        app --> diagram["diagram.js\nFloating country map background"]
+        app --> events["events.js\nSearch + filters"]
+        app --> utils["utils.js\nHelpers"]
+    end
+
+    data --> API
+    state <-->|"search history"| Storage[("localStorage")]

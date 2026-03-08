@@ -73,6 +73,8 @@ python3 -m http.server
 
 ## Architecture
 
+![Architecture](docs/architecture.svg)
+
 ```
 parla-site/
 ├── index.html              # App shell
