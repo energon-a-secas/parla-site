@@ -37,6 +37,7 @@ Standard modular ES module app. Entry point is `js/app.js`.
 **State persistence** (`state.js`):
 - localStorage key: `parla-state`
 - Only `activeCountry` and `activeCategory` are persisted. Query and diagram state are ephemeral.
+- `diagramPushedState` (not persisted) tracks whether `showDiagram()` called `history.pushState` — used by the Back button and `popstate` handler to decide whether to call `history.back()` or just hide the diagram directly.
 
 **Dictionary data model** (`api/v1/dictionary.json`):
 ```json
@@ -63,6 +64,12 @@ Standard modular ES module app. Entry point is `js/app.js`.
 **Search normalization** strips diacritics via `NFD` decomposition and removes non-alphanumeric characters, so searching "bacan" matches "bacán".
 
 **Deep links:** `#w=<concept-id>` in the URL opens that concept's diagram on load. `openFromHash()` runs on init and on `hashchange`.
+
+**Variant merging in `showDiagram()`:** before laying out nodes, variants with the same term (case-insensitive) are merged — their `countries` arrays are unioned and the first `note` wins. The matched term is placed in the center; all other grouped variants become outer nodes.
+
+**Browse section:** `renderBrowse()` groups concepts by category. Each section shows the first 3 cards; the rest have class `hidden`. A "Ver N más" button per section toggles `.hidden` on the remaining cards via `events.js`.
+
+**Keyboard shortcuts:** `/` focuses the search input; `Escape` closes the diagram (or clears search if no diagram is open).
 
 ---
 

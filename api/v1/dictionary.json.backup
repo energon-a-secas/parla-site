@@ -26,15 +26,15 @@
       "flag": "🇵🇪",
       "color": "#f97316"
     },
-    "VE": {
-      "name": "Venezuela",
-      "flag": "🇻🇪",
-      "color": "#a855f7"
-    },
     "BR": {
       "name": "Brasil",
       "flag": "🇧🇷",
       "color": "#10b981"
+    },
+    "VE": {
+      "name": "Venezuela",
+      "flag": "🇻🇪",
+      "color": "#a855f7"
     }
   },
   "concepts": [
@@ -82,7 +82,7 @@
           ]
         },
         {
-          "term": "da hora",
+          "term": "legal",
           "countries": [
             "BR"
           ]
@@ -132,11 +132,11 @@
           "note": "can also mean angry"
         },
         {
-          "term": "foda",
+          "term": "animal",
           "countries": [
             "BR"
           ],
-          "note": "awesome, badass (mildly vulgar)"
+          "note": "que animal = you're the man, that was awesome"
         }
       ]
     },
@@ -181,13 +181,6 @@
           "countries": [
             "VE"
           ]
-        },
-        {
-          "term": "chato",
-          "countries": [
-            "BR"
-          ],
-          "note": "boring, lame"
         }
       ]
     },
@@ -226,13 +219,6 @@
           "countries": [
             "PE"
           ]
-        },
-        {
-          "term": "ruim",
-          "countries": [
-            "BR"
-          ],
-          "note": "bad quality, crappy"
         }
       ]
     },
@@ -315,13 +301,6 @@
           "countries": [
             "VE"
           ]
-        },
-        {
-          "term": "pra caramba",
-          "countries": [
-            "BR"
-          ],
-          "note": "a lot, very much"
         }
       ]
     },
@@ -365,69 +344,6 @@
           "countries": [
             "VE"
           ]
-        },
-        {
-          "term": "choreadísimo",
-          "countries": [
-            "CL"
-          ],
-          "note": "very angry"
-        },
-        {
-          "term": "enchuchado",
-          "countries": [
-            "CL"
-          ],
-          "note": "furious"
-        },
-        {
-          "term": "encabronado",
-          "countries": [
-            "CL"
-          ],
-          "note": "pissed off"
-        },
-        {
-          "term": "envergonzado",
-          "countries": [
-            "CL"
-          ],
-          "note": "very angry (not embarrassed)"
-        },
-        {
-          "term": "sacado",
-          "countries": [
-            "CL"
-          ],
-          "note": "very angry"
-        },
-        {
-          "term": "sacadísimo",
-          "countries": [
-            "CL"
-          ],
-          "note": "extremely angry"
-        },
-        {
-          "term": "jaliscón",
-          "countries": [
-            "CL"
-          ],
-          "note": "very angry, furious"
-        },
-        {
-          "term": "confío",
-          "countries": [
-            "CL"
-          ],
-          "note": "angry, bothered"
-        },
-        {
-          "term": "enchao",
-          "countries": [
-            "CL"
-          ],
-          "note": "angry"
         }
       ]
     },
@@ -465,12 +381,6 @@
           "term": "pena ajena",
           "countries": [
             "VE"
-          ]
-        },
-        {
-          "term": "constrangido",
-          "countries": [
-            "BR"
           ]
         }
       ]
@@ -515,12 +425,6 @@
           "countries": [
             "VE"
           ]
-        },
-        {
-          "term": "cansado",
-          "countries": [
-            "BR"
-          ]
         }
       ]
     },
@@ -558,12 +462,6 @@
           "term": "real",
           "countries": [
             "VE"
-          ]
-        },
-        {
-          "term": "grana",
-          "countries": [
-            "BR"
           ]
         }
       ]
@@ -608,12 +506,6 @@
           "countries": [
             "VE"
           ]
-        },
-        {
-          "term": "bêbado",
-          "countries": [
-            "BR"
-          ]
         }
       ]
     },
@@ -657,12 +549,6 @@
           "countries": [
             "VE"
           ]
-        },
-        {
-          "term": "esnobe",
-          "countries": [
-            "BR"
-          ]
         }
       ]
     },
@@ -690,12 +576,6 @@
           "term": "abusado",
           "countries": [
             "MX"
-          ]
-        },
-        {
-          "term": "inteligente",
-          "countries": [
-            "BR"
           ]
         }
       ]
@@ -740,13 +620,6 @@
           "countries": [
             "VE"
           ]
-        },
-        {
-          "term": "e aí",
-          "countries": [
-            "BR"
-          ],
-          "note": "whats up"
         }
       ]
     },
@@ -791,12 +664,6 @@
           "term": "pana",
           "countries": [
             "VE"
-          ]
-        },
-        {
-          "term": "cara",
-          "countries": [
-            "BR"
           ]
         }
       ]
@@ -879,12 +746,6 @@
             "PE",
             "VE"
           ]
-        },
-        {
-          "term": "e aí",
-          "countries": [
-            "BR"
-          ]
         }
       ]
     },
@@ -922,12 +783,6 @@
           "term": "tono",
           "countries": [
             "PE"
-          ]
-        },
-        {
-          "term": "festa",
-          "countries": [
-            "BR"
           ]
         }
       ]
@@ -1087,12 +942,6 @@
           "term": "cojudo",
           "countries": [
             "PE"
-          ]
-        },
-        {
-          "term": "idiota",
-          "countries": [
-            "BR"
           ]
         }
       ]
@@ -1445,12 +1294,6 @@
           "countries": [
             "MX",
             "PE"
-          ]
-        },
-        {
-          "term": "trampo",
-          "countries": [
-            "BR"
           ]
         }
       ]
@@ -1881,12 +1724,6 @@
           "term": "ratón",
           "countries": [
             "VE"
-          ]
-        },
-        {
-          "term": "ressaca",
-          "countries": [
-            "BR"
           ]
         }
       ]
@@ -4060,2013 +3897,212 @@
       ]
     },
     {
-      "id": "beautiful",
-      "meaning_en": "beautiful, gorgeous",
-      "category": "adjectives",
-      "variants": [
-        {
-          "term": "hermoso",
-          "countries": [
-            "CL",
-            "CO",
-            "AR",
-            "PE",
-            "VE",
-            "MX"
-          ]
-        },
-        {
-          "term": "lindo",
-          "countries": [
-            "BR"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "delicious",
-      "meaning_en": "delicious, tasty",
-      "category": "adjectives",
-      "variants": [
-        {
-          "term": "rico",
-          "countries": [
-            "CL",
-            "CO",
-            "AR",
-            "PE",
-            "VE",
-            "MX"
-          ]
-        },
-        {
-          "term": "gostoso",
-          "countries": [
-            "BR"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "good",
-      "meaning_en": "good, nice",
-      "category": "adjectives",
-      "variants": [
-        {
-          "term": "bueno",
-          "countries": [
-            "CL",
-            "CO",
-            "AR",
-            "PE",
-            "VE",
-            "MX"
-          ]
-        },
-        {
-          "term": "boa",
-          "countries": [
-            "BR"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "bad-slang",
-      "meaning_en": "bad, not good (slang)",
-      "category": "insults",
-      "variants": [
-        {
-          "term": "malo",
-          "countries": [
-            "CL",
-            "CO",
-            "AR",
-            "PE",
-            "VE",
-            "MX"
-          ]
-        },
-        {
-          "term": "ruim",
-          "countries": [
-            "BR"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "ugly",
-      "meaning_en": "ugly, not attractive",
-      "category": "adjectives",
-      "variants": [
-        {
-          "term": "feo",
-          "countries": [
-            "CL",
-            "CO",
-            "AR",
-            "PE",
-            "VE",
-            "MX"
-          ]
-        },
-        {
-          "term": "feio",
-          "countries": [
-            "BR"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "stupid-dumb",
-      "meaning_en": "stupid, dumb, not intelligent",
-      "category": "adjectives",
-      "variants": [
-        {
-          "term": "tonto",
-          "countries": [
-            "CL",
-            "CO",
-            "AR",
-            "PE",
-            "VE",
-            "MX"
-          ]
-        },
-        {
-          "term": "burro",
-          "countries": [
-            "BR"
-          ],
-          "note": "lit. donkey, meaning stupid"
-        }
-      ]
-    },
-    {
-      "id": "smart-clever",
-      "meaning_en": "smart, clever, intelligent",
-      "category": "adjectives",
-      "variants": [
-        {
-          "term": "listo",
-          "countries": [
-            "CL",
-            "CO",
-            "AR",
-            "PE",
-            "VE",
-            "MX"
-          ]
-        },
-        {
-          "term": "esperto",
-          "countries": [
-            "BR"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "shit-crap",
-      "meaning_en": "shit, crap (mild swear word)",
-      "category": "insults",
-      "variants": [
-        {
-          "term": "mierda",
-          "countries": [
-            "CL",
-            "CO",
-            "AR",
-            "PE",
-            "VE",
-            "MX"
-          ]
-        },
-        {
-          "term": "bosta",
-          "countries": [
-            "BR"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "damn",
-      "meaning_en": "damn, hell (exclamation)",
-      "category": "insults",
-      "variants": [
-        {
-          "term": "carajo",
-          "countries": [
-            "CL",
-            "CO",
-            "VE"
-          ]
-        },
-        {
-          "term": "porra",
-          "countries": [
-            "BR"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "buddy-brother",
-      "meaning_en": "dude, bro, brother",
+      "id": "no-hay-mano",
+      "meaning_en": "there's nothing to be done, can't be helped, it is what it is",
       "category": "greetings",
       "variants": [
         {
-          "term": "cara",
-          "countries": [
-            "BR"
-          ],
-          "note": "dude, guy, bro"
-        },
-        {
-          "term": "bro",
-          "countries": [
-            "BR"
-          ],
-          "note": "imported from English, very common"
-        },
-        {
-          "term": "brother",
-          "countries": [
-            "BR"
-          ],
-          "note": "bro, close friend"
-        }
-      ]
-    },
-    {
-      "id": "what-the-hell",
-      "meaning_en": "what the hell (exclamation)",
-      "category": "insults",
-      "variants": [
-        {
-          "term": "qué diablos",
-          "countries": [
-            "CL",
-            "CO",
-            "AR",
-            "PE",
-            "VE",
-            "MX"
-          ]
-        },
-        {
-          "term": "que diabo",
-          "countries": [
-            "BR"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "hungry",
-      "meaning_en": "hungry",
-      "category": "adjectives",
-      "variants": [
-        {
-          "term": "hambre",
-          "countries": [
-            "CL",
-            "CO",
-            "AR",
-            "PE",
-            "VE",
-            "MX"
-          ]
-        },
-        {
-          "term": "fome",
-          "countries": [
-            "BR"
-          ]
-        },
-        {
-          "term": "com fome",
-          "countries": [
-            "BR"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "sleepy",
-      "meaning_en": "sleepy, tired (need sleep)",
-      "category": "adjectives",
-      "variants": [
-        {
-          "term": "sueño",
-          "countries": [
-            "CL",
-            "CO",
-            "AR",
-            "PE",
-            "VE",
-            "MX"
-          ]
-        },
-        {
-          "term": "sono",
-          "countries": [
-            "BR"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "happy",
-      "meaning_en": "happy, joyful",
-      "category": "adjectives",
-      "variants": [
-        {
-          "term": "feliz",
-          "countries": [
-            "CL",
-            "CO",
-            "AR",
-            "PE",
-            "VE",
-            "MX",
-            "BR"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "sad",
-      "meaning_en": "sad, unhappy",
-      "category": "adjectives",
-      "variants": [
-        {
-          "term": "triste",
-          "countries": [
-            "CL",
-            "CO",
-            "AR",
-            "PE",
-            "VE",
-            "MX",
-            "BR"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "sorry-apology",
-      "meaning_en": "sorry, excuse me, apology",
-      "category": "greetings",
-      "variants": [
-        {
-          "term": "perdón",
-          "countries": [
-            "CL",
-            "CO",
-            "AR",
-            "PE",
-            "VE",
-            "MX"
-          ]
-        },
-        {
-          "term": "desculpa",
-          "countries": [
-            "BR"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "hello-greeting",
-      "meaning_en": "hello, hi",
-      "category": "greetings",
-      "variants": [
-        {
-          "term": "hola",
-          "countries": [
-            "CL",
-            "CO",
-            "AR",
-            "PE",
-            "VE",
-            "MX"
-          ]
-        },
-        {
-          "term": "olá",
-          "countries": [
-            "BR"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "goodbye-farewell",
-      "meaning_en": "goodbye, bye",
-      "category": "greetings",
-      "variants": [
-        {
-          "term": "chao",
-          "countries": [
-            "CL"
-          ]
-        },
-        {
-          "term": "chau",
-          "countries": [
-            "AR",
-            "PE"
-          ]
-        },
-        {
-          "term": "adiós",
-          "countries": [
-            "CO",
-            "VE",
-            "MX"
-          ]
-        },
-        {
-          "term": "tchau",
-          "countries": [
-            "BR"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "late",
-      "meaning_en": "late, delayed",
-      "category": "adjectives",
-      "variants": [
-        {
-          "term": "tarde",
-          "countries": [
-            "CL",
-            "CO",
-            "AR",
-            "PE",
-            "VE",
-            "MX"
-          ]
-        },
-        {
-          "term": "atrasado",
-          "countries": [
-            "BR"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "early",
-      "meaning_en": "early, before time",
-      "category": "adjectives",
-      "variants": [
-        {
-          "term": "temprano",
-          "countries": [
-            "CL",
-            "CO",
-            "AR",
-            "PE",
-            "VE",
-            "MX"
-          ]
-        },
-        {
-          "term": "cedo",
-          "countries": [
-            "BR"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "expensive",
-      "meaning_en": "expensive, costly",
-      "category": "adjectives",
-      "variants": [
-        {
-          "term": "caro",
-          "countries": [
-            "CL",
-            "CO",
-            "AR",
-            "PE",
-            "VE",
-            "MX"
-          ]
-        },
-        {
-          "term": "caro",
-          "countries": [
-            "BR"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "cheap",
-      "meaning_en": "cheap, inexpensive",
-      "category": "adjectives",
-      "variants": [
-        {
-          "term": "barato",
-          "countries": [
-            "CL",
-            "CO",
-            "AR",
-            "PE",
-            "VE",
-            "MX"
-          ]
-        },
-        {
-          "term": "barato",
-          "countries": [
-            "BR"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "hot-temperature",
-      "meaning_en": "hot (temperature)",
-      "category": "adjectives",
-      "variants": [
-        {
-          "term": "caliente",
-          "countries": [
-            "CL",
-            "CO",
-            "AR",
-            "PE",
-            "VE",
-            "MX"
-          ]
-        },
-        {
-          "term": "quente",
-          "countries": [
-            "BR"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "cold-temperature",
-      "meaning_en": "cold (temperature)",
-      "category": "adjectives",
-      "variants": [
-        {
-          "term": "frío",
-          "countries": [
-            "CL",
-            "CO",
-            "AR",
-            "PE",
-            "VE",
-            "MX"
-          ]
-        },
-        {
-          "term": "frio",
-          "countries": [
-            "BR"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "hungover-slang",
-      "meaning_en": "very hungover, still drunk from last night",
-      "category": "adjectives",
-      "variants": [
-        {
-          "term": "pendiente",
+          "term": "no hay mano",
           "countries": [
             "CL"
           ],
-          "note": "still hanging from last night"
-        },
-        {
-          "term": "despapayado",
-          "countries": [
-            "CO"
-          ]
-        },
-        {
-          "term": "colgado",
-          "countries": [
-            "AR"
-          ]
-        },
-        {
-          "term": "crudo",
-          "countries": [
-            "MX",
-            "PE"
-          ]
-        },
-        {
-          "term": "engualichado",
-          "countries": [
-            "VE"
-          ]
-        },
-        {
-          "term": "de ressaca",
-          "countries": [
-            "BR"
-          ],
-          "note": "with hangover"
+          "note": "expression of resignation; no hay mano, así es la vida = can't help it, that's life"
         }
       ]
     },
     {
-      "id": "to-wake-up",
-      "meaning_en": "to wake up, get out of bed",
+      "id": "guagua",
+      "meaning_en": "baby, small child",
       "category": "greetings",
       "variants": [
         {
-          "term": "despertar",
+          "term": "guagua",
           "countries": [
             "CL",
-            "CO",
-            "AR",
-            "PE",
-            "VE",
-            "MX"
-          ]
-        },
-        {
-          "term": "acordar",
-          "countries": [
-            "BR"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "to-drink",
-      "meaning_en": "to drink (alcohol or beverages)",
-      "category": "greetings",
-      "variants": [
-        {
-          "term": "tomar",
-          "countries": [
-            "CL",
-            "CO",
-            "AR",
-            "PE",
-            "VE"
-          ]
-        },
-        {
-          "term": "beber",
-          "countries": [
-            "MX",
-            "BR"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "to-party",
-      "meaning_en": "to party, go out and have fun",
-      "category": "greetings",
-      "variants": [
-        {
-          "term": "carretear",
-          "countries": [
-            "CL"
-          ]
-        },
-        {
-          "term": "rumba",
-          "countries": [
-            "CO",
-            "VE"
-          ]
-        },
-        {
-          "term": "joda",
-          "countries": [
-            "AR"
-          ]
-        },
-        {
-          "term": "parrandear",
-          "countries": [
-            "MX"
-          ]
-        },
-        {
-          "term": "farrear",
-          "countries": [
-            "PE"
-          ]
-        },
-        {
-          "term": "festejar",
-          "countries": [
-            "BR"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "to-dance",
-      "meaning_en": "to dance",
-      "category": "greetings",
-      "variants": [
-        {
-          "term": "bailar",
-          "countries": [
-            "CL",
-            "CO",
-            "AR",
-            "PE",
-            "VE",
-            "MX"
-          ]
-        },
-        {
-          "term": "dançar",
-          "countries": [
-            "BR"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "water",
-      "meaning_en": "water",
-      "category": "greetings",
-      "variants": [
-        {
-          "term": "agua",
-          "countries": [
-            "CL",
-            "CO",
-            "AR",
-            "PE",
-            "VE",
-            "MX",
-            "BR"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "drink-beverage",
-      "meaning_en": "drink, beverage",
-      "category": "greetings",
-      "variants": [
-        {
-          "term": "bebida",
-          "countries": [
-            "CL",
-            "CO",
-            "AR",
-            "PE",
-            "VE",
-            "MX",
-            "BR"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "soda",
-      "meaning_en": "soda, soft drink",
-      "category": "greetings",
-      "variants": [
-        {
-          "term": "gaseosa",
-          "countries": [
-            "CL",
-            "CO",
-            "AR",
-            "VE"
-          ]
-        },
-        {
-          "term": "refresco",
-          "countries": [
-            "MX",
-            "PE"
-          ]
-        },
-        {
-          "term": "refrigerante",
-          "countries": [
-            "BR"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "to-smoke",
-      "meaning_en": "to smoke (cigarettes or other)",
-      "category": "greetings",
-      "variants": [
-        {
-          "term": "fumar",
-          "countries": [
-            "CL",
-            "CO",
-            "AR",
-            "PE",
-            "VE",
-            "MX",
-            "BR"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "to-sleep",
-      "meaning_en": "to sleep, go to bed",
-      "category": "greetings",
-      "variants": [
-        {
-          "term": "dormir",
-          "countries": [
-            "CL",
-            "CO",
-            "AR",
-            "PE",
-            "VE",
-            "MX",
-            "BR"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "i-am-angry",
-      "meaning_en": "I am angry, I'm mad",
-      "category": "adjectives",
-      "variants": [
-        {
-          "term": "estoy choreado",
-          "countries": [
-            "CL"
-          ],
-          "note": "I'm angry/mad"
-        },
-        {
-          "term": "estoy arrecho",
-          "countries": [
-            "VE"
-          ],
-          "note": "I'm angry"
-        },
-        {
-          "term": "estoy emputado",
-          "countries": [
-            "CO",
             "PE"
           ],
-          "note": "I'm pissed off"
+          "note": "from Quechua/Aymara wawa; la guagua llora = the baby is crying"
         },
         {
-          "term": "estoy enojón",
+          "term": "chamaco / chamaca",
           "countries": [
             "MX"
           ],
-          "note": "I'm angry"
+          "note": "kid or young child; los chamacos están jugando = the kids are playing"
         },
         {
-          "term": "estoy caliente",
-          "countries": [
-            "MX"
-          ],
-          "note": "I'm angry"
-        },
-        {
-          "term": "estoy enojado",
-          "countries": [
-            "CL",
-            "CO",
-            "AR",
-            "PE",
-            "VE",
-            "MX"
-          ]
-        },
-        {
-          "term": "estou puto",
-          "countries": [
-            "BR"
-          ],
-          "note": "I'm pissed off"
-        },
-        {
-          "term": "estou bravo",
-          "countries": [
-            "BR"
-          ],
-          "note": "I'm angry"
-        }
-      ]
-    },
-    {
-      "id": "to-get-angry",
-      "meaning_en": "to get angry, become mad",
-      "category": "adjectives",
-      "variants": [
-        {
-          "term": "chorearse",
-          "countries": [
-            "CL"
-          ],
-          "note": "to get pissed off"
-        },
-        {
-          "term": "ofuscarse",
-          "countries": [
-            "CL"
-          ],
-          "note": "to get angry/flustered"
-        },
-        {
-          "term": "encabritarse",
-          "countries": [
-            "CL"
-          ],
-          "note": "to get angry like a horse"
-        },
-        {
-          "term": "arrecharse",
-          "countries": [
-            "VE"
-          ],
-          "note": "to get angry"
-        },
-        {
-          "term": "emputarse",
-          "countries": [
-            "CO",
-            "PE"
-          ],
-          "note": "to get pissed off"
-        },
-        {
-          "term": "encabronarse",
-          "countries": [
-            "MX"
-          ],
-          "note": "to get pissed off"
-        },
-        {
-          "term": "envergonzarse",
-          "countries": [
-            "AR"
-          ],
-          "note": "to get angry/embarrassed"
-        },
-        {
-          "term": "ficar puto",
-          "countries": [
-            "BR"
-          ],
-          "note": "to get pissed"
-        },
-        {
-          "term": "ficar bravo",
-          "countries": [
-            "BR"
-          ],
-          "note": "to get angry"
-        },
-        {
-          "term": "sacar la chucha",
-          "countries": [
-            "CL"
-          ],
-          "note": "to lose temper violently"
-        },
-        {
-          "term": "sacar la mierda",
-          "countries": [
-            "CL"
-          ],
-          "note": "to lose temper"
-        },
-        {
-          "term": "ponerse chúcaro",
-          "countries": [
-            "CL"
-          ],
-          "note": "to get furious"
-        },
-        {
-          "term": "ponerse chulón",
-          "countries": [
-            "CL"
-          ],
-          "note": "to get angry"
-        }
-      ]
-    },
-    {
-      "id": "pissed-off",
-      "meaning_en": "very angry, pissed off",
-      "category": "adjectives",
-      "variants": [
-        {
-          "term": "bárbaro",
-          "countries": [
-            "CL"
-          ],
-          "note": "very angry"
-        },
-        {
-          "term": "chola",
-          "countries": [
-            "CL"
-          ],
-          "note": "very angry"
-        },
-        {
-          "term": "pocho",
-          "countries": [
-            "CL"
-          ],
-          "note": "furious"
-        },
-        {
-          "term": "arrechísimo",
-          "countries": [
-            "VE"
-          ],
-          "note": "very angry"
-        },
-        {
-          "term": "emputadísimo",
-          "countries": [
-            "CO",
-            "PE"
-          ],
-          "note": "super pissed"
-        },
-        {
-          "term": "súper encabronado",
-          "countries": [
-            "MX"
-          ],
-          "note": "super pissed"
-        },
-        {
-          "term": "recontra enojado",
-          "countries": [
-            "AR"
-          ],
-          "note": "very angry"
-        },
-        {
-          "term": "muito puto",
-          "countries": [
-            "BR"
-          ],
-          "note": "very pissed"
-        },
-        {
-          "term": "puto da cara",
-          "countries": [
-            "BR"
-          ],
-          "note": "pissed off"
-        },
-        {
-          "term": "choreado pa dentro",
-          "countries": [
-            "CL"
-          ],
-          "note": "pissed off inside"
-        },
-        {
-          "term": "con la chucha llena",
-          "countries": [
-            "CL"
-          ],
-          "note": "with full guts, very angry"
-        },
-        {
-          "term": "con la tula llena",
-          "countries": [
-            "CL"
-          ],
-          "note": "very pissed off"
-        },
-        {
-          "term": "con el pico lleno",
-          "countries": [
-            "CL"
-          ],
-          "note": "dick full, very pissed"
-        }
-      ]
-    },
-    {
-      "id": "furious-fuming",
-      "meaning_en": "furious, fuming, raging",
-      "category": "adjectives",
-      "variants": [
-        {
-          "term": "jaliscón",
-          "countries": [
-            "CL"
-          ],
-          "note": "furious"
-        },
-        {
-          "term": "rabioso",
-          "countries": [
-            "CL"
-          ],
-          "note": "rabid/furious"
-        },
-        {
-          "term": "furián",
-          "countries": [
-            "CL"
-          ],
-          "note": "very angry"
-        },
-        {
-          "term": "rechucho",
-          "countries": [
-            "VE"
-          ],
-          "note": "furious"
-        },
-        {
-          "term": "brutalmente ardiente",
+          "term": "pelado / pelada",
           "countries": [
             "CO"
           ],
-          "note": "furious"
+          "note": "kid, youngster (different from broke); ese pelado es muy pilo = that kid is really smart"
         },
         {
-          "term": "rajón",
+          "term": "chamo / chama",
           "countries": [
-            "MX"
+            "VE"
           ],
-          "note": "furious"
-        },
-        {
-          "term": "recontra bravo",
-          "countries": [
-            "AR"
-          ],
-          "note": "furious"
-        },
-        {
-          "term": "furius",
-          "countries": [
-            "PE"
-          ],
-          "note": "furious"
-        },
-        {
-          "term": "p da vida",
-          "countries": [
-            "BR"
-          ],
-          "note": "furious, pissed at life"
-        },
-        {
-          "term": "fuzilando",
-          "countries": [
-            "BR"
-          ],
-          "note": "raging, fuming"
+          "note": "kid, young person; los chamos están afuera = the kids are outside"
         }
       ]
     },
     {
-      "id": "mad-at-someone",
-      "meaning_en": "mad at someone, angry with someone",
+      "id": "luca",
+      "meaning_en": "1000 pesos, informal monetary unit",
+      "category": "work",
+      "variants": [
+        {
+          "term": "luca",
+          "countries": [
+            "CL",
+            "AR"
+          ],
+          "note": "me costó cinco lucas = it cost me 5000 pesos; used with multipliers"
+        },
+        {
+          "term": "lana",
+          "countries": [
+            "MX"
+          ],
+          "note": "money in general; no traigo lana = I don't have cash on me"
+        },
+        {
+          "term": "real",
+          "countries": [
+            "VE"
+          ],
+          "note": "informal unit of money; dame unos reales = give me some cash"
+        }
+      ]
+    },
+    {
+      "id": "copete",
+      "meaning_en": "alcoholic drink, booze, a pour of spirits",
+      "category": "greetings",
+      "variants": [
+        {
+          "term": "copete",
+          "countries": [
+            "CL",
+            "PE"
+          ],
+          "note": "nos tomamos unos copetes = we had a few drinks"
+        },
+        {
+          "term": "trago",
+          "countries": [
+            "CO",
+            "VE",
+            "MX"
+          ],
+          "note": "generic informal term for any drink of alcohol; ¿nos echamos un trago? = should we grab a drink?"
+        },
+        {
+          "term": "fernet",
+          "countries": [
+            "AR"
+          ],
+          "note": "the iconic Argentine mixer; fernet con Coca is the national unofficial drink"
+        }
+      ]
+    },
+    {
+      "id": "pinta",
+      "meaning_en": "look, appearance, style, vibe",
       "category": "adjectives",
       "variants": [
         {
-          "term": "choreado con",
+          "term": "pinta",
           "countries": [
-            "CL"
-          ],
-          "note": "mad at"
-        },
-        {
-          "term": "arrecho con",
-          "countries": [
-            "VE"
-          ],
-          "note": "mad at"
-        },
-        {
-          "term": "emputado con",
-          "countries": [
+            "CL",
+            "AR",
             "CO",
+            "MX",
+            "VE",
             "PE"
           ],
-          "note": "pissed at"
-        },
-        {
-          "term": "encabronado con",
-          "countries": [
-            "MX"
-          ],
-          "note": "pissed at"
-        },
-        {
-          "term": "enojado con",
-          "countries": [
-            "AR"
-          ],
-          "note": "angry with"
-        },
-        {
-          "term": "puto com",
-          "countries": [
-            "BR"
-          ],
-          "note": "pissed at"
-        },
-        {
-          "term": "bravo com",
-          "countries": [
-            "BR"
-          ],
-          "note": "angry with"
+          "note": "tiene buena pinta = looks good; tiene mala pinta = looks sketchy or suspicious"
         }
       ]
     },
     {
-      "id": "to-lose-temper",
-      "meaning_en": "to lose temper, lose control",
-      "category": "adjectives",
+      "id": "chela",
+      "meaning_en": "beer",
+      "category": "greetings",
       "variants": [
         {
-          "term": "perder los estribos",
+          "term": "chela",
           "countries": [
-            "CL"
+            "MX",
+            "PE",
+            "CL",
+            "VE"
           ],
-          "note": "to lose temper"
+          "note": "nos echamos unas chelas = we cracked open some beers"
         },
         {
-          "term": "perder la chucha",
-          "countries": [
-            "CL"
-          ],
-          "note": "to lose temper"
-        },
-        {
-          "term": "perder la cool",
-          "countries": [
-            "CL"
-          ],
-          "note": "to lose temper"
-        },
-        {
-          "term": "perder los papeles",
-          "countries": [
-            "VE",
-            "CO"
-          ],
-          "note": "to lose it"
-        },
-        {
-          "term": "desbocarse",
+          "term": "birra",
           "countries": [
             "AR"
           ],
-          "note": "to lose control"
+          "note": "from Italian birra; tomemos una birra = let's have a beer"
         },
         {
-          "term": "ponerse bravo",
+          "term": "pola",
           "countries": [
-            "MX",
+            "CO"
+          ],
+          "note": "from the Águila beer brand nickname Pola; dame una pola = give me a beer"
+        }
+      ]
+    },
+    {
+      "id": "pucha",
+      "meaning_en": "damn, shoot — mild expletive softening a stronger word",
+      "category": "greetings",
+      "variants": [
+        {
+          "term": "pucha",
+          "countries": [
+            "CL",
+            "AR",
             "PE"
           ],
-          "note": "to lose temper"
+          "note": "euphemism for a stronger word; pucha que fome = damn how boring; pucha madre"
         },
         {
-          "term": "perder a linha",
-          "countries": [
-            "BR"
-          ],
-          "note": "to lose temper"
-        },
-        {
-          "term": "explodir",
-          "countries": [
-            "BR"
-          ],
-          "note": "to explode, lose it"
-        },
-        {
-          "term": "perder la mierda",
-          "countries": [
-            "CL"
-          ]
-        },
-        {
-          "term": "perder la tula",
-          "countries": [
-            "CL"
-          ]
-        },
-        {
-          "term": "perder el asco",
-          "countries": [
-            "CL"
-          ]
-        },
-        {
-          "term": "perder los temple",
-          "countries": [
-            "CL"
-          ]
-        },
-        {
-          "term": "perder los tittens",
-          "countries": [
-            "CL"
-          ]
-        },
-        {
-          "term": "perder los pitutos",
-          "countries": [
-            "CL"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "to-flip-out",
-      "meaning_en": "to flip out, explode in anger",
-      "category": "adjectives",
-      "variants": [
-        {
-          "term": "ponerse chulo",
-          "countries": [
-            "CL"
-          ],
-          "note": "to flip out"
-        },
-        {
-          "term": "ponerse chándalo",
-          "countries": [
-            "CL"
-          ],
-          "note": "to get very angry"
-        },
-        {
-          "term": "explotar",
-          "countries": [
-            "VE",
-            "CO",
-            "AR",
-            "PE",
-            "MX"
-          ],
-          "note": "to explode"
-        },
-        {
-          "term": "reventar",
-          "countries": [
-            "AR",
-            "MX"
-          ],
-          "note": "to blow up"
-        },
-        {
-          "term": "rebentar",
-          "countries": [
-            "BR"
-          ],
-          "note": "to blow up in anger"
-        },
-        {
-          "term": "surtar",
-          "countries": [
-            "BR"
-          ],
-          "note": "to freak out, lose it"
-        }
-      ]
-    },
-    {
-      "id": "motherfucker-cunt",
-      "meaning_en": "motherfucker, cunt (extremely offensive)",
-      "category": "insults",
-      "variants": [
-        {
-          "term": "conchesumadre",
-          "countries": [
-            "CL"
-          ],
-          "note": "extremely offensive, motherfucker"
-        },
-        {
-          "term": "conchatumadre",
-          "countries": [
-            "CL"
-          ],
-          "note": "extremely offensive"
-        },
-        {
-          "term": "conchesumare",
-          "countries": [
-            "CL"
-          ],
-          "note": "extremely offensive"
-        },
-        {
-          "term": "malparido",
-          "countries": [
-            "CO"
-          ],
-          "note": "bastard, motherfucker"
-        },
-        {
-          "term": "hijueputa",
-          "countries": [
-            "CO",
-            "VE"
-          ],
-          "note": "son of a bitch"
-        },
-        {
-          "term": "hijo de puta",
-          "countries": [
-            "AR",
-            "PE",
-            "MX"
-          ],
-          "note": "son of a bitch"
-        },
-        {
-          "term": "filho da puta",
-          "countries": [
-            "BR"
-          ],
-          "note": "son of a bitch"
-        }
-      ]
-    },
-    {
-      "id": "piece-of-shit",
-      "meaning_en": "piece of shit, worthless person",
-      "category": "insults",
-      "variants": [
-        {
-          "term": "pedazo de mierda",
-          "countries": [
-            "CL",
-            "CO",
-            "AR",
-            "PE",
-            "VE",
-            "MX"
-          ]
-        },
-        {
-          "term": "trozo de mierda",
-          "countries": [
-            "CL"
-          ]
-        },
-        {
-          "term": "mierda de persona",
-          "countries": [
-            "CL",
-            "CO"
-          ]
-        },
-        {
-          "term": "pedaço de merda",
-          "countries": [
-            "BR"
-          ],
-          "note": "piece of shit"
-        },
-        {
-          "term": "escória",
-          "countries": [
-            "BR"
-          ],
-          "note": "scum"
-        }
-      ]
-    },
-    {
-      "id": "asshole-dickhead",
-      "meaning_en": "asshole, dickhead, jerk",
-      "category": "insults",
-      "variants": [
-        {
-          "term": "chanta",
-          "countries": [
-            "CL"
-          ],
-          "note": "asshole, con artist"
-        },
-        {
-          "term": "chanta de mierda",
-          "countries": [
-            "CL"
-          ],
-          "note": "fucking asshole"
-        },
-        {
-          "term": "gil",
-          "countries": [
-            "CL",
-            "AR"
-          ],
-          "note": "idiot, fool"
-        },
-        {
-          "term": "gil de mierda",
-          "countries": [
-            "CL"
-          ],
-          "note": "fucking idiot"
-        },
-        {
-          "term": "culiao",
-          "countries": [
-            "CL"
-          ],
-          "note": "asshole (very common)"
-        },
-        {
-          "term": "culiao de mierda",
-          "countries": [
-            "CL"
-          ],
-          "note": "fucking asshole"
-        },
-        {
-          "term": "maricón",
-          "countries": [
-            "CO",
-            "AR",
-            "VE"
-          ],
-          "note": "asshole"
-        },
-        {
-          "term": "culero",
+          "term": "híjole",
           "countries": [
             "MX"
           ],
-          "note": "asshole"
+          "note": "exclamation of surprise or dismay; híjole, se me olvidó = shoot, I forgot"
         },
         {
-          "term": "babaca",
-          "countries": [
-            "BR"
-          ],
-          "note": "asshole, moron"
-        }
-      ]
-    },
-    {
-      "id": "whore-slut",
-      "meaning_en": "whore, slut, bitch (offensive to women)",
-      "category": "insults",
-      "variants": [
-        {
-          "term": "puta",
-          "countries": [
-            "CL",
-            "CO",
-            "AR",
-            "PE",
-            "VE",
-            "MX",
-            "BR"
-          ],
-          "note": "whore, bitch"
-        },
-        {
-          "term": "puta de mierda",
-          "countries": [
-            "CL",
-            "CO"
-          ],
-          "note": "fucking whore"
-        },
-        {
-          "term": "zorra",
-          "countries": [
-            "CL",
-            "AR"
-          ],
-          "note": "bitch, slut"
-        },
-        {
-          "term": "sapa",
-          "countries": [
-            "CO"
-          ],
-          "note": "bitch, slut"
-        },
-        {
-          "term": "ramera",
+          "term": "coño",
           "countries": [
             "VE"
           ],
-          "note": "whore"
-        },
-        {
-          "term": "piranha",
-          "countries": [
-            "BR"
-          ],
-          "note": "slut, whore"
-        },
-        {
-          "term": "vaca",
-          "countries": [
-            "BR"
-          ],
-          "note": "cow, bitch"
-        },
-        {
-          "term": "puta que parió",
-          "countries": [
-            "CL"
-          ],
-          "note": "son of a bitch"
+          "note": "versatile strong exclamation expressing surprise, frustration, or joy; coño, qué rico = damn, that's good"
         }
       ]
     },
     {
-      "id": "bastard-scoundrel",
-      "meaning_en": "bastard, scoundrel, lowlife",
-      "category": "insults",
+      "id": "malon",
+      "meaning_en": "impromptu gathering at someone's home, often unannounced",
+      "category": "greetings",
       "variants": [
         {
-          "term": "bastardo",
+          "term": "malón",
           "countries": [
             "CL",
-            "CO",
-            "AR",
-            "PE",
-            "VE",
-            "MX",
-            "BR"
-          ]
-        },
-        {
-          "term": "hijo de la maraca",
-          "countries": [
-            "CL"
-          ],
-          "note": "bastard"
-        },
-        {
-          "term": "hijo de la gran puta",
-          "countries": [
-            "CL"
-          ],
-          "note": "son of a big whore"
-        },
-        {
-          "term": "hijo de mil putas",
-          "countries": [
-            "CL"
-          ],
-          "note": "son of a thousand whores"
-        },
-        {
-          "term": "bastardo de mierda",
-          "countries": [
-            "CL",
-            "CO",
             "AR"
-          ]
-        },
-        {
-          "term": "canalla",
-          "countries": [
-            "AR",
-            "VE"
           ],
-          "note": "scoundrel"
+          "note": "caer de malón = to show up to someone's place unannounced with food and drinks"
         }
       ]
     },
     {
-      "id": "dumbass-moron",
-      "meaning_en": "dumbass, moron, idiot",
-      "category": "insults",
-      "variants": [
-        {
-          "term": "weón",
-          "countries": [
-            "CL"
-          ],
-          "note": "dumbass, jerk"
-        },
-        {
-          "term": "weón de mierda",
-          "countries": [
-            "CL"
-          ],
-          "note": "fucking dumbass"
-        },
-        {
-          "term": "pendejo",
-          "countries": [
-            "MX",
-            "VE"
-          ],
-          "note": "dumbass"
-        },
-        {
-          "term": "boludo",
-          "countries": [
-            "AR"
-          ],
-          "note": "dumbass"
-        },
-        {
-          "term": "boludo de mierda",
-          "countries": [
-            "AR"
-          ],
-          "note": "fucking dumbass"
-        },
-        {
-          "term": "baboso",
-          "countries": [
-            "CO",
-            "MX"
-          ],
-          "note": "moron"
-        },
-        {
-          "term": "idiota",
-          "countries": [
-            "CL",
-            "CO",
-            "AR",
-            "PE",
-            "VE",
-            "MX",
-            "BR"
-          ]
-        },
-        {
-          "term": "idiota de mierda",
-          "countries": [
-            "CL",
-            "AR"
-          ],
-          "note": "fucking idiot"
-        },
-        {
-          "term": "imbécil",
-          "countries": [
-            "CL",
-            "CO",
-            "AR",
-            "PE",
-            "VE",
-            "MX",
-            "BR"
-          ],
-          "note": "imbecile"
-        },
-        {
-          "term": "imbécil de mierda",
-          "countries": [
-            "CL"
-          ],
-          "note": "fucking imbecile"
-        }
-      ]
-    },
-    {
-      "id": "shithead-shitface",
-      "meaning_en": "shithead, shitface",
-      "category": "insults",
-      "variants": [
-        {
-          "term": "caradeverga",
-          "countries": [
-            "CL"
-          ],
-          "note": "shitface (lit. dick face)"
-        },
-        {
-          "term": "caradeculo",
-          "countries": [
-            "CL"
-          ],
-          "note": "assface"
-        },
-        {
-          "term": "cara de raja",
-          "countries": [
-            "CL"
-          ],
-          "note": "buttface"
-        },
-        {
-          "term": "cara de poto",
-          "countries": [
-            "CL"
-          ],
-          "note": "shitface"
-        },
-        {
-          "term": "caradepingo",
-          "countries": [
-            "_CL"
-          ],
-          "note": "shitface"
-        },
-        {
-          "term": "caradeverga de mierda",
-          "countries": [
-            "CL"
-          ],
-          "note": "fucking shitface"
-        },
-        {
-          "term": "caradeculo de mierda",
-          "countries": [
-            "CL"
-          ],
-          "note": "fucking assface"
-        }
-      ]
-    },
-    {
-      "id": "fuck-you",
-      "meaning_en": "fuck you (direct insult)",
-      "category": "insults",
-      "variants": [
-        {
-          "term": "anda a la conchesumadre",
-          "countries": [
-            "CL"
-          ],
-          "note": "go get fucked"
-        },
-        {
-          "term": "anda a la mierda",
-          "countries": [
-            "CL",
-            "CO",
-            "AR",
-            "VE"
-          ],
-          "note": "fuck off"
-        },
-        {
-          "term": "chúpala",
-          "countries": [
-            "CL",
-            "PE"
-          ],
-          "note": "suck it"
-        },
-        {
-          "term": "chúpala entera",
-          "countries": [
-            "CL"
-          ],
-          "note": "suck it whole"
-        },
-        {
-          "term": "chúpala con callo",
-          "countries": [
-            "CL"
-          ],
-          "note": "suck it with callus"
-        },
-        {
-          "term": "comete el peo",
-          "countries": [
-            "AR"
-          ],
-          "note": "eat shit"
-        },
-        {
-          "term": "go to hell",
-          "countries": [
-            "CO",
-            "MX"
-          ],
-          "note": "fuck you"
-        },
-        {
-          "term": "vai tomar no cu",
-          "countries": [
-            "BR"
-          ],
-          "note": "fuck you, go fuck yourself"
-        },
-        {
-          "term": "vai à merda",
-          "countries": [
-            "BR"
-          ],
-          "note": "go to hell"
-        }
-      ]
-    },
-    {
-      "id": "chile-specific-insults",
-      "meaning_en": "Chile-specific strong insults",
-      "category": "insults",
-      "variants": [
-        {
-          "term": "chúpame el pico",
-          "countries": [
-            "CL"
-          ],
-          "note": "suck my dick"
-        },
-        {
-          "term": "chúpame la zorra",
-          "countries": [
-            "CL"
-          ],
-          "note": "suck my pussy (fem)"
-        },
-        {
-          "term": "chúpame el poto",
-          "countries": [
-            "CL"
-          ],
-          "note": "suck my ass"
-        },
-        {
-          "term": "la tula",
-          "countries": [
-            "CL"
-          ],
-          "note": "dick"
-        },
-        {
-          "term": "la callampa",
-          "countries": [
-            "CL"
-          ],
-          "note": "dick"
-        },
-        {
-          "term": "el guarén",
-          "countries": [
-            "CL"
-          ],
-          "note": "dick"
-        },
-        {
-          "term": "la raja",
-          "countries": [
-            "CL"
-          ],
-          "note": "ass"
-        },
-        {
-          "term": "la zorra",
-          "countries": [
-            "CL"
-          ],
-          "note": "pussy"
-        },
-        {
-          "term": "chupa pico culiao",
-          "countries": [
-            "CL"
-          ],
-          "note": "suck dick asshole"
-        },
-        {
-          "term": "chupenmelo",
-          "countries": [
-            "CL"
-          ],
-          "note": "suck it"
-        }
-      ]
-    }
-  ]
-}
+      "id": "a-huevo",
+      "meaning_en": "hell yes, of course, absolutely, you bet",
+      "category": "greetings",
+}]}
