@@ -141,6 +141,57 @@
       ]
     },
     {
+      "id": "skilled",
+      "meaning_en": "skilled, good at something",
+      "category": "adjectives",
+      "variants": [
+        {
+          "term": "seco",
+          "countries": [
+            "CL"
+          ],
+          "note": "e.g., 'es seco para el fútbol' (he's really good at soccer)"
+        },
+        {
+          "term": "teso",
+          "countries": [
+            "CO"
+          ],
+          "note": "e.g., 'es un teso para las matemáticas' (he's really good at math)"
+        },
+        {
+          "term": "crack",
+          "countries": [
+            "AR",
+            "MX",
+            "PE"
+          ],
+          "note": "e.g., 'eres un crack' (you're awesome at it)"
+        },
+        {
+          "term": "mostro",
+          "countries": [
+            "PE"
+          ],
+          "note": "e.g., 'es un mostro' (he's a beast at it)"
+        },
+        {
+          "term": "fiera",
+          "countries": [
+            "VE"
+          ],
+          "note": "e.g., 'eres una fiera' (you're a beast at it)"
+        },
+        {
+          "term": "fera",
+          "countries": [
+            "BR"
+          ],
+          "note": "e.g., 'você é fera' (you're skilled at it)"
+        }
+      ]
+    },
+    {
       "id": "lame",
       "meaning_en": "lame, boring, bad",
       "category": "adjectives",
@@ -926,6 +977,459 @@
         },
         {
           "term": "festa",
+          "countries": [
+            "BR"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "kid",
+      "meaning_en": "kid, young person",
+      "category": "greetings",
+      "variants": [
+        {
+          "term": "cabro",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "pelado",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "pibe",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "chamaco",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "chamo",
+          "countries": [
+            "VE"
+          ]
+        },
+        {
+          "term": "pata",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "moleque",
+          "countries": [
+            "BR"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "thing-stuff",
+      "meaning_en": "thing, stuff, situation",
+      "category": "greetings",
+      "variants": [
+        {
+          "term": "huevada",
+          "countries": [
+            "CL"
+          ],
+          "note": "also 'weá'"
+        },
+        {
+          "term": "vaina",
+          "countries": [
+            "CO",
+            "VE"
+          ]
+        },
+        {
+          "term": "cosa",
+          "countries": [
+            "AR",
+            "MX"
+          ]
+        },
+        {
+          "term": "huevada",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "bagulho",
+          "countries": [
+            "BR"
+          ],
+          "note": "also 'parada', 'negócio'"
+        }
+      ]
+    },
+    {
+      "id": "awesome-person",
+      "meaning_en": "badass, impressive person",
+      "category": "adjectives",
+      "variants": [
+        {
+          "term": "seco",
+          "countries": [
+            "CL"
+          ],
+          "note": "also means skilled"
+        },
+        {
+          "term": "berraco",
+          "countries": [
+            "CO"
+          ],
+          "note": "also means tough or angry"
+        },
+        {
+          "term": "groso",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "chingón",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "mostro",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "arrecho",
+          "countries": [
+            "VE"
+          ]
+        },
+        {
+          "term": "brabo",
+          "countries": [
+            "BR"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mess-up",
+      "meaning_en": "to mess up, screw up",
+      "category": "work",
+      "variants": [
+        {
+          "term": "cagarla",
+          "countries": [
+            "CL",
+            "AR"
+          ]
+        },
+        {
+          "term": "embarrarla",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "cagarla",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "cagarla",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "cagar",
+          "countries": [
+            "VE"
+          ]
+        },
+        {
+          "term": "cagar tudo",
+          "countries": [
+            "BR"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fed-up",
+      "meaning_en": "fed up, annoyed, tired of something",
+      "category": "adjectives",
+      "variants": [
+        {
+          "term": "chato",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "jartera",
+          "countries": [
+            "CO"
+          ],
+          "note": "also used as noun 'me da jartera' (it annoys me)"
+        },
+        {
+          "term": "podrido",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "harto",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "harto",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "arrecho",
+          "countries": [
+            "VE"
+          ],
+          "note": "context-dependent, can also mean angry"
+        },
+        {
+          "term": "de saco cheio",
+          "countries": [
+            "BR"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hungover",
+      "meaning_en": "hungover",
+      "category": "adjectives",
+      "variants": [
+        {
+          "term": "con caña",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "enguayabado",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "con resaca",
+          "countries": [
+            "AR",
+            "MX"
+          ]
+        },
+        {
+          "term": "con chuchaqui",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "con ratón",
+          "countries": [
+            "VE"
+          ]
+        },
+        {
+          "term": "de ressaca",
+          "countries": [
+            "BR"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "liquor",
+      "meaning_en": "liquor, booze, alcohol",
+      "category": "greetings",
+      "variants": [
+        {
+          "term": "copete",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "guaro",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "escabio",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "chupe",
+          "countries": [
+            "MX",
+            "PE"
+          ]
+        },
+        {
+          "term": "palo",
+          "countries": [
+            "VE"
+          ]
+        },
+        {
+          "term": "pinga",
+          "countries": [
+            "BR"
+          ],
+          "note": "cachaça or strong liquor"
+        }
+      ]
+    },
+    {
+      "id": "tough-luck",
+      "meaning_en": "tough luck, too bad, that sucks",
+      "category": "greetings",
+      "variants": [
+        {
+          "term": "mala cuea",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "paila",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "qué garrón",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "qué gacho",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "qué palta",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "qué ladilla",
+          "countries": [
+            "VE"
+          ]
+        },
+        {
+          "term": "que merda",
+          "countries": [
+            "BR"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "to-joke-around",
+      "meaning_en": "to joke around, mess with someone",
+      "category": "greetings",
+      "variants": [
+        {
+          "term": "huevear",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "mamar gallo",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "joder",
+          "countries": [
+            "AR",
+            "VE"
+          ]
+        },
+        {
+          "term": "cotorrear",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "huevear",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "zoar",
+          "countries": [
+            "BR"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "car",
+      "meaning_en": "car, vehicle",
+      "category": "work",
+      "variants": [
+        {
+          "term": "auto",
+          "countries": [
+            "CL",
+            "AR"
+          ]
+        },
+        {
+          "term": "fierro",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "carro",
+          "countries": [
+            "MX",
+            "CO",
+            "VE",
+            "PE"
+          ]
+        },
+        {
+          "term": "carro",
           "countries": [
             "BR"
           ]
@@ -3316,6 +3820,21 @@
             "MX"
           ],
           "note": "lit. burning; can't let go of an offense"
+        },
+        {
+          "term": "resentido",
+          "countries": [
+            "CO",
+            "AR",
+            "PE",
+            "VE"
+          ]
+        },
+        {
+          "term": "ressentido",
+          "countries": [
+            "BR"
+          ]
         }
       ]
     },
@@ -3324,6 +3843,22 @@
       "meaning_en": "gut feeling, hunch — an intuitive sense or vibe about something",
       "category": "adjectives",
       "variants": [
+        {
+          "term": "corazonada",
+          "countries": [
+            "CO",
+            "AR",
+            "MX",
+            "PE",
+            "VE"
+          ]
+        },
+        {
+          "term": "pressentimento",
+          "countries": [
+            "BR"
+          ]
+        },
         {
           "term": "tinca",
           "countries": [
@@ -3346,9 +3881,24 @@
           "note": "pololear = to date someone"
         },
         {
+          "term": "novio / novia",
+          "countries": [
+            "CO",
+            "AR",
+            "MX",
+            "VE"
+          ]
+        },
+        {
           "term": "enamorado / enamorada",
           "countries": [
             "PE"
+          ]
+        },
+        {
+          "term": "namorado / namorada",
+          "countries": [
+            "BR"
           ]
         }
       ]
@@ -3358,6 +3908,21 @@
       "meaning_en": "nerd, study grind, academic overachiever",
       "category": "insults",
       "variants": [
+        {
+          "term": "nerd",
+          "countries": [
+            "CO",
+            "PE",
+            "VE"
+          ]
+        },
+        {
+          "term": "CDF",
+          "countries": [
+            "BR"
+          ],
+          "note": "acronym: Cu De Ferro (iron ass, always sitting studying)"
+        },
         {
           "term": "mateo / matea",
           "countries": [
@@ -3391,11 +3956,31 @@
           ]
         },
         {
+          "term": "mamador de gallo",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
           "term": "chamuyero / chamuyera",
           "countries": [
             "AR"
           ],
           "note": "from chamuyo = smooth talk"
+        },
+        {
+          "term": "hablador",
+          "countries": [
+            "MX",
+            "PE",
+            "VE"
+          ]
+        },
+        {
+          "term": "mentiroso",
+          "countries": [
+            "BR"
+          ]
         }
       ]
     },
@@ -3404,6 +3989,28 @@
       "meaning_en": "gutsy, bold, tough, badass (personal quality)",
       "category": "adjectives",
       "variants": [
+        {
+          "term": "agalludo",
+          "countries": [
+            "CO",
+            "MX"
+          ],
+          "note": "from agallas = guts"
+        },
+        {
+          "term": "picante",
+          "countries": [
+            "AR",
+            "PE",
+            "VE"
+          ]
+        },
+        {
+          "term": "corajudo",
+          "countries": [
+            "BR"
+          ]
+        },
         {
           "term": "choro / chora",
           "countries": [
@@ -3424,6 +4031,22 @@
             "CL"
           ],
           "note": "esa situación estuvo cuática = that situation was intense/wild"
+        },
+        {
+          "term": "intenso",
+          "countries": [
+            "CO",
+            "AR",
+            "MX",
+            "PE",
+            "VE"
+          ]
+        },
+        {
+          "term": "tenso",
+          "countries": [
+            "BR"
+          ]
         }
       ]
     },
@@ -3432,6 +4055,21 @@
       "meaning_en": "fraud, fake person — someone who talks big but never delivers",
       "category": "insults",
       "variants": [
+        {
+          "term": "hablador",
+          "countries": [
+            "CO",
+            "MX",
+            "PE",
+            "VE"
+          ]
+        },
+        {
+          "term": "falso",
+          "countries": [
+            "BR"
+          ]
+        },
         {
           "term": "chanta",
           "countries": [
@@ -3447,6 +4085,12 @@
       "category": "insults",
       "variants": [
         {
+          "term": "gil",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
           "term": "caído del zarzo",
           "countries": [
             "CO"
@@ -3458,6 +4102,25 @@
           "countries": [
             "AR"
           ]
+        },
+        {
+          "term": "pendejo",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "gil",
+          "countries": [
+            "PE",
+            "VE"
+          ]
+        },
+        {
+          "term": "otário",
+          "countries": [
+            "BR"
+          ]
         }
       ]
     },
@@ -3466,6 +4129,25 @@
       "meaning_en": "to flirt with or hit on someone romantically",
       "category": "greetings",
       "variants": [
+        {
+          "term": "tirar los perros",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "tirar los perros",
+          "countries": [
+            "PE",
+            "VE"
+          ]
+        },
+        {
+          "term": "paquerar",
+          "countries": [
+            "BR"
+          ]
+        },
         {
           "term": "echar los perros",
           "countries": [
@@ -3500,6 +4182,22 @@
             "CO"
           ],
           "note": "also as exclamation: ¡qué berraquera! = how impressive!"
+        },
+        {
+          "term": "duro / dura",
+          "countries": [
+            "CL",
+            "AR",
+            "MX",
+            "PE",
+            "VE"
+          ]
+        },
+        {
+          "term": "cascudo",
+          "countries": [
+            "BR"
+          ]
         }
       ]
     },
@@ -3508,6 +4206,22 @@
       "meaning_en": "worthless, pathetic, of very poor quality or character",
       "category": "adjectives",
       "variants": [
+        {
+          "term": "ordinario",
+          "countries": [
+            "CL",
+            "AR",
+            "MX",
+            "PE",
+            "VE"
+          ]
+        },
+        {
+          "term": "vagabundo",
+          "countries": [
+            "BR"
+          ]
+        },
         {
           "term": "pichurria",
           "countries": [
@@ -3711,6 +4425,19 @@
             "CO",
             "PE"
           ]
+        },
+        {
+          "term": "los pacos",
+          "countries": [
+            "VE"
+          ]
+        },
+        {
+          "term": "os gambé",
+          "countries": [
+            "BR"
+          ],
+          "note": "also 'os home', 'a tira'"
         }
       ]
     },
@@ -3725,6 +4452,24 @@
             "AR"
           ],
           "note": "from the backheel goal in soccer — executed so smoothly it seems accidental"
+        },
+        {
+          "term": "sin despeinarse",
+          "countries": [
+            "CL",
+            "CO",
+            "MX",
+            "PE",
+            "VE"
+          ],
+          "note": "lit. without messing up your hair"
+        },
+        {
+          "term": "de boa",
+          "countries": [
+            "BR"
+          ],
+          "note": "easily, smoothly"
         }
       ]
     },
@@ -3733,6 +4478,15 @@
       "meaning_en": "nightclub, dance bar, place to party at night",
       "category": "greetings",
       "variants": [
+        {
+          "term": "disco",
+          "countries": [
+            "CL",
+            "CO",
+            "PE",
+            "VE"
+          ]
+        },
         {
           "term": "boliche",
           "countries": [
@@ -3746,6 +4500,12 @@
             "MX"
           ],
           "note": "standard Spanish antro = dive bar, but MX slang for any nightclub"
+        },
+        {
+          "term": "balada",
+          "countries": [
+            "BR"
+          ]
         }
       ]
     },
@@ -3770,6 +4530,19 @@
             "MX"
           ],
           "note": "lit. with hair standing on end"
+        },
+        {
+          "term": "cagado",
+          "countries": [
+            "PE",
+            "VE"
+          ]
+        },
+        {
+          "term": "com medo",
+          "countries": [
+            "BR"
+          ]
         }
       ]
     },
@@ -3829,8 +4602,15 @@
       "category": "work",
       "variants": [
         {
+          "term": "la coima",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
           "term": "la mordida",
           "countries": [
+            "CO",
             "MX"
           ],
           "note": "lit. the bite; iconic for petty corruption, especially traffic cops"
@@ -3841,6 +4621,18 @@
             "AR",
             "PE"
           ]
+        },
+        {
+          "term": "la matraca",
+          "countries": [
+            "VE"
+          ]
+        },
+        {
+          "term": "a propina",
+          "countries": [
+            "BR"
+          ]
         }
       ]
     },
@@ -3849,6 +4641,15 @@
       "meaning_en": "in trouble, screwed, in a bad spot",
       "category": "adjectives",
       "variants": [
+        {
+          "term": "cagado",
+          "countries": [
+            "CL",
+            "CO",
+            "PE",
+            "VE"
+          ]
+        },
         {
           "term": "en el horno",
           "countries": [
@@ -3867,6 +4668,12 @@
           "term": "al horno",
           "countries": [
             "AR"
+          ]
+        },
+        {
+          "term": "ferrado",
+          "countries": [
+            "BR"
           ]
         }
       ]
@@ -3891,11 +4698,28 @@
       "category": "greetings",
       "variants": [
         {
+          "term": "casa",
+          "countries": [
+            "CL",
+            "CO",
+            "AR",
+            "MX",
+            "VE"
+          ]
+        },
+        {
           "term": "jato",
           "countries": [
             "PE"
           ],
           "note": "me voy a mi jato = I'm going home; quintessential limeño slang"
+        },
+        {
+          "term": "quebrada",
+          "countries": [
+            "BR"
+          ],
+          "note": "slang for home/hood"
         }
       ]
     },
