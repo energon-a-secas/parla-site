@@ -96,7 +96,7 @@ export function bindEvents(s) {
       const btn = e.target.closest('#diagramShare');
       const url = window.location.href;
       const term = document.querySelector('.center-term')?.textContent?.trim() || 'a slang word';
-      const shareData = { title: `Parla — ${term}`, text: `Check out "${term}" on Parla, the Latin American slang map`, url };
+      const shareData = { title: `Parla: ${term}`, text: `Check out "${term}" on Parla, the Latin American slang map`, url };
       const doShare = navigator.share && navigator.canShare?.(shareData)
         ? navigator.share(shareData)
         : navigator.clipboard.writeText(url);

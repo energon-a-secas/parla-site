@@ -45,7 +45,7 @@ Search any Latin American slang word and instantly see its equivalents across Ch
 - **English search** -- search by English meaning to discover slang you don't know yet
 - **Browse mode** -- explore the full dictionary grouped by category
 - **Static JSON API** -- `GET /api/v1/dictionary.json` for programmatic access
-- **Dotted map background** -- floating country outlines as subtle visual texture
+- **Geographic map background** -- Natural Earth country outlines with dot fill, six city markers, and light parallax
 
 ---
 

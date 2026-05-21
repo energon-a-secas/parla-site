@@ -29,10 +29,12 @@ Standard modular ES module app. Entry point is `js/app.js`.
 - SVG `<path>` connectors drawn from center to each node using quadratic bezier curves.
 - Runs inside `requestAnimationFrame` after DOM settles so `offsetWidth`/`offsetHeight` measurements are accurate.
 
-**Background canvas** (`diagram.js`):
+**Background canvas** (`diagram.js` + `data/latam-outline.json`):
+- Country coastlines from Natural Earth 110m (`ne_110m_admin_0_countries`), simplified and stored in `data/latam-outline.json`.
 - Runs a continuous `requestAnimationFrame` loop — never stopped.
 - Mouse/touch parallax: map drifts opposite to cursor at 1.5% scale, plus ambient sine drift.
-- Layers drawn back-to-front: grid → continent outline → country borders → city markers → cursor glow.
+- Layers drawn back-to-front: grid → land dot fill → country fills/strokes (per-country tint) → six city markers (app country colors) → cursor glow.
+- Dot positions are precomputed on load/resize via point-in-polygon (not per frame).
 
 **State persistence** (`state.js`):
 - localStorage key: `parla-state`
