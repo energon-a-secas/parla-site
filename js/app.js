@@ -14,7 +14,7 @@ async function init() {
   renderIntro(state);
   render(state);
   bindEvents(state);
-  initBackground();
+  initBackground(state.dictionary);
   openFromHash(state);
 
   window.addEventListener('hashchange', () => openFromHash(state));

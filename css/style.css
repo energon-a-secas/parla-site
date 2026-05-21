@@ -150,6 +150,96 @@ main#main {
   -webkit-image-rendering: optimizeQuality;
 }
 
+.globe-capitals {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.globe-capital-pin {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: opacity 0.15s ease-out;
+}
+
+.globe-capital-pin.hidden {
+  display: none;
+}
+
+.globe-pin-dot {
+  display: block;
+  width: 10px;
+  height: 10px;
+  margin: 7px auto 0;
+  border-radius: 50%;
+  background: var(--pin-color, var(--accent));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--pin-color, var(--accent)) 25%, transparent),
+    0 0 14px color-mix(in srgb, var(--pin-color, var(--accent)) 45%, transparent);
+}
+
+.globe-capital-pin:hover .globe-pin-dot,
+.globe-capital-pin:focus-visible .globe-pin-dot {
+  transform: scale(1.25);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--pin-color, var(--accent)) 35%, transparent),
+    0 0 20px color-mix(in srgb, var(--pin-color, var(--accent)) 55%, transparent);
+}
+
+.globe-card {
+  position: fixed;
+  z-index: 2;
+  max-width: 280px;
+  padding: var(--space-3) var(--space-4);
+  background: var(--surface-solid);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+  pointer-events: auto;
+}
+
+.globe-card-head {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-2);
+}
+
+.globe-card-terms {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.globe-card-terms li {
+  padding: 6px 0;
+  border-top: 1px solid var(--border-subtle);
+  font-size: var(--text-xs);
+  line-height: 1.45;
+}
+
+.globe-card-terms li:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.globe-card-term {
+  display: block;
+  font-weight: 600;
+  color: var(--accent-bright);
+  margin-bottom: 2px;
+}
+
+.globe-card-meaning {
+  display: block;
+  color: var(--text-muted);
+}
+
 /* -- Word of the day -- */
 .word-of-day {
   display: block;

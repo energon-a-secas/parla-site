@@ -45,7 +45,7 @@ Search any Latin American slang word and instantly see its equivalents across Ch
 - **English search** -- search by English meaning to discover slang you don't know yet
 - **Browse mode** -- explore the full dictionary grouped by category
 - **Static JSON API** -- `GET /api/v1/dictionary.json` for programmatic access
-- **Geographic map background** -- Natural Earth country outlines with dot fill, six city markers, and light parallax
+- **Spinning globe background** -- orthographic LATAM globe with capital pins; hover a pin for random slang samples from that country
 
 ---
 
@@ -84,7 +84,8 @@ parla-site/
 │   ├── state.js            # Search state, filters, localStorage
 │   ├── data.js             # Load dictionary, search index, matching
 │   ├── render.js           # DOM rendering, diagram layout, browse view
-│   ├── diagram.js          # Floating background country outlines
+│   ├── diagram.js          # Re-exports background init
+│   ├── globe.js            # Spinning globe + capital hover cards
 │   ├── events.js           # Search input, filters, keyboard shortcuts
 │   └── utils.js            # Helpers (escHtml, toast, debounce)
 ├── api/v1/dictionary.json  # Full dictionary (static JSON API)
