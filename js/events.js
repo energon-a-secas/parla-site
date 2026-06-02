@@ -3,7 +3,8 @@
 
 import { state, save } from './state.js';
 import { search } from './data.js';
-import { render, renderResults, renderBrowse, showDiagram, relayout } from './render.js';
+import { render, renderResults, renderBrowse, showDiagram, relayout, dismissWordOfDayForToday, getWordOfDayData } from './render.js';
+import { focusGlobeCountry } from './diagram.js';
 import { $, debounce, showToast } from './utils.js';
 
 export function bindEvents(s) {
@@ -22,6 +23,7 @@ export function bindEvents(s) {
       $('introState').classList.remove('hidden');
       $('diagramArea').classList.add('hidden');
       renderBrowse(s);
+      focusGlobeCountry(s.activeCountry);
       return;
     }
 
@@ -42,6 +44,7 @@ export function bindEvents(s) {
     $('introState').classList.remove('hidden');
     $('diagramArea').classList.add('hidden');
     renderBrowse(s);
+    focusGlobeCountry(s.activeCountry);
     input.focus();
   });
 
@@ -50,6 +53,7 @@ export function bindEvents(s) {
     s.activeCountry = e.target.value || null;
     save(s);
     render(s);
+    focusGlobeCountry(s.activeCountry);
     if (s.query) doSearch();
     else renderBrowse(s);
   });
@@ -83,6 +87,7 @@ export function bindEvents(s) {
       history.replaceState(null, '', window.location.pathname + window.location.search);
     }
     $('diagramArea').classList.add('hidden');
+    focusGlobeCountry(s.activeCountry);
     if (s.query) {
       renderResults(search(s.dictionary, s.query, s.activeCountry, s.activeCategory), s);
     } else {
@@ -119,17 +124,6 @@ export function bindEvents(s) {
     }
   });
 
-  // ESC to close diagram
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && !$('diagramArea').classList.contains('hidden')) {
-      if (s.diagramPushedState) {
-        s.diagramPushedState = false;
-        history.back();
-      } else {
-        closeDiagram(true);
-      }
-    }
-  });
 
   // Trackpad / browser back gesture
   window.addEventListener('popstate', () => {
@@ -161,7 +155,6 @@ export function bindEvents(s) {
     const concept = s.dictionary.concepts.find(c => c.id === card.dataset.concept);
     if (!concept) return;
     showDiagram(concept, concept.variants[0], s);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
   // Example pills
@@ -172,27 +165,56 @@ export function bindEvents(s) {
     doSearch();
   });
 
-  // Word of the day click
-  $('wordOfDay')?.addEventListener('click', () => {
-    const el = $('wordOfDay');
-    const conceptId = el?.dataset.concept;
-    const termStr = el?.dataset.term;
-    if (!conceptId || !s.dictionary) return;
-    const concept = s.dictionary.concepts.find(c => c.id === conceptId);
-    if (!concept) return;
-    const variant = concept.variants.find(v => v.term === termStr) || concept.variants[0];
-    input.value = variant.term;
-    s.query = variant.term;
-    clearBtn.classList.remove('hidden');
-    showDiagram(concept, variant, s);
-  });
+  // Word of the day dialog
+  const wodDialog = $('wodDialog');
+  if (wodDialog) {
+    wodDialog.addEventListener('click', (e) => {
+      if (e.target.closest('#wodDismiss') || e.target.closest('#wodSkip')) {
+        dismissWordOfDayForToday();
+        return;
+      }
+      if (e.target.closest('#wodOpen')) {
+        const data = getWordOfDayData(s);
+        if (!data) return;
+        const { concept, variant } = data;
+        dismissWordOfDayForToday();
+        input.value = variant.term;
+        s.query = variant.term;
+        clearBtn.classList.remove('hidden');
+        $('introState').classList.add('hidden');
+        showDiagram(concept, variant, s);
+      }
+    });
 
-  // Keyboard: Escape clears search
+    wodDialog.addEventListener('cancel', (e) => {
+      e.preventDefault();
+      dismissWordOfDayForToday();
+    });
+  }
+
+  // Keyboard shortcuts
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && s.query) {
-      clearBtn.click();
+    if (e.key === 'Escape') {
+      if (wodDialog?.open) {
+        e.preventDefault();
+        dismissWordOfDayForToday();
+        return;
+      }
+      if (!$('diagramArea').classList.contains('hidden')) {
+        if (s.diagramPushedState) {
+          s.diagramPushedState = false;
+          history.back();
+        } else {
+          closeDiagram(true);
+        }
+        return;
+      }
+      if (s.query) {
+        clearBtn.click();
+      }
+      return;
     }
-    // Focus search on / key
+
     if (e.key === '/' && document.activeElement !== input) {
       e.preventDefault();
       input.focus();

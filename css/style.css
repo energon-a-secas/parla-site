@@ -53,10 +53,27 @@ main#main {
   max-width: 960px;
   width: 100%;
   margin: 0 auto;
-  padding: 30px;
-  flex: 1;
+  padding: var(--space-4) var(--space-6) var(--space-3);
+  flex: 0 0 auto;
   position: relative;
   z-index: 1;
+}
+
+.container-browse {
+  padding-top: var(--space-2);
+  margin-top: auto;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .hidden { display: none !important; }
@@ -240,50 +257,193 @@ main#main {
   color: var(--text-muted);
 }
 
-/* -- Word of the day -- */
-.word-of-day {
-  display: block;
-  width: 100%;
-  font: inherit;
-  padding: var(--space-4) var(--space-6);
-  margin-bottom: var(--space-4);
-  background: var(--accent-dim);
-  border: 1px solid rgba(192,132,252,.15);
-  border-radius: var(--radius);
-  cursor: pointer;
-  transition: border-color var(--dur), background var(--dur);
-  text-align: center;
-  color: inherit;
+/* -- Command bar (search + filters) -- */
+.command-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+  padding: var(--space-2);
+  background: rgba(4, 7, 20, 0.55);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  position: sticky;
+  top: 76px;
+  z-index: 50;
 }
 
-.word-of-day:hover {
+.command-search {
+  position: relative;
+  flex: 1.4;
+  min-width: 0;
+}
+
+.command-search .search-icon {
+  left: 14px;
+  width: 18px;
+  height: 18px;
+}
+
+.command-search .search-input {
+  padding: 12px 40px 12px 42px;
+  font-size: var(--text-base);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.command-search .search-input:focus {
+  box-shadow: 0 0 0 2px var(--accent-dim);
+}
+
+.command-search:focus-within .search-icon {
+  color: var(--accent);
+}
+
+.command-search .search-clear {
+  right: 4px;
+  min-width: 36px;
+  min-height: 36px;
+}
+
+.command-bar .filter-select {
+  flex: 0 1 160px;
+  min-width: 0;
+  padding: 10px 28px 10px 12px;
+  font-size: var(--text-xs);
+  background-color: rgba(255, 255, 255, 0.04);
+}
+
+/* -- Word of the day dialog -- */
+.wod-dialog {
+  margin: auto;
+  padding: 0;
+  border: none;
+  max-width: min(420px, calc(100vw - 32px));
+  background: transparent;
+  color: var(--text-primary);
+}
+
+.wod-dialog::backdrop {
+  background: rgba(4, 7, 20, 0.72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.wod-dialog.open {
+  display: block;
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  z-index: 300;
+}
+
+.wod-dialog-inner {
+  padding: var(--space-6);
+  background: var(--surface-solid);
+  border: 1px solid rgba(192, 132, 252, 0.25);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45), 0 0 48px rgba(192, 132, 252, 0.08);
+  text-align: center;
+  animation: fadeIn 0.35s var(--ease-out) both;
+}
+
+.wod-label {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-bright);
+  margin-bottom: var(--space-3);
+}
+
+.wod-hint {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  margin-top: var(--space-3);
+}
+
+.wod-actions {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.wod-btn {
+  font: inherit;
+  font-size: var(--text-sm);
+  padding: 10px 16px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--surface-1);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: border-color var(--dur), background var(--dur), color var(--dur);
+}
+
+.wod-btn:hover {
+  color: var(--text-primary);
+  border-color: var(--border-strong);
+  background: var(--surface-2);
+}
+
+.wod-btn-primary {
+  border-color: rgba(192, 132, 252, 0.35);
+  background: var(--accent-dim);
+  color: var(--accent-bright);
+}
+
+.wod-btn-primary:hover {
   border-color: var(--accent);
-  background: rgba(192,132,252,.1);
+  background: rgba(192, 132, 252, 0.18);
+}
+
+.wod-term-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font: inherit;
+  cursor: pointer;
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid rgba(192, 132, 252, 0.2);
+  border-radius: var(--radius);
+  background: var(--accent-dim);
+  color: inherit;
+  transition: border-color var(--dur), transform var(--dur), box-shadow var(--dur);
+}
+
+.wod-term-btn:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 24px rgba(192, 132, 252, 0.12);
+  transform: translateY(-1px);
 }
 
 .wod-prompt {
-  font-size: var(--text-xs);
+  font-size: var(--text-sm);
   color: var(--text-muted);
-  margin-bottom: 6px;
+  margin-bottom: var(--space-3);
   line-height: 1.5;
 }
 
 .wod-term {
-  font-size: var(--text-xl);
+  font-size: var(--text-2xl);
   font-weight: 700;
   color: var(--accent-bright);
   letter-spacing: 0.5px;
 }
 
 .wod-flag {
-  font-size: var(--text-base);
-  margin-left: 6px;
+  font-size: var(--text-lg);
 }
 
 .wod-meaning {
-  font-size: var(--text-xs);
-  color: var(--text-muted);
-  margin-top: 4px;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  margin-top: var(--space-2);
+  line-height: 1.45;
 }
 
 /* -- Search area -- */
@@ -405,7 +565,7 @@ main#main {
 /* -- Intro state -- */
 .intro-state {
   text-align: center;
-  padding: var(--space-8) 0 var(--space-8);
+  padding: var(--space-4) 0 var(--space-6);
 }
 
 .intro-text {
@@ -515,9 +675,11 @@ main#main {
 .diagram-area {
   position: relative;
   width: 100%;
-  min-height: 400px;
+  min-height: min(52vh, 480px);
+  flex: 1;
   margin: 0;
   padding: 0 var(--space-4);
+  z-index: 1;
 }
 
 .diagram-lines {
@@ -906,14 +1068,23 @@ button:active:not(.diagram-node):not(.diagram-back):not(.diagram-share) {
 /* -- Responsive -- */
 @media (max-width: 600px) {
   .header-bar { padding: 0 var(--space-4); }
-  .container { padding: var(--space-4); }
+  .container { padding: var(--space-3) var(--space-4); }
 
-  .search-input {
-    font-size: var(--text-base);
-    padding: 14px 44px 14px 48px;
+  .command-bar {
+    flex-wrap: wrap;
+    top: 68px;
   }
 
-  .diagram-area { min-height: 360px; }
+  .command-bar .filter-select {
+    flex: 1 1 calc(50% - var(--space-1));
+  }
+
+  .command-search .search-input {
+    font-size: var(--text-sm);
+    padding: 11px 36px 11px 38px;
+  }
+
+  .diagram-area { min-height: min(48vh, 360px); }
 
   .diagram-center {
     padding: 12px 18px;
@@ -935,10 +1106,6 @@ button:active:not(.diagram-node):not(.diagram-back):not(.diagram-share) {
 
   .browse-grid {
     grid-template-columns: 1fr;
-  }
-
-  .filter-bar {
-    flex-direction: column;
   }
 }
 

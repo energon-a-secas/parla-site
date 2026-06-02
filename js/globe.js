@@ -1,15 +1,43 @@
-// -- Spinning 2D orthographic globe (background) --
-// Natural Earth land outlines, six capital pins, hover cards from dictionary.
+// -- 2D orthographic globe (background) --
+// Natural Earth land outlines, seven capital pins, hover cards from dictionary.
 
 import { $, escHtml } from './utils.js';
 
 const ACCENT = '#c084fc';
 const ACCENT_RGB = { r: 192, g: 132, b: 252 };
-const SPIN_SPEED = 0.00012;
-const CAPITAL_CODES = ['MX', 'CO', 'VE', 'PE', 'CL', 'AR'];
+const CAPITAL_CODES = ['MX', 'CO', 'VE', 'BR', 'PE', 'CL', 'AR'];
+
+const ISO3_TO_COUNTRY = {
+  MEX: 'MX',
+  COL: 'CO',
+  VEN: 'VE',
+  BRA: 'BR',
+  PER: 'PE',
+  CHL: 'CL',
+  ARG: 'AR',
+};
 const SAMPLE_COUNT = 5;
+const DEFAULT_FOCUS_LON = -78;
+const FOCUS_LERP = 0.08;
 
 const DEG = Math.PI / 180;
+
+let applyGlobeFocus = null;
+
+export function focusGlobeCountry(countryCode) {
+  applyGlobeFocus?.(countryCode);
+}
+
+export function focusGlobeForSelection({ country, variant, concept }) {
+  let code = country || null;
+  if (!code && variant?.countries?.length) {
+    code = CAPITAL_CODES.find((c) => variant.countries.includes(c)) || variant.countries[0];
+  } else if (!code && concept?.variants?.[0]?.countries?.length) {
+    const cs = concept.variants[0].countries;
+    code = CAPITAL_CODES.find((c) => cs.includes(c)) || cs[0];
+  }
+  focusGlobeCountry(code);
+}
 
 function lonLatToXYZ(lon, lat) {
   const lo = lon * DEG;
@@ -39,6 +67,25 @@ function projectSphere(p, cx, cy, radius) {
     z: p.z,
     visible: p.z > 0.02,
   };
+}
+
+function longitudeToSpinAngle(lon) {
+  const lo = lon * DEG;
+  const x = Math.cos(lo);
+  const z = Math.sin(lo);
+  return Math.atan2(-x, z);
+}
+
+function normalizeAngle(a) {
+  let angle = a;
+  while (angle > Math.PI) angle -= Math.PI * 2;
+  while (angle < -Math.PI) angle += Math.PI * 2;
+  return angle;
+}
+
+function lerpAngle(current, target, t) {
+  const diff = normalizeAngle(target - current);
+  return current + diff * t;
 }
 
 function shufflePick(items, count) {
@@ -101,9 +148,30 @@ export function initBackground(dictionary) {
   let landVerts = [];
   let borderRings = [];
   let capitals = [];
-  let spinAngle = -1.35;
-  let spinEnabled = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let spinPaused = false;
+  let spinAngle = longitudeToSpinAngle(DEFAULT_FOCUS_LON);
+  let targetSpinAngle = spinAngle;
+  let stickyFocusCountry = null;
+  const motionOk = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function resolveFocusLon(code) {
+    if (!code) return DEFAULT_FOCUS_LON;
+    const city = capitals.find((c) => c.country === code);
+    if (city) return city.lon;
+    return DEFAULT_FOCUS_LON;
+  }
+
+  function aimGlobeAt(countryCode) {
+    targetSpinAngle = longitudeToSpinAngle(resolveFocusLon(countryCode));
+    if (!motionOk) spinAngle = targetSpinAngle;
+  }
+
+  function setGlobeFocusTarget(countryCode) {
+    stickyFocusCountry = countryCode;
+    aimGlobeAt(countryCode);
+  }
+
+  applyGlobeFocus = setGlobeFocusTarget;
+  setGlobeFocusTarget(null);
 
   const pins = CAPITAL_CODES.map((code) => {
     const btn = document.createElement('button');
@@ -156,7 +224,7 @@ export function initBackground(dictionary) {
 
   pins.forEach((pin) => {
     pin.addEventListener('mouseenter', () => {
-      spinPaused = true;
+      aimGlobeAt(pin.dataset.country);
       clearTimeout(hideCardTimer);
       activePin = pin;
       const x = parseFloat(pin.style.left) + 12;
@@ -164,7 +232,7 @@ export function initBackground(dictionary) {
       showCard(pin.dataset.country, x, y);
     });
     pin.addEventListener('focus', () => {
-      spinPaused = true;
+      aimGlobeAt(pin.dataset.country);
       clearTimeout(hideCardTimer);
       activePin = pin;
       const x = parseFloat(pin.style.left) + 12;
@@ -174,35 +242,24 @@ export function initBackground(dictionary) {
     pin.addEventListener('mouseleave', () => {
       hideCardTimer = setTimeout(() => {
         hideCard();
-        spinPaused = false;
+        aimGlobeAt(stickyFocusCountry);
       }, 180);
     });
     pin.addEventListener('blur', () => {
       hideCardTimer = setTimeout(() => {
         hideCard();
-        spinPaused = false;
+        aimGlobeAt(stickyFocusCountry);
       }, 180);
     });
     pin.addEventListener('click', (e) => {
       e.preventDefault();
-      const input = $('searchInput');
-      if (input) {
-        input.focus();
-        input.dispatchEvent(new Event('input', { bubbles: true }));
-      }
+      setGlobeFocusTarget(pin.dataset.country);
     });
   });
 
   cardEl.addEventListener('mouseenter', () => clearTimeout(hideCardTimer));
   cardEl.addEventListener('mouseleave', () => {
-    hideCardTimer = setTimeout(() => {
-      hideCard();
-      spinPaused = false;
-    }, 120);
-  });
-
-  capitalsLayer.addEventListener('mouseenter', () => {
-    spinPaused = true;
+    hideCardTimer = setTimeout(hideCard, 120);
   });
 
   fetch('data/latam-outline.json')
@@ -211,6 +268,7 @@ export function initBackground(dictionary) {
       geo = data;
       rebuildMeshes();
       capitals = (geo.cities || []).filter((c) => CAPITAL_CODES.includes(c.country));
+      setGlobeFocusTarget(null);
     })
     .catch(() => {});
 
@@ -220,15 +278,18 @@ export function initBackground(dictionary) {
     if (!geo?.countries) return;
 
     for (const country of geo.countries) {
+      const appCode = ISO3_TO_COUNTRY[country.code];
+      const fill =
+        (appCode && countriesMeta[appCode]?.color) || country.color;
       const step = Math.max(1, Math.floor(country.ring.length / 80));
       const ring3d = [];
       for (let i = 0; i < country.ring.length; i += step) {
         const pt = country.ring[i];
         const v = lonLatToXYZ(pt.lon, pt.lat);
-        landVerts.push({ ...v, color: country.color });
+        landVerts.push({ ...v, color: fill });
         ring3d.push(v);
       }
-      if (ring3d.length > 2) borderRings.push({ color: country.color, points: ring3d });
+      if (ring3d.length > 2) borderRings.push({ color: fill, points: ring3d });
     }
   }
 
@@ -261,9 +322,9 @@ export function initBackground(dictionary) {
 
   function globeLayout() {
     const size = Math.min(w, h);
-    const radius = size * 0.36;
-    const cx = w * 0.52;
-    const cy = h * 0.48;
+    const radius = size * 0.44;
+    const cx = w * 0.5;
+    const cy = h * 0.46;
     return { cx, cy, radius };
   }
 
@@ -426,7 +487,11 @@ export function initBackground(dictionary) {
     updateMouse();
     const dt = lastFrame ? timestamp - lastFrame : 16;
     lastFrame = timestamp;
-    if (spinEnabled && !spinPaused) spinAngle += SPIN_SPEED * dt;
+    if (motionOk) {
+      spinAngle = lerpAngle(spinAngle, targetSpinAngle, FOCUS_LERP * (dt / 16));
+    } else {
+      spinAngle = targetSpinAngle;
+    }
 
     const { cx, cy, radius } = globeLayout();
     const parallaxX = (mouseX - w / 2) * -0.008;

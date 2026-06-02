@@ -1,1 +1,1 @@
-export { initBackground } from './globe.js';
+export { initBackground, focusGlobeCountry, focusGlobeForSelection } from './globe.js';

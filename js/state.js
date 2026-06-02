@@ -2,6 +2,28 @@
 // Shared mutable state object.
 
 const STORAGE_KEY = 'parla-state';
+const WOD_DISMISS_KEY = 'parla-wod-dismissed';
+
+function todayKey() {
+  const d = new Date();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${d.getFullYear()}-${m}-${day}`;
+}
+
+export function isWodDismissedToday() {
+  try {
+    return localStorage.getItem(WOD_DISMISS_KEY) === todayKey();
+  } catch {
+    return false;
+  }
+}
+
+export function dismissWodToday() {
+  try {
+    localStorage.setItem(WOD_DISMISS_KEY, todayKey());
+  } catch { /* ignore */ }
+}
 
 export const state = {
   dictionary: null,

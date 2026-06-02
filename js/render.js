@@ -1,12 +1,12 @@
 // -- DOM rendering --
 // All functions that create or update DOM elements.
 
-import { state } from './state.js';
+import { state, isWodDismissedToday, dismissWodToday } from './state.js';
 import { getCountries, getCategories, browseConcepts } from './data.js';
+import { focusGlobeForSelection } from './diagram.js';
 import { $, escHtml, categoryLabel, categoryIcon } from './utils.js';
 
 export function render(s) {
-  renderWordOfDay(s);
   renderCountryFilters(s);
   renderCategoryFilters(s);
   renderBrowse(s);
@@ -22,31 +22,62 @@ const PROMPTS = [
   'Palabra del dia, usalas o pierdelas:',
 ];
 
-export function renderWordOfDay(s) {
-  const el = $('wordOfDay');
-  if (!el || !s.dictionary) return;
+export function getWordOfDayData(s) {
+  if (!s.dictionary?.concepts?.length) return null;
   const countries = getCountries(s.dictionary);
-  const concepts = s.dictionary.concepts;
-  if (!concepts.length) return;
-
-  // Date-seeded pick so it stays the same all day
   const today = new Date();
   const seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
-  const conceptIdx = seed % concepts.length;
-  const concept = concepts[conceptIdx];
-  const variantIdx = seed % concept.variants.length;
-  const variant = concept.variants[variantIdx];
+  const concepts = s.dictionary.concepts;
+  const concept = concepts[seed % concepts.length];
+  const variant = concept.variants[seed % concept.variants.length];
   const promptIdx = seed % PROMPTS.length;
+  return { concept, variant, prompt: PROMPTS[promptIdx], countries };
+}
 
+export function renderWordOfDayContent(s) {
+  const data = getWordOfDayData(s);
+  const content = $('wodContent');
+  if (!data || !content) return null;
+
+  const { concept, variant, prompt, countries } = data;
   const flags = variant.countries.map(c => countries[c]?.flag || c).join(' ');
 
-  el.innerHTML = `
-    <div class="wod-prompt">${PROMPTS[promptIdx]}</div>
-    <div class="wod-term">${escHtml(variant.term)} <span class="wod-flag">${flags}</span></div>
-    <div class="wod-meaning">${escHtml(concept.meaning_en)}</div>
+  content.innerHTML = `
+    <p class="wod-prompt">${prompt}</p>
+    <button type="button" class="wod-term-btn" id="wodOpen">
+      <span class="wod-term">${escHtml(variant.term)}</span>
+      <span class="wod-flag">${flags}</span>
+    </button>
+    <p class="wod-meaning">${escHtml(concept.meaning_en)}</p>
   `;
-  el.dataset.concept = concept.id;
-  el.dataset.term = variant.term;
+
+  return { concept, variant };
+}
+
+export function showWordOfDayDialog(s) {
+  const dialog = $('wodDialog');
+  if (!dialog || isWodDismissedToday()) return;
+
+  const payload = renderWordOfDayContent(s);
+  if (!payload) return;
+
+  if (typeof dialog.showModal === 'function' && !dialog.open) {
+    dialog.showModal();
+  } else {
+    dialog.classList.add('open');
+  }
+}
+
+export function hideWordOfDayDialog() {
+  const dialog = $('wodDialog');
+  if (!dialog) return;
+  if (dialog.open) dialog.close();
+  dialog.classList.remove('open');
+}
+
+export function dismissWordOfDayForToday() {
+  dismissWodToday();
+  hideWordOfDayDialog();
 }
 
 export function renderIntro(s) {
@@ -152,7 +183,7 @@ export function showDiagram(concept, matchedVariant, s) {
   area.innerHTML = '';
   browse.classList.add('hidden');
   diagram.classList.remove('hidden');
-  diagram.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
 
   s.activeConcept = concept;
   s.matchedTerm = matchedVariant?.term || concept.variants[0].term;
@@ -237,11 +268,52 @@ export function showDiagram(concept, matchedVariant, s) {
     </div>`;
   }).join('');
 
+  focusGlobeForSelection({
+    country: s.activeCountry,
+    variant: matchedVariant,
+    concept,
+  });
+
   // Size the diagram to fill remaining viewport, then layout
   requestAnimationFrame(() => {
     sizeDiagram(diagram);
     layoutDiagram(diagram, center, nodes, lines, count);
   });
+}
+
+/** Hub capitals — same coords as data/latam-outline.json cities */
+const HUB_CAPITAL_GEO = {
+  MX: { lon: -99.1332, lat: 19.4326 },
+  CO: { lon: -74.0721, lat: 4.711 },
+  VE: { lon: -66.9036, lat: 10.4806 },
+  BR: { lon: -47.8825, lat: -15.7942 },
+  PE: { lon: -77.0428, lat: -12.0464 },
+  CL: { lon: -70.6693, lat: -33.4489 },
+  AR: { lon: -58.3816, lat: -34.6037 },
+};
+
+const DIAGRAM_GEO_CENTER = { lon: -72, lat: -8 };
+
+function countryDiagramAngle(code) {
+  const cap = HUB_CAPITAL_GEO[code];
+  if (!cap) return null;
+  const { lon: refLon, lat: refLat } = DIAGRAM_GEO_CENTER;
+  return Math.atan2(-(cap.lat - refLat), cap.lon - refLon);
+}
+
+function buildCountryAngles(countryCodes) {
+  const angles = {};
+  const unknown = [];
+  for (const code of countryCodes) {
+    const geo = countryDiagramAngle(code);
+    if (geo !== null) angles[code] = geo;
+    else unknown.push(code);
+  }
+  const sectorSize = (2 * Math.PI) / Math.max(unknown.length, 1);
+  unknown.sort().forEach((code, i) => {
+    angles[code] = sectorSize * i - Math.PI / 2;
+  });
+  return angles;
 }
 
 function sizeDiagram(container) {
@@ -264,9 +336,7 @@ function layoutDiagram(container, center, nodesWrap, linesSvg, count) {
   const isSmall = window.innerWidth < 400;
 
   // Proximity-based layout: nodes sharing countries cluster together.
-  // 1) Assign each country a fixed angular sector around the center.
-  // 2) Place nodes in their primary country's sector, with distance
-  //    proportional to how many countries they span (fewer = closer).
+  // Country angles follow hub capital positions (north up, MX northwest, BR east).
   const allCountries = [];
   nodeEls.forEach(node => {
     const cs = (node.dataset.countries || '').split(',').filter(Boolean);
@@ -275,17 +345,8 @@ function layoutDiagram(container, center, nodesWrap, linesSvg, count) {
     }
   });
 
-  // Fixed country order for consistent placement (clockwise from top)
-  const COUNTRY_ORDER = ['MX', 'CO', 'VE', 'PE', 'CL', 'AR'];
-  const ordered = COUNTRY_ORDER.filter(c => allCountries.includes(c));
-  const extra = allCountries.filter(c => !ordered.includes(c));
-  const finalOrder = [...ordered, ...extra];
-
-  const sectorSize = (2 * Math.PI) / Math.max(finalOrder.length, 1);
-  const countryAngle = {};
-  finalOrder.forEach((c, i) => {
-    countryAngle[c] = sectorSize * i - Math.PI / 2;
-  });
+  const countryAngle = buildCountryAngles(allCountries);
+  const jitterSpan = Math.PI / Math.max(allCountries.length * 2, 8);
 
   // Radius must fit inside the container with padding for node size
   const padW = isMobile ? 60 : 90;
@@ -308,7 +369,7 @@ function layoutDiagram(container, center, nodesWrap, linesSvg, count) {
     }
     const angle = Math.atan2(sumSin, sumCos);
     // Spread within sector: add slight offset based on index
-    const jitter = (i / Math.max(count, 1) - 0.5) * sectorSize * 0.5;
+    const jitter = (i / Math.max(count, 1) - 0.5) * jitterSpan;
     const finalAngle = angle + jitter;
 
     // Distance: single-country nodes are closer, multi-country further out

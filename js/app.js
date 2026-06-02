@@ -4,7 +4,7 @@
 
 import { state, loadSaved } from './state.js';
 import { loadDictionary } from './data.js';
-import { render, renderIntro, showDiagram } from './render.js';
+import { render, renderIntro, showDiagram, showWordOfDayDialog } from './render.js';
 import { bindEvents } from './events.js';
 import { initBackground } from './diagram.js';
 
@@ -16,6 +16,10 @@ async function init() {
   bindEvents(state);
   initBackground(state.dictionary);
   openFromHash(state);
+
+  if (!window.location.hash.startsWith('#w=')) {
+    showWordOfDayDialog(state);
+  }
 
   window.addEventListener('hashchange', () => openFromHash(state));
 }

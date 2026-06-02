@@ -23,16 +23,16 @@ Standard modular ES module app. Entry point is `js/app.js`.
 4. `showDiagram()` handles URL hash (`#w=<concept-id>`) via `history.pushState` and popstate so browser back/forward works correctly.
 
 **Diagram layout** (`render.js` → `showDiagram` → `layoutDiagram`):
-- Countries have fixed angular sectors (clockwise from top: MX, CO, VE, PE, CL, AR).
-- Nodes are positioned by averaging their countries' sector angles; multi-country nodes go further out.
+- Country angles follow hub capital geography (north up: MX northwest, BR east, CL/AR south).
+- Nodes are positioned by averaging their countries' angles; multi-country nodes go further out.
 - 50-iteration overlap resolution using measured node bounding boxes, then clamped to container bounds.
 - SVG `<path>` connectors drawn from center to each node using quadratic bezier curves.
 - Runs inside `requestAnimationFrame` after DOM settles so `offsetWidth`/`offsetHeight` measurements are accurate.
 
 **Background globe** (`globe.js` + `data/latam-outline.json`):
-- 2D orthographic sphere, slow Y-axis spin (`prefers-reduced-motion` disables spin).
-- Land dots and country borders from Natural Earth 110m, projected on the visible hemisphere.
-- Six capital pins (MX, CO, VE, PE, CL, AR) track globe rotation; hover/focus shows 5 random dictionary terms per country.
+- 2D orthographic sphere (no continuous spin). Default view centers on LATAM (~78°W).
+- `focusGlobeCountry(code)` / `focusGlobeForSelection(...)` smoothly rotate to center a country when a word diagram opens, a filter changes, or a capital pin is hovered.
+- Land dots and country borders from Natural Earth 110m; six capital pins with hover cards (5 random terms).
 - `initBackground(dictionary)` must run after `loadDictionary()` so samples exist.
 - Search still uses the radial diagram in `render.js`; globe is decorative only.
 
@@ -81,4 +81,4 @@ Standard modular ES module app. Entry point is `js/app.js`.
 - The diagram center element is re-rendered on every `showDiagram()` call, which inserts the Back/Share buttons. Event handlers for those buttons are delegated on `#diagramArea`, not attached to the buttons directly.
 - `relayout()` in `render.js` is called on window resize — it only works if `s.activeConcept` is set and `#diagramArea` is visible.
 - To add a new category, add entries to `CATEGORY_LABELS` and `CATEGORY_ICONS` in `utils.js` in addition to the dictionary data.
-- To add a new country, add it to `api/v1/dictionary.json` under `countries`, add it to `COUNTRY_ORDER` in `render.js` (for sector placement), and add a city to `CITIES` and optional border segments to `BORDERS` in `diagram.js`.
+- To add a new country, add it to `api/v1/dictionary.json` under `countries`, add capital coords to `HUB_CAPITAL_GEO` in `render.js` and `data/latam-outline.json` `cities`, and add it to `CAPITAL_CODES` in `globe.js`.
