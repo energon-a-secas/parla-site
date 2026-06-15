@@ -741,8 +741,8 @@ main#main {
 }
 
 .center-category {
-  font-size: 0.65rem;
-  color: rgba(255,255,255,.3);
+  font-size: 0.7rem;
+  color: var(--text-muted);
   margin-top: 6px;
 }
 
@@ -806,11 +806,10 @@ main#main {
 }
 
 .node-note {
-  font-size: 0.65rem;
+  font-size: 0.7rem;
   color: var(--text-muted);
   font-style: italic;
   margin-top: 3px;
-  opacity: 0.7;
 }
 
 /* -- Diagram controls (back + share, inside center card) -- */

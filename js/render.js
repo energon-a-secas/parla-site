@@ -183,7 +183,8 @@ export function showDiagram(concept, matchedVariant, s) {
   area.innerHTML = '';
   browse.classList.add('hidden');
   diagram.classList.remove('hidden');
-  window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  window.scrollTo({ top: 0, left: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
 
   s.activeConcept = concept;
   s.matchedTerm = matchedVariant?.term || concept.variants[0].term;
