@@ -1,0 +1,140 @@
+presentation:
+  title: "The map was pretending"
+  subtitle: "Parla's radial diagram implied geography it did not have. Rebuilding it on a real globe."
+  author: "LucianoAdonis"
+  date: "2026-08"
+  theme: midnight
+  pattern: orbs
+
+  slides:
+    - type: title
+      heading: "The map was pretending"
+      subtitle: "Rebuilding Parla's centrepiece on geography that can be checked"
+
+    - type: bullets
+      heading: "Two things were claiming more than they could back"
+      bullets:
+        - "Radial diagram placed words by compass bearing"
+        - "Bearing came from real capitals, so it looked right"
+        - "Distance was discarded, replaced by country count"
+        - "Background globe rotated on one axis only"
+        - "Focusing a country never centred it vertically"
+      notes: >
+        The angle came from Math.atan2 over real capital lat/lon relative to a reference near
+        Peru. Every number honest, the composition still not a map: two countries at the same
+        bearing landed on top of each other regardless of distance.
+
+    - type: image
+      heading: "\"Centred\" only ever meant longitude"
+      src: "https://parla.neorgon.com/post/png/01-centring.png"
+      alt: "Vertical offset of each capital on the retired globe, Mexico 33% above centre and Argentina 57% below"
+      caption: "Both were reported as centred. They sat 90% of the radius apart."
+      notes: >
+        Offset is -sin(latitude) in units of the globe radius, computed from the anchors in
+        api/v1/dictionary.json. This is the defect that made the rebuild worth doing.
+
+    - type: divider
+      heading: "What changed"
+      subtitle: "The globe became the diagram"
+
+    - type: split
+      heading: "One visualization instead of two"
+      left:
+        heading: "Before"
+        bullets:
+          - "Radial wheel, derived bearings"
+          - "Globe as decoration behind content"
+          - "Capitals duplicated in three files"
+      right:
+        heading: "After"
+        bullets:
+          - "Cards pinned to real screen positions"
+          - "Globe is the full-viewport stage"
+          - "One anchor field, single source"
+      notes: >
+        js/globe.js and data/latam-outline.json deleted. The radial layout survives only as the
+        no-WebGL fallback, sharing collide.js#separate so the two cannot drift apart.
+
+    - type: image
+      heading: "A word, on the countries that say it"
+      src: "https://parla.neorgon.com/post/png/shot-concept.png"
+      alt: "Parla showing la lonchera with regional equivalents pinned to Chile, Argentina and Brazil"
+      caption: "Every term sits on its country, with a leader line back to the land."
+      notes: >
+        Captured from the running app at localhost:8817. Opening a daily-category concept lights
+        up all eight countries, which is the clearest demo of the map.
+
+    - type: qa
+      heading: "Does the map read better than the wheel did?"
+      subtext: "Worth checking before we go into the geometry, because the rest assumes yes."
+
+    - type: divider
+      heading: "The part that nearly broke it"
+      subtitle: "Flat triangles on a curved surface"
+
+    - type: image
+      heading: "Every country sinks, not just the big ones"
+      src: "https://parla.neorgon.com/post/png/02-sag.png"
+      alt: "Chord midpoint per country against the ocean surface, all eight falling short"
+      caption: "The US misses by 5.9% of the radius. Venezuela, at 13 degrees wide, still misses."
+      notes: >
+        I expected this to be a Brazil special case. Measuring every country from
+        data/americas.json showed all eight fail, which turned a hack into a general fix.
+
+    - type: code
+      heading: "Subdivide until the chord hugs the sphere"
+      language: javascript
+      code: |
+        // js/geo.js — emitTriangle
+        const n = Math.min(12, Math.max(1,
+          Math.ceil(Math.max(eAB, eBC, eCA) / maxEdgeDeg)));
+
+        // barycentric grid, every vertex projected onto the sphere
+        lonLatToVec3(ax*w + bx*u + cx*v,
+                     ay*w + by*u + cy*v, radius, _a);
+      notes: >
+        maxEdgeDeg is 1.5 for focus countries. Residual sag drops to 8.6e-5 of the radius,
+        sub-pixel at any zoom the camera clamps allow.
+
+    - type: stats
+      heading: "Measured"
+      stats:
+        - value: "6,829"
+          label: "Geometry points, 34.6 KB gzipped"
+        - value: "0"
+          label: "Card overlaps at 375px"
+        - value: "8.6e-5"
+          label: "Residual sag, in radii"
+        - value: "0 KB"
+          label: "Three.js fetched without WebGL"
+      notes: >
+        Overlaps counted in the browser on the worst-case concept. The WebGL pre-flight lives in
+        utils.js precisely so a static import cannot pull three into the graph.
+
+    - type: bullets
+      heading: "Five bugs the review turned up"
+      bullets:
+        - "Rotation let South America leave the screen"
+        - "Damping tugged every programmatic move off target"
+        - "Resize broke the is-home test on phones"
+        - "Back reopened the diagram it just closed"
+        - "Accents dropped from Spanish UI copy"
+      notes: >
+        The damping one was the subtlest: OrbitControls re-applies leftover drag velocity on
+        every update, so reset crawled partway home and stopped. applyView now flushes it.
+
+    - type: bullets
+      heading: "Still open"
+      bullets:
+        - "Fallback: two cards touch on dense words"
+        - "Rotation capped, so no free world spin"
+        - "Reduced motion wired but never runtime-tested"
+        - "Nothing committed or deployed yet"
+      notes: >
+        The fallback overlap is the radial solver clamping to bounds; raised iterations to 200,
+        it improved without resolving. Reduced motion reads correctly in code, but I could not
+        emulate the media query, so I am not claiming it was tested.
+
+    - type: cta
+      heading: "Ship it?"
+      subtext: "Review the diff, then commit and push to parla.neorgon.com"
