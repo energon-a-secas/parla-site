@@ -14,13 +14,13 @@ export function render(s) {
 }
 
 const PROMPTS = [
-  'Usa esta palabra hoy en una conversacion:',
+  'Usa esta palabra hoy en una conversación:',
   'Sorprende a alguien con esta palabra:',
   'Impresiona a tus amigos con:',
   'Hoy te toca aprender:',
-  'Desafia a alguien a usar esta palabra:',
-  'Mete esta en tu proximo chat:',
-  'Palabra del dia, usalas o pierdelas:',
+  'Desafía a alguien a usar esta palabra:',
+  'Mete esta en tu próximo chat:',
+  'Palabra del día, úsalas o piérdelas:',
 ];
 
 export function getWordOfDayData(s) {
@@ -99,7 +99,7 @@ export function renderCountryFilters(s) {
   if (!el || !s.dictionary) return;
   const countries = getCountries(s.dictionary);
   const codes = Object.keys(countries);
-  el.innerHTML = `<option value="">Todos los paises</option>` +
+  el.innerHTML = `<option value="">Todos los países</option>` +
     codes.map(code => {
       const c = countries[code];
       const sel = s.activeCountry === code ? ' selected' : '';
@@ -111,7 +111,7 @@ export function renderCategoryFilters(s) {
   const el = $('categorySelect');
   if (!el || !s.dictionary) return;
   const cats = getCategories(s.dictionary);
-  el.innerHTML = `<option value="">Todas las categorias</option>` +
+  el.innerHTML = `<option value="">Todas las categorías</option>` +
     cats.map(cat => {
       const sel = s.activeCategory === cat ? ' selected' : '';
       return `<option value="${cat}"${sel}>${categoryIcon(cat)} ${categoryLabel(cat)}</option>`;
@@ -521,7 +521,7 @@ export function renderBrowse(s) {
     html += `</div>`;
     if (items.length > 3) {
       html += `<button class="browse-expand" data-section="${sectionId}">
-        Ver ${items.length - 3} mas
+        Ver ${items.length - 3} más
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
       </button>`;
     }
