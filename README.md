@@ -30,7 +30,7 @@ Map Latin American slang across countries and languages
 
 ## Overview
 
-Search any Latin American slang word and instantly see its equivalents across Chile, Colombia, Argentina, Mexico, Peru, and Venezuela in a visual diagram. Words that mean the same thing across countries get grouped together, making it easy to spot regional patterns.
+Search any Latin American slang word and instantly see its equivalents across Chile, Colombia, Argentina, Mexico, Peru, Venezuela, Brazil and US Spanglish, laid out on an interactive 3D globe. Each term sits on the country that actually says it, so regional patterns are visible as geography rather than as a list.
 
 **Live:** parla.neorgon.com
 
@@ -39,13 +39,15 @@ Search any Latin American slang word and instantly see its equivalents across Ch
 ## Features
 
 - **Visual word map** -- search a term and see all equivalents connected in a radial diagram
-- **6 countries** -- Chile, Colombia, Argentina, Mexico, Peru, Venezuela
+- **8 countries** -- Chile, Colombia, Argentina, Mexico, Peru, Venezuela, Brazil, and US Spanglish
 - **4 categories** -- greetings, insults, adjectives, work slang
 - **Country filters** -- narrow results to one country at a time
 - **English search** -- search by English meaning to discover slang you don't know yet
 - **Browse mode** -- explore the full dictionary grouped by category
 - **Static JSON API** -- `GET /api/v1/dictionary.json` for programmatic access
-- **Globe background** -- orthographic LATAM globe that centers on the active country (no idle spin); hover a capital pin for random slang samples
+- **3D globe** -- the whole stage. Countries are raised solids in their own colours, drag to rotate and scroll to zoom, hover one for a sample of its slang. Click a country to filter to it and open its terms; rotation is bounded so Latin America never leaves the screen, and one control returns you to all countries
+- **Definitions on the map** -- opening a word pins each regional term to the country that says it, with a leader line back to the land; the camera frames exactly the countries involved
+- **Works without WebGL** -- falls back to the original radial diagram; force it with `?nogl=1`
 
 ---
 
@@ -85,11 +87,16 @@ parla-site/
 │   ├── data.js             # Load dictionary, search index, matching
 │   ├── render.js           # DOM rendering, diagram layout, browse view
 │   ├── diagram.js          # Re-exports background init
-│   ├── globe.js            # Spinning globe + capital hover cards
+│   ├── globe3d.js          # Three.js globe: scene, camera, picking
+│   ├── geo.js              # Sphere math + mesh builders
+│   ├── overlay.js          # Term cards pinned to countries
+│   ├── collide.js          # Overlap solver (shared with the fallback)
 │   ├── events.js           # Search input, filters, keyboard shortcuts
 │   └── utils.js            # Helpers (escHtml, toast, debounce)
 ├── api/v1/dictionary.json  # Full dictionary (static JSON API)
-├── data/backup.json        # Dictionary backup reference
+├── data/americas.json      # Country outlines (generated, `make geometry`)
+├── vendor/three/           # three.js r160 + OrbitControls (vendored)
+├── scripts/build_geometry.py  # Natural Earth -> data/americas.json
 ├── CNAME                   # parla.neorgon.com
 ├── robots.txt              # Search engine rules
 └── sitemap.xml             # Sitemap

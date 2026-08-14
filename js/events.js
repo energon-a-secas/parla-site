@@ -4,10 +4,41 @@
 import { state, save } from './state.js';
 import { search } from './data.js';
 import { render, renderResults, renderBrowse, showDiagram, relayout, dismissWordOfDayForToday, getWordOfDayData } from './render.js';
-import { focusGlobeCountry } from './diagram.js';
+import { focusCountry, clearConcept, relayoutStage, isGlobeMode, setCountryPickHandler,
+  setViewChangeHandler, resetView, isHomeView } from './diagram.js';
 import { $, debounce, showToast } from './utils.js';
 
 export function bindEvents(s) {
+  // -- Results sheet --------------------------------------------------------
+  // One control over the results surface, so search, browse, concept-open and
+  // Escape all agree on whether it is showing.
+  const sheet = $('resultsSheet');
+  const sheetToggle = $('sheetToggle');
+
+  function setSheet(open) {
+    if (!sheet) return;
+    sheet.classList.toggle('is-open', open);
+    sheetToggle?.setAttribute('aria-expanded', String(open));
+  }
+  function sheetOpen() {
+    return !!sheet?.classList.contains('is-open');
+  }
+
+  sheetToggle?.addEventListener('click', () => setSheet(!sheetOpen()));
+  $('sheetGrab')?.addEventListener('click', () => setSheet(false));
+  window.addEventListener('parla:concept', () => setSheet(false));
+
+  // Compact cards on narrow viewports. Set as a class rather than by media
+  // query alone because the collision solver measures the rendered size.
+  const narrow = window.matchMedia('(max-width: 600px)');
+  const applyDensity = () => {
+    $('diagramArea')?.classList.toggle('is-compact', narrow.matches);
+    document.querySelectorAll('.diagram-node')
+      .forEach(n => n.classList.toggle('diagram-node--compact', narrow.matches));
+  };
+  narrow.addEventListener('change', applyDensity);
+  window.addEventListener('parla:concept', applyDensity);
+
   // Search input
   const input = $('searchInput');
   const clearBtn = $('searchClear');
@@ -23,12 +54,14 @@ export function bindEvents(s) {
       $('introState').classList.remove('hidden');
       $('diagramArea').classList.add('hidden');
       renderBrowse(s);
-      focusGlobeCountry(s.activeCountry);
+      focusCountry(s.activeCountry);
+      setSheet(false);
       return;
     }
 
     $('introState').classList.add('hidden');
     const results = search(s.dictionary, s.query, s.activeCountry, s.activeCategory);
+    if (results.length !== 1) setSheet(true);
     renderResults(results, s);
   }, 180);
 
@@ -44,18 +77,55 @@ export function bindEvents(s) {
     $('introState').classList.remove('hidden');
     $('diagramArea').classList.add('hidden');
     renderBrowse(s);
-    focusGlobeCountry(s.activeCountry);
+    focusCountry(s.activeCountry);
+    setSheet(false);
     input.focus();
   });
 
-  // Country filter dropdown
-  $('countrySelect').addEventListener('change', (e) => {
-    s.activeCountry = e.target.value || null;
+  // Picking a country on the globe is the same act as choosing it in the
+  // filter, so it goes through the same path and syncs the select.
+  setCountryPickHandler((code) => {
+    // Clicking the country you already have selected clears it, so the globe
+    // is a toggle rather than a one-way trip into a filter.
+    const next = s.activeCountry === code ? null : code;
+    selectCountry(next);
+    // Picking a country is a request to see that country's slang, so open the
+    // panel on it rather than silently changing a filter behind a closed sheet.
+    setSheet(!!next);
+  });
+
+  setViewChangeHandler(syncResetControl);
+
+  $('globeReset')?.addEventListener('click', () => {
+    selectCountry(null);   // clears the filter and sends the camera home
+    resetView();
+    setSheet(false);
+  });
+
+  /** Single path for changing the active country, whatever triggered it. */
+  function selectCountry(code) {
+    s.activeCountry = code || null;
+    $('countrySelect').value = s.activeCountry || '';
     save(s);
     render(s);
-    focusGlobeCountry(s.activeCountry);
+    focusCountry(s.activeCountry);
     if (s.query) doSearch();
     else renderBrowse(s);
+    // Clearing the country commands the camera home, so the control can hide on
+    // that intent rather than waiting for the render loop to report a settle.
+    syncResetControl(!s.activeCountry);
+  }
+
+  function syncResetControl(home = isHomeView()) {
+    const btn = $('globeReset');
+    if (!btn) return;
+    const useful = isGlobeMode() && (!!s.activeCountry || !home);
+    btn.classList.toggle('hidden', !useful);
+  }
+
+  // Country filter dropdown
+  $('countrySelect').addEventListener('change', (e) => {
+    selectCountry(e.target.value || null);
   });
 
   // Category filter dropdown
@@ -87,9 +157,11 @@ export function bindEvents(s) {
       history.replaceState(null, '', window.location.pathname + window.location.search);
     }
     $('diagramArea').classList.add('hidden');
-    focusGlobeCountry(s.activeCountry);
+    clearConcept();
+    focusCountry(s.activeCountry);
     if (s.query) {
-      renderResults(search(s.dictionary, s.query, s.activeCountry, s.activeCategory), s);
+      renderResults(search(s.dictionary, s.query, s.activeCountry, s.activeCategory), s, false);
+      setSheet(true);
     } else {
       renderBrowse(s);
     }
@@ -131,6 +203,14 @@ export function bindEvents(s) {
       s.diagramPushedState = false;
       closeDiagram(false); // browser already updated URL
     }
+  });
+
+  // Tapping a term card aims the globe at the country it belongs to.
+  $('diagramNodes')?.addEventListener('click', (e) => {
+    const node = e.target.closest('.diagram-node');
+    if (!node) return;
+    const first = (node.dataset.countries || '').split(',').filter(Boolean)[0];
+    if (first) focusCountry(first);
   });
 
   // Expand/collapse browse sections
@@ -209,6 +289,10 @@ export function bindEvents(s) {
         }
         return;
       }
+      if (sheetOpen() && isGlobeMode()) {
+        setSheet(false);
+        return;
+      }
       if (s.query) {
         clearBtn.click();
       }
@@ -222,5 +306,12 @@ export function bindEvents(s) {
   });
 
   // Relayout diagram on resize
-  window.addEventListener('resize', debounce(() => relayout(), 200));
+  window.addEventListener('resize', debounce(() => {
+    if (isGlobeMode()) relayoutStage();
+    else relayout();
+  }, 200));
+
+  // A country filter restored from localStorage means the reset control is
+  // already meaningful before the user has touched anything.
+  syncResetControl();
 }

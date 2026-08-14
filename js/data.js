@@ -122,6 +122,25 @@ export function browseConcepts(dict, countryFilter, categoryFilter) {
   });
 }
 
+/**
+ * A few random terms for one country, for the globe's hover card.
+ * Ported from the retired 2D globe, which built these buckets on every init.
+ */
+export function sampleTerms(dict, code, n = 5) {
+  if (!dict?.concepts || !code) return [];
+  const pool = [];
+  for (const concept of dict.concepts) {
+    for (const v of concept.variants) {
+      if (v.countries.includes(code)) pool.push({ term: v.term, meaning: concept.meaning_en });
+    }
+  }
+  for (let i = pool.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [pool[i], pool[j]] = [pool[j], pool[i]];
+  }
+  return pool.slice(0, n);
+}
+
 export function getCountries(dict) {
   return dict ? dict.countries : {};
 }

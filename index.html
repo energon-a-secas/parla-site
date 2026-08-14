@@ -7,15 +7,15 @@
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <title>Parla | Latin American Slang Map</title>
-  <meta name="description" content="Search Latin American slang and see equivalents across 7 countries in a visual diagram. Static JSON API included">
+  <meta name="description" content="Search Latin American slang and see equivalents across 8 countries on an interactive 3D globe. Static JSON API included">
   <meta property="og:title" content="Parla | Latin American Slang Map">
-  <meta property="og:description" content="Map regional slang across Latin America">
+  <meta property="og:description" content="Map regional slang across Latin America on a 3D globe">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://parla.neorgon.com/">
   <meta property="og:site_name" content="Neorgon">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Parla | Latin American Slang Map">
-  <meta name="twitter:description" content="Map regional slang across Latin America">
+  <meta name="twitter:description" content="Map regional slang across Latin America on a 3D globe">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://parla.neorgon.com/">
   <meta property="og:locale" content="en_US">
@@ -34,12 +34,20 @@
   <script defer src="js/neorgon-header.js"></script>
   <link rel="stylesheet" href="css/neorgon-footer.css">
   <script defer src="js/neorgon-footer.js"></script>
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "./vendor/three/three.module.min.js",
+      "three/addons/": "./vendor/three/addons/"
+    }
+  }
+  </script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "Parla",
-    "description": "Search Latin American slang and see equivalents across 7 countries in a visual diagram",
+    "description": "Search Latin American slang and see equivalents across 8 countries on an interactive 3D globe",
     "url": "https://parla.neorgon.com/",
     "applicationCategory": "ReferenceApplication",
     "operatingSystem": "Any",
@@ -71,14 +79,48 @@
     </div>
   </header>
 
-  <div class="bg-shapes" id="bgShapes" aria-hidden="true">
-    <div class="globe-capitals" id="globeCapitals"></div>
-    <div class="globe-card hidden" id="globeCard"></div>
-  </div>
 
   <main id="main">
-    <div class="container">
+    <div class="globe-stage" id="globeStage" aria-hidden="true"></div>
+    <div class="globe-card hidden" id="globeCard" role="tooltip"></div>
 
+    <button type="button" class="globe-reset hidden" id="globeReset">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18"/>
+      </svg>
+      <span>Ver todos los países</span>
+    </button>
+
+    <div class="diagram-area hidden" id="diagramArea" role="region" aria-label="Equivalentes por país">
+      <svg class="diagram-lines" id="diagramLines"></svg>
+      <div class="diagram-center" id="diagramCenter"></div>
+      <div class="diagram-nodes" id="diagramNodes"></div>
+      <p class="sr-only" id="diagramLive" aria-live="polite"></p>
+    </div>
+
+    <div class="dock">
+      <div class="sheet" id="resultsSheet">
+        <div class="sheet-inner">
+          <div class="sheet-head">
+            <button type="button" class="sheet-grab" id="sheetGrab" aria-label="Cerrar el panel"></button>
+            <div class="sheet-filters">
+              <label class="sr-only" for="countrySelect">Filtrar por país</label>
+              <select class="filter-select" id="countrySelect" aria-label="Filtrar por país"></select>
+              <label class="sr-only" for="categorySelect">Filtrar por categoría</label>
+              <select class="filter-select" id="categorySelect" aria-label="Filtrar por categoría"></select>
+            </div>
+          </div>
+          <div class="sheet-body">
+            <div class="results-area" id="resultsArea">
+              <div class="intro-state" id="introState">
+                <p class="intro-text">Toca un país en el globo, o busca una palabra</p>
+                <div class="intro-examples" id="introExamples"></div>
+              </div>
+            </div>
+            <div class="browse-area" id="browseArea"></div>
+          </div>
+        </div>
+      </div>
       <div class="command-bar">
         <div class="command-search">
           <label class="sr-only" for="searchInput">Buscar jerga</label>
@@ -88,27 +130,11 @@
           <input type="search" id="searchInput" class="search-input" placeholder="bacán, chido, pega, foda…" autocomplete="off" spellcheck="false" enterkeyhint="search">
           <button type="button" class="search-clear hidden" id="searchClear" aria-label="Borrar búsqueda">&times;</button>
         </div>
-        <select class="filter-select" id="countrySelect" aria-label="Filtrar por país"></select>
-        <select class="filter-select" id="categorySelect" aria-label="Filtrar por categoría"></select>
+        <button type="button" class="sheet-toggle" id="sheetToggle" aria-expanded="false" aria-controls="resultsSheet">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+          <span>Explorar</span>
+        </button>
       </div>
-
-      <div class="results-area" id="resultsArea">
-        <div class="intro-state" id="introState">
-          <p class="intro-text">Busca jerga y mira equivalentes en el mapa</p>
-          <div class="intro-examples" id="introExamples"></div>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="diagram-area hidden" id="diagramArea">
-      <svg class="diagram-lines" id="diagramLines"></svg>
-      <div class="diagram-center" id="diagramCenter"></div>
-      <div class="diagram-nodes" id="diagramNodes"></div>
-    </div>
-
-    <div class="container container-browse">
-      <div class="browse-area" id="browseArea"></div>
     </div>
   </main>
 
@@ -124,7 +150,7 @@
     </div>
   </dialog>
 
-  <footer class="neo-footer" data-footer-mode="minimal">
+  <footer class="neo-footer" data-footer-mode="app" data-stick="off">
   </footer>
 
   <script type="module" src="js/app.js"></script>

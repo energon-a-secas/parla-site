@@ -1,40 +1,86 @@
 {
-  "version": "1.0.0",
+  "version": "1.1.0",
   "countries": {
     "CL": {
       "name": "Chile",
       "flag": "🇨🇱",
-      "color": "#dc2626"
+      "color": "#dc2626",
+      "anchor": {
+        "lon": -70.6693,
+        "lat": -33.4489,
+        "label": "Santiago"
+      }
     },
     "CO": {
       "name": "Colombia",
       "flag": "🇨🇴",
-      "color": "#eab308"
+      "color": "#eab308",
+      "anchor": {
+        "lon": -74.0721,
+        "lat": 4.711,
+        "label": "Bogotá"
+      }
     },
     "AR": {
       "name": "Argentina",
       "flag": "🇦🇷",
-      "color": "#38bdf8"
+      "color": "#38bdf8",
+      "anchor": {
+        "lon": -58.3816,
+        "lat": -34.6037,
+        "label": "Buenos Aires"
+      }
     },
     "MX": {
       "name": "México",
       "flag": "🇲🇽",
-      "color": "#22c55e"
+      "color": "#22c55e",
+      "anchor": {
+        "lon": -99.1332,
+        "lat": 19.4326,
+        "label": "Ciudad de México"
+      }
     },
     "PE": {
       "name": "Perú",
       "flag": "🇵🇪",
-      "color": "#f97316"
+      "color": "#f97316",
+      "anchor": {
+        "lon": -77.0428,
+        "lat": -12.0464,
+        "label": "Lima"
+      }
     },
     "VE": {
       "name": "Venezuela",
       "flag": "🇻🇪",
-      "color": "#a855f7"
+      "color": "#a855f7",
+      "anchor": {
+        "lon": -66.9036,
+        "lat": 10.4806,
+        "label": "Caracas"
+      }
     },
     "BR": {
       "name": "Brasil",
       "flag": "🇧🇷",
-      "color": "#10b981"
+      "color": "#10b981",
+      "anchor": {
+        "lon": -47.8825,
+        "lat": -15.7942,
+        "label": "Brasília"
+      }
+    },
+    "US": {
+      "name": "Estados Unidos",
+      "variety": "Spanglish",
+      "flag": "🇺🇸",
+      "color": "#f472b6",
+      "anchor": {
+        "lon": -118.2437,
+        "lat": 34.0522,
+        "label": "Los Ángeles"
+      }
     }
   },
   "concepts": [
@@ -72,7 +118,8 @@
         {
           "term": "chido",
           "countries": [
-            "MX"
+            "MX",
+            "US"
           ]
         },
         {
@@ -85,6 +132,12 @@
           "term": "da hora",
           "countries": [
             "BR"
+          ]
+        },
+        {
+          "term": "cool",
+          "countries": [
+            "US"
           ]
         }
       ]
@@ -115,7 +168,8 @@
         {
           "term": "chingón",
           "countries": [
-            "MX"
+            "MX",
+            "US"
           ]
         },
         {
@@ -217,7 +271,8 @@
         {
           "term": "gacho",
           "countries": [
-            "MX"
+            "MX",
+            "US"
           ]
         },
         {
@@ -269,7 +324,8 @@
         {
           "term": "chafa",
           "countries": [
-            "MX"
+            "MX",
+            "US"
           ]
         },
         {
@@ -352,7 +408,8 @@
         {
           "term": "un chingo",
           "countries": [
-            "MX"
+            "MX",
+            "US"
           ]
         },
         {
@@ -402,7 +459,8 @@
         {
           "term": "encabronado",
           "countries": [
-            "MX"
+            "MX",
+            "US"
           ]
         },
         {
@@ -602,7 +660,8 @@
         {
           "term": "lana",
           "countries": [
-            "MX"
+            "MX",
+            "US"
           ]
         },
         {
@@ -615,6 +674,12 @@
           "term": "grana",
           "countries": [
             "BR"
+          ]
+        },
+        {
+          "term": "el money",
+          "countries": [
+            "US"
           ]
         }
       ]
@@ -645,7 +710,8 @@
         {
           "term": "pedo",
           "countries": [
-            "MX"
+            "MX",
+            "US"
           ]
         },
         {
@@ -694,7 +760,8 @@
         {
           "term": "fresa",
           "countries": [
-            "MX"
+            "MX",
+            "US"
           ]
         },
         {
@@ -777,7 +844,8 @@
         {
           "term": "qué onda",
           "countries": [
-            "MX"
+            "MX",
+            "US"
           ]
         },
         {
@@ -829,7 +897,8 @@
         {
           "term": "güey",
           "countries": [
-            "MX"
+            "MX",
+            "US"
           ]
         },
         {
@@ -878,7 +947,8 @@
         {
           "term": "carnal",
           "countries": [
-            "MX"
+            "MX",
+            "US"
           ]
         },
         {
@@ -921,7 +991,8 @@
         {
           "term": "qué pedo",
           "countries": [
-            "MX"
+            "MX",
+            "US"
           ]
         },
         {
@@ -980,6 +1051,12 @@
           "countries": [
             "BR"
           ]
+        },
+        {
+          "term": "el party",
+          "countries": [
+            "US"
+          ]
         }
       ]
     },
@@ -1009,7 +1086,8 @@
         {
           "term": "chamaco",
           "countries": [
-            "MX"
+            "MX",
+            "US"
           ]
         },
         {
@@ -1048,7 +1126,8 @@
           "term": "vaina",
           "countries": [
             "CO",
-            "VE"
+            "VE",
+            "US"
           ]
         },
         {
@@ -1133,7 +1212,8 @@
           "term": "cagarla",
           "countries": [
             "CL",
-            "AR"
+            "AR",
+            "US"
           ]
         },
         {
@@ -1425,7 +1505,8 @@
             "MX",
             "CO",
             "VE",
-            "PE"
+            "PE",
+            "US"
           ]
         },
         {
@@ -1433,6 +1514,13 @@
           "countries": [
             "BR"
           ]
+        },
+        {
+          "term": "la troca",
+          "countries": [
+            "US"
+          ],
+          "note": "camioneta pickup, de \"truck\""
         }
       ]
     },
@@ -1462,7 +1550,8 @@
         {
           "term": "órale",
           "countries": [
-            "MX"
+            "MX",
+            "US"
           ]
         },
         {
@@ -1505,7 +1594,8 @@
         {
           "term": "neta",
           "countries": [
-            "MX"
+            "MX",
+            "US"
           ]
         },
         {
@@ -1544,7 +1634,8 @@
         {
           "term": "ahorita",
           "countries": [
-            "MX"
+            "MX",
+            "US"
           ]
         },
         {
@@ -1584,7 +1675,8 @@
         {
           "term": "pendejo",
           "countries": [
-            "MX"
+            "MX",
+            "US"
           ]
         },
         {
@@ -1627,7 +1719,8 @@
         {
           "term": "naco",
           "countries": [
-            "MX"
+            "MX",
+            "US"
           ]
         },
         {
@@ -1948,7 +2041,8 @@
           "term": "chamba",
           "countries": [
             "MX",
-            "PE"
+            "PE",
+            "US"
           ]
         },
         {
@@ -1986,7 +2080,8 @@
           "term": "chambear",
           "countries": [
             "MX",
-            "PE"
+            "PE",
+            "US"
           ]
         },
         {
@@ -2024,7 +2119,8 @@
         {
           "term": "chingón",
           "countries": [
-            "MX"
+            "MX",
+            "US"
           ]
         },
         {
@@ -2101,7 +2197,8 @@
         {
           "term": "captar",
           "countries": [
-            "MX"
+            "MX",
+            "US"
           ]
         },
         {
@@ -2138,7 +2235,8 @@
         {
           "term": "regarla",
           "countries": [
-            "MX"
+            "MX",
+            "US"
           ]
         },
         {
@@ -2228,6 +2326,13 @@
           "countries": [
             "VE"
           ]
+        },
+        {
+          "term": "lonchar",
+          "countries": [
+            "US"
+          ],
+          "note": "de \"lunch\""
         }
       ]
     },
@@ -2295,7 +2400,8 @@
         {
           "term": "lo corrieron",
           "countries": [
-            "MX"
+            "MX",
+            "US"
           ]
         },
         {
@@ -2378,7 +2484,8 @@
         {
           "term": "cruda",
           "countries": [
-            "MX"
+            "MX",
+            "US"
           ]
         },
         {
@@ -2461,7 +2568,8 @@
         {
           "term": "cabrón",
           "countries": [
-            "MX"
+            "MX",
+            "US"
           ]
         },
         {
@@ -2506,7 +2614,8 @@
         {
           "term": "huevón",
           "countries": [
-            "MX"
+            "MX",
+            "US"
           ],
           "note": "lazy in this context"
         },
@@ -2842,6 +2951,13 @@
           "countries": [
             "VE"
           ]
+        },
+        {
+          "term": "broke",
+          "countries": [
+            "US"
+          ],
+          "note": "estoy broke"
         }
       ]
     },
@@ -2910,7 +3026,8 @@
         {
           "term": "no hay pedo",
           "countries": [
-            "MX"
+            "MX",
+            "US"
           ]
         },
         {
@@ -3179,7 +3296,8 @@
         {
           "term": "desmadre",
           "countries": [
-            "MX"
+            "MX",
+            "US"
           ]
         },
         {
@@ -3218,7 +3336,8 @@
         {
           "term": "güevonear",
           "countries": [
-            "MX"
+            "MX",
+            "US"
           ]
         }
       ]
@@ -3251,7 +3370,8 @@
         {
           "term": "chambita",
           "countries": [
-            "MX"
+            "MX",
+            "US"
           ]
         }
       ]
@@ -3283,7 +3403,8 @@
         {
           "term": "híjole",
           "countries": [
-            "MX"
+            "MX",
+            "US"
           ]
         },
         {
@@ -3400,7 +3521,8 @@
         {
           "term": "tomar el pelo",
           "countries": [
-            "MX"
+            "MX",
+            "US"
           ]
         },
         {
@@ -3439,7 +3561,8 @@
         {
           "term": "sale",
           "countries": [
-            "MX"
+            "MX",
+            "US"
           ]
         }
       ]
@@ -3471,7 +3594,8 @@
         {
           "term": "me vale",
           "countries": [
-            "MX"
+            "MX",
+            "US"
           ]
         },
         {
@@ -3552,7 +3676,8 @@
         {
           "term": "la banda",
           "countries": [
-            "MX"
+            "MX",
+            "US"
           ]
         },
         {
@@ -3939,7 +4064,8 @@
         {
           "term": "matado / matada",
           "countries": [
-            "MX"
+            "MX",
+            "US"
           ]
         }
       ]
@@ -4152,7 +4278,8 @@
           "term": "echar los perros",
           "countries": [
             "CO",
-            "MX"
+            "MX",
+            "US"
           ],
           "note": "lit. to throw the dogs at someone"
         },
@@ -4322,7 +4449,8 @@
         {
           "term": "chafa",
           "countries": [
-            "MX"
+            "MX",
+            "US"
           ]
         }
       ]
@@ -4409,7 +4537,8 @@
         {
           "term": "la chota",
           "countries": [
-            "MX"
+            "MX",
+            "US"
           ]
         },
         {
@@ -4438,6 +4567,13 @@
             "BR"
           ],
           "note": "also 'os home', 'a tira'"
+        },
+        {
+          "term": "la migra",
+          "countries": [
+            "US"
+          ],
+          "note": "inmigración, no la policía local"
         }
       ]
     },
@@ -4578,7 +4714,8 @@
         {
           "term": "chamaco / chamaca",
           "countries": [
-            "MX"
+            "MX",
+            "US"
           ]
         },
         {
@@ -4611,7 +4748,8 @@
           "term": "la mordida",
           "countries": [
             "CO",
-            "MX"
+            "MX",
+            "US"
           ],
           "note": "lit. the bite; iconic for petty corruption, especially traffic cops"
         },
@@ -4704,7 +4842,8 @@
             "CO",
             "AR",
             "MX",
-            "VE"
+            "VE",
+            "US"
           ]
         },
         {
@@ -4720,6 +4859,13 @@
             "BR"
           ],
           "note": "slang for home/hood"
+        },
+        {
+          "term": "la yarda",
+          "countries": [
+            "US"
+          ],
+          "note": "de \"yard\""
         }
       ]
     },
@@ -4822,7 +4968,8 @@
         {
           "term": "güero / güera",
           "countries": [
-            "MX"
+            "MX",
+            "US"
           ]
         }
       ]
@@ -4896,7 +5043,8 @@
             "AR",
             "PE",
             "VE",
-            "MX"
+            "MX",
+            "US"
           ]
         },
         {
@@ -4920,7 +5068,8 @@
             "AR",
             "PE",
             "VE",
-            "MX"
+            "MX",
+            "US"
           ]
         },
         {
@@ -4944,7 +5093,8 @@
             "AR",
             "PE",
             "VE",
-            "MX"
+            "MX",
+            "US"
           ]
         },
         {
@@ -5217,7 +5367,8 @@
             "PE",
             "VE",
             "MX",
-            "BR"
+            "BR",
+            "US"
           ]
         }
       ]
@@ -5236,7 +5387,8 @@
             "PE",
             "VE",
             "MX",
-            "BR"
+            "BR",
+            "US"
           ]
         }
       ]
@@ -5278,7 +5430,8 @@
             "AR",
             "PE",
             "VE",
-            "MX"
+            "MX",
+            "US"
           ]
         },
         {
@@ -5312,7 +5465,8 @@
           "countries": [
             "CO",
             "VE",
-            "MX"
+            "MX",
+            "US"
           ]
         },
         {
@@ -5495,7 +5649,8 @@
           "term": "crudo",
           "countries": [
             "MX",
-            "PE"
+            "PE",
+            "US"
           ]
         },
         {
@@ -6720,7 +6875,7 @@
         {
           "term": "caradepingo",
           "countries": [
-            "_CL"
+            "CL"
           ],
           "note": "shitface"
         },
@@ -6889,6 +7044,394 @@
             "CL"
           ],
           "note": "suck it"
+        }
+      ]
+    },
+    {
+      "id": "to-park",
+      "meaning_en": "to park a car",
+      "category": "daily",
+      "variants": [
+        {
+          "term": "parquear",
+          "countries": [
+            "US",
+            "CO",
+            "PE"
+          ]
+        },
+        {
+          "term": "estacionar",
+          "countries": [
+            "MX",
+            "CL",
+            "AR",
+            "VE",
+            "BR"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "to-text",
+      "meaning_en": "to text someone",
+      "category": "daily",
+      "variants": [
+        {
+          "term": "textear",
+          "countries": [
+            "US"
+          ],
+          "note": "de \"to text\""
+        },
+        {
+          "term": "mandar mensaje",
+          "countries": [
+            "MX",
+            "PE"
+          ]
+        },
+        {
+          "term": "mandar un mensaje",
+          "countries": [
+            "CL",
+            "AR"
+          ]
+        },
+        {
+          "term": "escribir",
+          "countries": [
+            "CO",
+            "VE"
+          ]
+        },
+        {
+          "term": "mandar mensagem",
+          "countries": [
+            "BR"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pickup-truck",
+      "meaning_en": "pickup truck",
+      "category": "daily",
+      "variants": [
+        {
+          "term": "la troca",
+          "countries": [
+            "US"
+          ],
+          "note": "de \"truck\""
+        },
+        {
+          "term": "la camioneta",
+          "countries": [
+            "MX",
+            "CL",
+            "AR",
+            "CO",
+            "PE",
+            "VE"
+          ]
+        },
+        {
+          "term": "a caminhonete",
+          "countries": [
+            "BR"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lunchbox",
+      "meaning_en": "lunchbox, packed lunch",
+      "category": "daily",
+      "variants": [
+        {
+          "term": "la lonchera",
+          "countries": [
+            "US",
+            "MX",
+            "CO",
+            "PE",
+            "VE"
+          ]
+        },
+        {
+          "term": "la colación",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "la vianda",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "a marmita",
+          "countries": [
+            "BR"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "to-watch",
+      "meaning_en": "to watch, to look at",
+      "category": "daily",
+      "variants": [
+        {
+          "term": "wachear",
+          "countries": [
+            "US"
+          ],
+          "note": "de \"to watch\""
+        },
+        {
+          "term": "checar",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "cachar",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "mirar",
+          "countries": [
+            "AR",
+            "CO",
+            "PE"
+          ]
+        },
+        {
+          "term": "ver",
+          "countries": [
+            "VE"
+          ]
+        },
+        {
+          "term": "olhar",
+          "countries": [
+            "BR"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bill-invoice",
+      "meaning_en": "bill, invoice",
+      "category": "daily",
+      "variants": [
+        {
+          "term": "el bil",
+          "countries": [
+            "US"
+          ],
+          "note": "de \"bill\""
+        },
+        {
+          "term": "la cuenta",
+          "countries": [
+            "MX",
+            "CO"
+          ]
+        },
+        {
+          "term": "la boleta",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "la factura",
+          "countries": [
+            "AR",
+            "VE"
+          ]
+        },
+        {
+          "term": "el recibo",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "a conta",
+          "countries": [
+            "BR"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "carpet-rug",
+      "meaning_en": "carpet, rug",
+      "category": "daily",
+      "variants": [
+        {
+          "term": "la carpeta",
+          "countries": [
+            "US"
+          ],
+          "note": "falso amigo: en el resto de Latinoamérica una carpeta es un folder"
+        },
+        {
+          "term": "la alfombra",
+          "countries": [
+            "MX",
+            "CL",
+            "AR",
+            "PE",
+            "VE"
+          ]
+        },
+        {
+          "term": "el tapete",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "o tapete",
+          "countries": [
+            "BR"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "grocery-store",
+      "meaning_en": "grocery store",
+      "category": "daily",
+      "variants": [
+        {
+          "term": "la marketa",
+          "countries": [
+            "US"
+          ],
+          "note": "de \"market\""
+        },
+        {
+          "term": "el súper",
+          "countries": [
+            "MX",
+            "CL",
+            "AR"
+          ]
+        },
+        {
+          "term": "la tienda",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "el mercado",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "el abasto",
+          "countries": [
+            "VE"
+          ]
+        },
+        {
+          "term": "o mercado",
+          "countries": [
+            "BR"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "roof",
+      "meaning_en": "roof",
+      "category": "daily",
+      "variants": [
+        {
+          "term": "el rufo",
+          "countries": [
+            "US"
+          ],
+          "note": "de \"roof\""
+        },
+        {
+          "term": "el techo",
+          "countries": [
+            "MX",
+            "CL",
+            "AR",
+            "CO",
+            "PE",
+            "VE"
+          ]
+        },
+        {
+          "term": "o telhado",
+          "countries": [
+            "BR"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dump",
+      "meaning_en": "dump, landfill",
+      "category": "daily",
+      "variants": [
+        {
+          "term": "el dompe",
+          "countries": [
+            "US"
+          ],
+          "note": "de \"dump\""
+        },
+        {
+          "term": "el tiradero",
+          "countries": [
+            "MX"
+          ]
+        },
+        {
+          "term": "el vertedero",
+          "countries": [
+            "CL",
+            "VE"
+          ]
+        },
+        {
+          "term": "el basural",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "el basurero",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "el botadero",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "o lixão",
+          "countries": [
+            "BR"
+          ]
         }
       ]
     }

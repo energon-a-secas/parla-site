@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" width="1200" height="760" font-family="'Avenir Next','Segoe UI',Roboto,sans-serif">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="42%" r="62%">
+      <stop offset="0%" stop-color="#1a1040" stop-opacity=".85"/>
+      <stop offset="55%" stop-color="#0a0a24" stop-opacity=".45"/>
+      <stop offset="100%" stop-color="#040714" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="9"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="760" fill="#040714"/>
+  <rect width="1200" height="760" fill="url(#glow)"/>
+  
+  
+  <text x="64" y="92" fill="#B015B0" font-size="20" font-weight="700" letter-spacing="3.4">CONTENT</text>
+  <text x="64" y="140" fill="#f9f9f9" font-size="42" font-weight="700" letter-spacing="-.4">190 concepts, 8 countries</text>
+  <text x="64" y="176" fill="rgba(255,255,255,.46)" font-size="21">Concepts with at least one term for each country. The eighth is a dialect, not a nation</text>
+  
+    <text x="302" y="262.6" text-anchor="end" fill="#f9f9f9" font-size="21" font-weight="600">Venezuela</text>
+    <rect x="330" y="236" width="640" height="38" rx="7" fill="rgba(255,255,255,.05)"/>
+    <rect x="330" y="236" width="586.1" height="38" rx="7" fill="#a855f7" fill-opacity=".75"/>
+    
+    <text x="996" y="262.6" fill="rgba(255,255,255,.62)" font-size="22" font-weight="700">174</text>
+    <text x="302" y="315.6" text-anchor="end" fill="#f9f9f9" font-size="21" font-weight="600">Colombia</text>
+    <rect x="330" y="289" width="640" height="38" rx="7" fill="rgba(255,255,255,.05)"/>
+    <rect x="330" y="289" width="582.7" height="38" rx="7" fill="#eab308" fill-opacity=".75"/>
+    
+    <text x="996" y="315.6" fill="rgba(255,255,255,.62)" font-size="22" font-weight="700">173</text>
+    <text x="302" y="368.6" text-anchor="end" fill="#f9f9f9" font-size="21" font-weight="600">Argentina</text>
+    <rect x="330" y="342" width="640" height="38" rx="7" fill="rgba(255,255,255,.05)"/>
+    <rect x="330" y="342" width="582.7" height="38" rx="7" fill="#38bdf8" fill-opacity=".75"/>
+    
+    <text x="996" y="368.6" fill="rgba(255,255,255,.62)" font-size="22" font-weight="700">173</text>
+    <text x="302" y="421.6" text-anchor="end" fill="#f9f9f9" font-size="21" font-weight="600">México</text>
+    <rect x="330" y="395" width="640" height="38" rx="7" fill="rgba(255,255,255,.05)"/>
+    <rect x="330" y="395" width="582.7" height="38" rx="7" fill="#22c55e" fill-opacity=".75"/>
+    
+    <text x="996" y="421.6" fill="rgba(255,255,255,.62)" font-size="22" font-weight="700">173</text>
+    <text x="302" y="474.6" text-anchor="end" fill="#f9f9f9" font-size="21" font-weight="600">Chile</text>
+    <rect x="330" y="448" width="640" height="38" rx="7" fill="rgba(255,255,255,.05)"/>
+    <rect x="330" y="448" width="579.4" height="38" rx="7" fill="#dc2626" fill-opacity=".75"/>
+    
+    <text x="996" y="474.6" fill="rgba(255,255,255,.62)" font-size="22" font-weight="700">172</text>
+    <text x="302" y="527.6" text-anchor="end" fill="#f9f9f9" font-size="21" font-weight="600">Perú</text>
+    <rect x="330" y="501" width="640" height="38" rx="7" fill="rgba(255,255,255,.05)"/>
+    <rect x="330" y="501" width="579.4" height="38" rx="7" fill="#f97316" fill-opacity=".75"/>
+    
+    <text x="996" y="527.6" fill="rgba(255,255,255,.62)" font-size="22" font-weight="700">172</text>
+    <text x="302" y="580.6" text-anchor="end" fill="#f9f9f9" font-size="21" font-weight="600">Brasil</text>
+    <rect x="330" y="554" width="640" height="38" rx="7" fill="rgba(255,255,255,.05)"/>
+    <rect x="330" y="554" width="357.1" height="38" rx="7" fill="#10b981" fill-opacity=".75"/>
+    
+    <text x="996" y="580.6" fill="rgba(255,255,255,.62)" font-size="22" font-weight="700">106</text>
+    <text x="302" y="633.6" text-anchor="end" fill="#f9f9f9" font-size="21" font-weight="600">Estados Unidos <tspan fill="rgba(255,255,255,.46)" font-size="17">Spanglish</tspan></text>
+    <rect x="330" y="607" width="640" height="38" rx="7" fill="rgba(255,255,255,.05)"/>
+    <rect x="330" y="607" width="232.4" height="38" rx="7" fill="#f472b6" fill-opacity=".95"/>
+    <rect x="330" y="607" width="232.4" height="38" rx="7" fill="none" stroke="#f472b6" stroke-width="2"/>
+    <text x="996" y="633.6" fill="#f472b6" font-size="22" font-weight="700">69</text>
+  <text x="64" y="716" fill="rgba(255,255,255,.34)" font-size="17">Counted from api/v1/dictionary.json v1.1.0. Spanglish shares most of its slang with Mexico, plus terms that exist nowhere else.</text>
+</svg>

@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" width="1200" height="760" font-family="'Avenir Next','Segoe UI',Roboto,sans-serif">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="42%" r="62%">
+      <stop offset="0%" stop-color="#1a1040" stop-opacity=".85"/>
+      <stop offset="55%" stop-color="#0a0a24" stop-opacity=".45"/>
+      <stop offset="100%" stop-color="#040714" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="9"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="760" fill="#040714"/>
+  <rect width="1200" height="760" fill="url(#glow)"/>
+  
+  
+  <text x="64" y="92" fill="#B015B0" font-size="20" font-weight="700" letter-spacing="3.4">THE WALL</text>
+  <text x="64" y="140" fill="#f9f9f9" font-size="42" font-weight="700" letter-spacing="-.4">A flat triangle cuts through the sphere</text>
+  <text x="64" y="176" fill="rgba(255,255,255,.46)" font-size="21">Where the middle of a chord across each country actually sits, against the ocean surface it has to clear</text>
+
+  <rect x="929.7" y="224" width="4" height="458" fill="#f9f9f9"/>
+  <text x="943.7073170731705" y="214" fill="#f9f9f9" font-size="19" font-weight="700">ocean surface</text>
+  <line x1="985.8536585365853" y1="238" x2="985.8536585365853" y2="694" stroke="rgba(255,255,255,.46)" stroke-dasharray="4 5"/>
+  <text x="995.8536585365853" y="724" fill="rgba(255,255,255,.46)" font-size="17">land radius</text>
+
+  
+    <text x="272" y="276.6" text-anchor="end" fill="#f9f9f9" font-size="21" font-weight="600">Estados Unidos</text>
+    <rect x="300" y="250" width="685.9" height="38" rx="6" fill="rgba(255,255,255,.05)"/>
+    <rect x="300" y="250" width="100.2" height="38" rx="6" fill="#f472b6" fill-opacity=".9"/>
+    <text x="414.2" y="276.6"
+          text-anchor="start" fill="#f472b6" font-size="19" font-weight="700">5.9% short</text>
+    <text x="1158" y="276.6" text-anchor="end" fill="rgba(255,255,255,.46)" font-size="18">41° wide</text>
+    <text x="272" y="331.6" text-anchor="end" fill="#f9f9f9" font-size="21" font-weight="600">Brasil</text>
+    <rect x="300" y="305" width="685.9" height="38" rx="6" fill="rgba(255,255,255,.05)"/>
+    <rect x="300" y="305" width="150.0" height="38" rx="6" fill="#10b981" fill-opacity=".9"/>
+    <text x="464.0" y="331.6"
+          text-anchor="start" fill="#10b981" font-size="19" font-weight="700">5.3% short</text>
+    <text x="1158" y="331.6" text-anchor="end" fill="rgba(255,255,255,.46)" font-size="18">40° wide</text>
+    <text x="272" y="386.6" text-anchor="end" fill="#f9f9f9" font-size="21" font-weight="600">Chile</text>
+    <rect x="300" y="360" width="685.9" height="38" rx="6" fill="rgba(255,255,255,.05)"/>
+    <rect x="300" y="360" width="211.0" height="38" rx="6" fill="#dc2626" fill-opacity=".9"/>
+    <text x="525.0" y="386.6"
+          text-anchor="start" fill="#dc2626" font-size="19" font-weight="700">4.7% short</text>
+    <text x="1158" y="386.6" text-anchor="end" fill="rgba(255,255,255,.46)" font-size="18">37° wide</text>
+    <text x="272" y="441.6" text-anchor="end" fill="#f9f9f9" font-size="21" font-weight="600">Argentina</text>
+    <rect x="300" y="415" width="685.9" height="38" rx="6" fill="rgba(255,255,255,.05)"/>
+    <rect x="300" y="415" width="316.5" height="38" rx="6" fill="#38bdf8" fill-opacity=".9"/>
+    <text x="630.5" y="441.6"
+          text-anchor="start" fill="#38bdf8" font-size="19" font-weight="700">3.5% short</text>
+    <text x="1158" y="441.6" text-anchor="end" fill="rgba(255,255,255,.46)" font-size="18">33° wide</text>
+    <text x="272" y="496.6" text-anchor="end" fill="#f9f9f9" font-size="21" font-weight="600">México</text>
+    <rect x="300" y="470" width="685.9" height="38" rx="6" fill="rgba(255,255,255,.05)"/>
+    <rect x="300" y="470" width="385.7" height="38" rx="6" fill="#22c55e" fill-opacity=".9"/>
+    <text x="699.7" y="496.6"
+          text-anchor="start" fill="#22c55e" font-size="19" font-weight="700">2.7% short</text>
+    <text x="1158" y="496.6" text-anchor="end" fill="rgba(255,255,255,.46)" font-size="18">30° wide</text>
+    <text x="272" y="551.6" text-anchor="end" fill="#f9f9f9" font-size="21" font-weight="600">Perú</text>
+    <rect x="300" y="525" width="685.9" height="38" rx="6" fill="rgba(255,255,255,.05)"/>
+    <rect x="300" y="525" width="573.2" height="38" rx="6" fill="#f97316" fill-opacity=".9"/>
+    <text x="859.2" y="551.6"
+          text-anchor="end" fill="#040714" font-size="19" font-weight="700">0.6% short</text>
+    <text x="1158" y="551.6" text-anchor="end" fill="rgba(255,255,255,.46)" font-size="18">18° wide</text>
+    <text x="272" y="606.6" text-anchor="end" fill="#f9f9f9" font-size="21" font-weight="600">Colombia</text>
+    <rect x="300" y="580" width="685.9" height="38" rx="6" fill="rgba(255,255,255,.05)"/>
+    <rect x="300" y="580" width="608.3" height="38" rx="6" fill="#eab308" fill-opacity=".9"/>
+    <text x="894.3" y="606.6"
+          text-anchor="end" fill="#040714" font-size="19" font-weight="700">0.3% short</text>
+    <text x="1158" y="606.6" text-anchor="end" fill="rgba(255,255,255,.46)" font-size="18">15° wide</text>
+    <text x="272" y="661.6" text-anchor="end" fill="#f9f9f9" font-size="21" font-weight="600">Venezuela</text>
+    <rect x="300" y="635" width="685.9" height="38" rx="6" fill="rgba(255,255,255,.05)"/>
+    <rect x="300" y="635" width="627.7" height="38" rx="6" fill="#a855f7" fill-opacity=".9"/>
+    <text x="913.7" y="661.6"
+          text-anchor="end" fill="#040714" font-size="19" font-weight="700">0.04% short</text>
+    <text x="1158" y="661.6" text-anchor="end" fill="rgba(255,255,255,.46)" font-size="18">13° wide</text>
+
+  <text x="64" y="752" fill="rgba(255,255,255,.46)" font-size="19">Everything left of the white line is inside the sphere, where the ocean would cover it.</text>
+  <text x="64" y="716" fill="rgba(255,255,255,.34)" font-size="17">Spans measured from data/americas.json. Subdividing to 1.5° edges leaves a sag of 8.6e-5 of the radius.</text>
+</svg>

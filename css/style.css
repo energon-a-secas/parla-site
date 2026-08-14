@@ -49,21 +49,6 @@ main#main {
 }
 
 /* -- Layout -- */
-.container {
-  max-width: 960px;
-  width: 100%;
-  margin: 0 auto;
-  padding: var(--space-4) var(--space-6) var(--space-3);
-  flex: 0 0 auto;
-  position: relative;
-  z-index: 1;
-}
-
-.container-browse {
-  padding-top: var(--space-2);
-  margin-top: auto;
-}
-
 .sr-only {
   position: absolute;
   width: 1px;
@@ -79,65 +64,22 @@ main#main {
 .hidden { display: none !important; }
 
 
-/* -- Canvas dot-map background -- */
-.bg-shapes {
-  position: fixed;
+/* -- Globe stage --
+   The 3D canvas fills the stage and sits behind every interactive layer.
+   It is aria-hidden and click-through except for the canvas itself, which
+   owns rotation, zoom and country picking. */
+.globe-stage {
+  position: absolute;
   inset: 0;
   z-index: 0;
-  pointer-events: none;
   overflow: hidden;
 }
 
-.bg-canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
+.globe-canvas {
+  display: block;
   width: 100%;
   height: 100%;
-  will-change: transform;
-  image-rendering: optimizeQuality;
-  -webkit-image-rendering: optimizeQuality;
-}
-
-.globe-capitals {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.globe-capital-pin {
-  position: absolute;
-  width: 24px;
-  height: 24px;
-  padding: 0;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  pointer-events: auto;
-  transition: opacity 0.15s ease-out;
-}
-
-.globe-capital-pin.hidden {
-  display: none;
-}
-
-.globe-pin-dot {
-  display: block;
-  width: 10px;
-  height: 10px;
-  margin: 7px auto 0;
-  border-radius: 50%;
-  background: var(--pin-color, var(--accent));
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--pin-color, var(--accent)) 25%, transparent),
-    0 0 14px color-mix(in srgb, var(--pin-color, var(--accent)) 45%, transparent);
-}
-
-.globe-capital-pin:hover .globe-pin-dot,
-.globe-capital-pin:focus-visible .globe-pin-dot {
-  transform: scale(1.25);
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--pin-color, var(--accent)) 35%, transparent),
-    0 0 20px color-mix(in srgb, var(--pin-color, var(--accent)) 55%, transparent);
+  touch-action: none;   /* OrbitControls needs the gestures */
 }
 
 .globe-card {
@@ -189,21 +131,19 @@ main#main {
   color: var(--text-muted);
 }
 
-/* -- Command bar (search + filters) -- */
+/* -- Command bar (search + sheet toggle) -- */
 .command-bar {
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  margin-bottom: var(--space-3);
   padding: var(--space-2);
   background: rgba(4, 7, 20, 0.55);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
+  /* Glass Sparingly: the header and this field are the whole budget. */
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  position: sticky;
-  top: 76px;
-  z-index: 50;
+  flex: 0 0 auto;
 }
 
 .command-search {
@@ -997,7 +937,6 @@ button:active:not(.diagram-node):not(.diagram-back):not(.diagram-share) {
 
 /* -- Responsive -- */
 @media (max-width: 600px) {
-  .container { padding: var(--space-3) var(--space-4); }
 
   .command-bar {
     flex-wrap: wrap;
@@ -1041,4 +980,302 @@ button:active:not(.diagram-node):not(.diagram-back):not(.diagram-share) {
 @media (max-width: 400px) {
   .diagram-area { min-height: 300px; }
   .diagram-node { min-width: 65px; max-width: 110px; padding: 6px 8px; }
+}
+
+/* ==========================================================================
+   Stage layout
+   The globe is the page. Search collapses to a floating bar at the bottom and
+   results live in a sheet above it, so the map keeps the whole viewport.
+   Every rule here is scoped to body.globe-mode; without WebGL the document
+   falls back to its original top-bar flow, which is why both layouts live in
+   one stylesheet and the fallback cannot rot unnoticed.
+   ========================================================================== */
+
+body.globe-mode {
+  height: 100dvh;
+  overflow: hidden;
+}
+
+body.globe-mode main#main {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* -- Dock: the sheet sits on top of the bar, both anchored to the floor, so
+      the search field never moves when the sheet opens or shuts. -- */
+.dock {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: var(--space-4) var(--space-6) 0;
+  display: flex;
+  flex-direction: column-reverse;   /* fallback: bar above results, as before */
+  gap: var(--space-3);
+}
+
+body.globe-mode .dock {
+  position: absolute;
+  left: 50%;
+  bottom: var(--space-3);
+  transform: translateX(-50%);
+  width: min(620px, calc(100% - var(--space-6)));
+  max-width: none;
+  max-height: calc(100% - var(--space-6));
+  padding: 0;
+  margin: 0;
+  flex-direction: column;           /* stage: sheet above the bar */
+  gap: var(--space-2);
+  z-index: 60;
+  pointer-events: none;
+}
+
+body.globe-mode .dock > * { pointer-events: auto; }
+
+/* -- Sheet -- */
+.sheet { min-height: 0; }
+
+body.globe-mode .sheet {
+  background: var(--surface-solid);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  max-height: min(56vh, 520px);
+  opacity: 1;
+  transition: max-height var(--dur) var(--ease-out), opacity var(--dur) var(--ease-out);
+}
+
+body.globe-mode .sheet:not(.is-open) {
+  max-height: 0;
+  opacity: 0;
+  border-color: transparent;
+  pointer-events: none;
+}
+
+body.globe-mode .sheet-inner {
+  display: flex;
+  flex-direction: column;
+  max-height: min(46vh, 440px);
+}
+
+body.globe-mode .sheet-body {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 0 var(--space-4) var(--space-4);
+}
+
+.sheet-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+body.globe-mode .sheet-head {
+  flex-direction: column;
+  padding: var(--space-2) var(--space-4) var(--space-3);
+}
+
+.sheet-filters {
+  display: flex;
+  gap: var(--space-2);
+  width: 100%;
+}
+
+.sheet-filters .filter-select { flex: 1; min-width: 0; }
+
+.sheet-grab { display: none; }
+
+body.globe-mode .sheet-grab {
+  display: block;
+  width: 40px;
+  height: 4px;
+  padding: 0;
+  border: 0;
+  border-radius: 2px;
+  background: var(--border-strong);
+  cursor: pointer;
+  margin-bottom: var(--space-1);
+}
+
+/* -- Sheet toggle -- */
+.sheet-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 10px 14px;
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-secondary);
+  font: 500 var(--text-sm)/1 var(--font);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color var(--dur), color var(--dur), background var(--dur);
+}
+
+.sheet-toggle svg { width: 16px; height: 16px; }
+.sheet-toggle:hover { border-color: var(--accent); color: var(--accent-bright); }
+.sheet-toggle[aria-expanded="true"] {
+  background: var(--accent-dim);
+  border-color: var(--accent);
+  color: var(--accent-bright);
+}
+
+/* -- Overlay layer -- */
+body.globe-mode .diagram-area {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  flex: none;
+  min-height: 0;
+  padding: 0;
+  pointer-events: none;
+}
+
+body.globe-mode .diagram-nodes,
+body.globe-mode .diagram-center { pointer-events: auto; }
+
+/* The hero card is never globe-anchored: it owns Back and Share, so it must
+   not be occluded or drift off screen when the camera moves. */
+body.globe-mode .diagram-center {
+  left: var(--space-4);
+  top: var(--space-4);
+  /* Absolutely positioned flex columns shrink-to-fit, which collapses this to
+     a sliver without an explicit width. */
+  width: max-content;
+  max-width: min(300px, 44vw);
+  text-align: left;
+  align-items: flex-start;
+  /* centerIn ends on translate(-50%,-50%) and runs with fill-mode both, and an
+     animation's final value outranks a normal declaration. So the stage needs
+     its own entrance rather than a `transform: none` that can never win. */
+  animation-name: centerInStage;
+}
+
+@keyframes centerInStage {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Cards are placed with the independent `translate` property, which composes
+   with the stylesheet's centring transform and stays a compositor-only write. */
+body.globe-mode .diagram-node {
+  left: 0;
+  top: 0;
+  will-change: translate;
+}
+
+/* Far side of the globe: parked on the rim rather than hidden, because a term
+   disappearing would break the cross-country mapping the map exists to show. */
+.diagram-node--rim { opacity: 0.55; }
+.diagram-node--rim .node-countries,
+.diagram-node--rim .node-note { display: none; }
+
+.diagram-node.is-linked {
+  border-color: var(--node-color);
+  box-shadow: 0 0 20px color-mix(in srgb, var(--node-color) 22%, transparent);
+}
+
+/* -- Mobile: compact cards. Applied as a class from JS, not a media query
+      alone, because the collision solver measures what is actually rendered. */
+.diagram-node--compact { max-width: 116px; padding: 7px 10px; }
+.diagram-node--compact .node-countries,
+.diagram-node--compact .node-note { display: none; }
+.diagram-node--compact .node-term { font-size: var(--text-sm); }
+
+@media (max-width: 600px) {
+  body.globe-mode .dock {
+    width: calc(100% - var(--space-4));
+    bottom: var(--space-2);
+  }
+  body.globe-mode .diagram-center {
+    left: var(--space-2);
+    top: var(--space-2);
+    max-width: 64vw;
+    padding: 10px 14px 9px;
+  }
+  body.globe-mode .sheet,
+  body.globe-mode .sheet-inner { max-height: 46vh; }
+}
+
+/* -- No WebGL: the radial diagram, in the original document flow. -- */
+body.no-webgl .globe-stage,
+body.no-webgl .globe-card { display: none; }
+
+body.no-webgl .sheet-toggle { display: none; }
+
+body.no-webgl .command-bar {
+  position: sticky;
+  top: 76px;
+  z-index: 50;
+}
+
+/* The dock sits after the diagram in source order because the stage wants it
+   pinned to the floor. In the fallback it has to lead, as the command bar did. */
+body.no-webgl .dock { order: -1; }
+
+/* sizeDiagram() measures the space left below the bar and writes an explicit
+   height. With `flex: 1` the flex algorithm overrode it and squeezed the
+   cards into an area too small to lay them out without overlap. */
+body.no-webgl .diagram-area { flex: 0 0 auto; }
+
+.globe-card-variety {
+  font-weight: 500;
+  color: var(--text-muted);
+}
+.globe-card-variety::before { content: " \00b7 "; }
+
+/* -- Reset control --
+   Appears only when it would do something: a country is filtered, or the
+   camera has been dragged off the default view. Without it the only way back
+   from a rotated globe was to select and deselect a country. */
+.globe-reset {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 9px 14px;
+  background: var(--surface-solid);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  color: var(--text-secondary);
+  font: 500 var(--text-sm)/1 var(--font);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color var(--dur), color var(--dur), opacity var(--dur);
+  animation: fadeIn var(--dur) var(--ease-out) both;
+}
+
+.globe-reset svg { width: 16px; height: 16px; flex: none; }
+
+.globe-reset:hover {
+  border-color: var(--accent);
+  color: var(--accent-bright);
+}
+
+.globe-reset:focus-visible {
+  outline: 2px solid var(--accent-bright);
+  outline-offset: 2px;
+}
+
+body.no-webgl .globe-reset { display: none; }
+
+@media (max-width: 600px) {
+  .globe-reset {
+    top: var(--space-2);
+    right: var(--space-2);
+    padding: 8px 10px;
+  }
+  /* Icon only: the stage is narrow and the hero card already owns the top row. */
+  .globe-reset span {
+    position: absolute;
+    width: 1px; height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
 }

@@ -26,11 +26,21 @@ flowchart TB
         HTML --> app["app.js\nEntry point"]
         app --> state["state.js\nSearch + filter state"]
         app --> data["data.js\nDictionary load + search index"]
-        app --> render["render.js\nDOM + radial word diagram"]
-        app --> diagram["diagram.js\nFloating country map background"]
-        app --> events["events.js\nSearch + filters"]
+        app --> render["render.js\nDOM + term cards"]
+        app --> diagram["diagram.js\nStage facade + WebGL guard"]
+        app --> events["events.js\nSearch + filters + sheet"]
         app --> utils["utils.js\nHelpers"]
     end
 
+    subgraph Stage["3D stage (loaded only if WebGL)"]
+        diagram --> globe3d["globe3d.js\nScene, camera, picking"]
+        diagram --> overlay["overlay.js\nCards pinned to countries"]
+        globe3d --> geo["geo.js\nSphere math + meshes"]
+        overlay --> collide["collide.js\nOverlap solver"]
+        geo --> GEO["/data/americas.json\nCountry outlines"]
+    end
+
+    render -->|"no WebGL: ?nogl=1"| collide
+
     data --> API
-    state <-->|"search history"| Storage[("localStorage")]
+    state <-->|"country + category filters"| Storage[("localStorage")]

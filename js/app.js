@@ -6,7 +6,7 @@ import { state, loadSaved } from './state.js';
 import { loadDictionary } from './data.js';
 import { render, renderIntro, showDiagram, showWordOfDayDialog } from './render.js';
 import { bindEvents } from './events.js';
-import { initBackground } from './diagram.js';
+import { initStage, focusCountry } from './diagram.js';
 
 async function init() {
   loadSaved(state);
@@ -14,7 +14,11 @@ async function init() {
   renderIntro(state);
   render(state);
   bindEvents(state);
-  initBackground(state.dictionary);
+
+  // Must run after loadDictionary (it needs country colours and anchors) and
+  // before openFromHash, so a deep link lands on a stage that already exists.
+  await initStage(state.dictionary);
+  focusCountry(state.activeCountry);
   openFromHash(state);
 
   if (!window.location.hash.startsWith('#w=')) {

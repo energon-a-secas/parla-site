@@ -6,8 +6,10 @@ PORT = 8817
 .PHONY: help
 help:
 	@echo ""
-	@echo "  make serve    Start dev server → http://localhost:$(PORT)"
-	@echo "  make kill     Kill this project's HTTP server"
+	@echo "  make serve     Start dev server → http://localhost:$(PORT)"
+	@echo "  make kill      Kill this project's HTTP server"
+	@echo "  make geometry  Rebuild data/americas.json from Natural Earth"
+	@echo "  make coverage  Validate country codes + print coverage"
 	@echo ""
 
 # ── Dev server ────────────────────────────────────────────────────────────────
@@ -15,6 +17,15 @@ help:
 serve:
 	@echo "Serving → http://localhost:$(PORT)"
 	@python3 -m http.server $(PORT)
+
+# ── Data ──────────────────────────────────────────────────────────────────────
+.PHONY: geometry
+geometry:
+	@python3 scripts/build_geometry.py --cache /tmp/ne50.geojson
+
+.PHONY: coverage
+coverage:
+	@python3 scripts/check_coverage.py
 
 # ── Kill ──────────────────────────────────────────────────────────────────────
 .PHONY: kill

@@ -3,7 +3,8 @@
 
 import { state, isWodDismissedToday, dismissWodToday } from './state.js';
 import { getCountries, getCategories, browseConcepts } from './data.js';
-import { focusGlobeForSelection } from './diagram.js';
+import { showConcept } from './diagram.js';
+import { separate } from './collide.js';
 import { $, escHtml, categoryLabel, categoryIcon } from './utils.js';
 
 export function render(s) {
@@ -117,7 +118,12 @@ export function renderCategoryFilters(s) {
     }).join('');
 }
 
-export function renderResults(results, s) {
+/**
+ * @param {boolean} [autoOpen=true] A lone result normally opens straight into
+ * the diagram. Closing the diagram must not do that, or Back re-opens the very
+ * thing it just closed and the button looks dead.
+ */
+export function renderResults(results, s, autoOpen = true) {
   const area = $('resultsArea');
   const intro = $('introState');
   const diagram = $('diagramArea');
@@ -135,7 +141,7 @@ export function renderResults(results, s) {
   intro.classList.add('hidden');
   browse.classList.add('hidden');
 
-  if (results.length === 1) {
+  if (results.length === 1 && autoOpen) {
     showDiagram(results[0].concept, results[0].matchedVariant, s);
     return;
   }
@@ -183,8 +189,10 @@ export function showDiagram(concept, matchedVariant, s) {
   area.innerHTML = '';
   browse.classList.add('hidden');
   diagram.classList.remove('hidden');
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  window.scrollTo({ top: 0, left: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+  if (document.body.classList.contains('no-webgl')) {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top: 0, left: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+  }
 
   s.activeConcept = concept;
   s.matchedTerm = matchedVariant?.term || concept.variants[0].term;
@@ -261,42 +269,29 @@ export function showDiagram(concept, matchedVariant, s) {
     const isMatch = v.term.toLowerCase() === s.matchedTerm?.toLowerCase();
     const note = v.note ? `<div class="node-note">${escHtml(v.note)}</div>` : '';
     const countryNames = v.countries.map(c => countries[c]?.name || c).join(', ');
-    return `<div class="diagram-node ${isMatch ? 'matched' : ''}" data-index="${i}" data-countries="${v.countries.join(',')}" style="--node-color:${borderColor}">
+    return `<button type="button" class="diagram-node ${isMatch ? 'matched' : ''}" data-index="${i}" data-countries="${v.countries.join(',')}" style="--node-color:${borderColor}" aria-label="${escHtml(v.term)}, ${escHtml(countryNames)}">
       <div class="node-flags">${flags}</div>
       <div class="node-term">${escHtml(v.term)}</div>
       <div class="node-countries">${escHtml(countryNames)}</div>
       ${note}
-    </div>`;
+    </button>`;
   }).join('');
 
-  focusGlobeForSelection({
-    country: s.activeCountry,
-    variant: matchedVariant,
-    concept,
-  });
+  announceConcept(concept, displayNodes, countries);
+  window.dispatchEvent(new CustomEvent('parla:concept', { detail: concept.id }));
 
-  // Size the diagram to fill remaining viewport, then layout
   requestAnimationFrame(() => {
+    if (showConcept(concept, matchedVariant, displayNodes, s)) return;
+    // Fallback only: no WebGL, so lay the same cards out radially.
     sizeDiagram(diagram);
     layoutDiagram(diagram, center, nodes, lines, count);
   });
 }
 
-/** Hub capitals — same coords as data/latam-outline.json cities */
-const HUB_CAPITAL_GEO = {
-  MX: { lon: -99.1332, lat: 19.4326 },
-  CO: { lon: -74.0721, lat: 4.711 },
-  VE: { lon: -66.9036, lat: 10.4806 },
-  BR: { lon: -47.8825, lat: -15.7942 },
-  PE: { lon: -77.0428, lat: -12.0464 },
-  CL: { lon: -70.6693, lat: -33.4489 },
-  AR: { lon: -58.3816, lat: -34.6037 },
-};
-
 const DIAGRAM_GEO_CENTER = { lon: -72, lat: -8 };
 
 function countryDiagramAngle(code) {
-  const cap = HUB_CAPITAL_GEO[code];
+  const cap = state.dictionary?.countries?.[code]?.anchor;
   if (!cap) return null;
   const { lon: refLon, lat: refLat } = DIAGRAM_GEO_CENTER;
   return Math.atan2(-(cap.lat - refLat), cap.lon - refLon);
@@ -393,71 +388,27 @@ function layoutDiagram(container, center, nodesWrap, linesSvg, count) {
   // Force layout so measurements are accurate
   void container.offsetHeight;
   nodeEls.forEach(node => {
-    sizes.push({ w: node.offsetWidth + GAP, h: node.offsetHeight + GAP });
+    sizes.push({ w: node.offsetWidth, h: node.offsetHeight });
     node.style.visibility = '';
   });
 
-  // Also account for center node: keep outer nodes away from center
+  // Keep outer nodes clear of the center card, which never moves.
   const centerEl = container.querySelector('.diagram-center');
-  const centerW = centerEl ? centerEl.offsetWidth + GAP * 2 : 160;
-  const centerH = centerEl ? centerEl.offsetHeight + GAP * 2 : 80;
-
-  // Overlap resolution: push nodes apart using real sizes
-  for (let iter = 0; iter < 50; iter++) {
-    let anyOverlap = false;
-
-    // Push outer nodes away from center node
-    for (let i = 0; i < positions.length; i++) {
-      const dx = positions[i].x - cx;
-      const dy = positions[i].y - cy;
-      const reqX = (centerW + sizes[i].w) / 2;
-      const reqY = (centerH + sizes[i].h) / 2;
-      if (Math.abs(dx) < reqX && Math.abs(dy) < reqY) {
-        anyOverlap = true;
-        const pushX = (reqX - Math.abs(dx) + 4) * (dx >= 0 ? 1 : -1);
-        const pushY = (reqY - Math.abs(dy) + 4) * (dy >= 0 ? 1 : -1);
-        if (reqX - Math.abs(dx) < reqY - Math.abs(dy)) {
-          positions[i].x += pushX;
-        } else {
-          positions[i].y += pushY;
-        }
-      }
-    }
-
-    // Push outer nodes apart from each other
-    for (let i = 0; i < positions.length; i++) {
-      for (let j = i + 1; j < positions.length; j++) {
-        const dx = positions[j].x - positions[i].x;
-        const dy = positions[j].y - positions[i].y;
-        const reqX = (sizes[i].w + sizes[j].w) / 2;
-        const reqY = (sizes[i].h + sizes[j].h) / 2;
-        const overlapX = reqX - Math.abs(dx);
-        const overlapY = reqY - Math.abs(dy);
-        if (overlapX > 0 && overlapY > 0) {
-          anyOverlap = true;
-          if (overlapX < overlapY) {
-            const push = (overlapX / 2 + 4) * (dx >= 0 ? 1 : -1);
-            positions[i].x -= push;
-            positions[j].x += push;
-          } else {
-            const push = (overlapY / 2 + 4) * (dy >= 0 ? 1 : -1);
-            positions[i].y -= push;
-            positions[j].y += push;
-          }
-        }
-      }
-    }
-
-    // Clamp to container bounds after each pass
-    for (let i = 0; i < positions.length; i++) {
-      const hw = sizes[i].w / 2;
-      const hh = sizes[i].h / 2;
-      positions[i].x = Math.max(hw, Math.min(rect.width - hw, positions[i].x));
-      positions[i].y = Math.max(hh, Math.min(rect.height - hh, positions[i].y));
-    }
-
-    if (!anyOverlap) break;
-  }
+  const boxes = positions.map((p, i) => ({ x: p.x, y: p.y, w: sizes[i].w, h: sizes[i].h }));
+  // Clamping to bounds every pass fights the separation, so the solver needs
+  // more than the default 50 rounds to converge in a tight container. At this
+  // card count each round is a few hundred operations.
+  separate(boxes, { width: rect.width, height: rect.height }, {
+    iterations: 200,
+    gap: GAP,
+    pinned: [{
+      x: cx,
+      y: cy,
+      w: centerEl ? centerEl.offsetWidth : 160,
+      h: centerEl ? centerEl.offsetHeight : 80,
+    }],
+  });
+  boxes.forEach((b, i) => { positions[i].x = b.x; positions[i].y = b.y; });
 
   linesSvg.setAttribute('viewBox', `0 0 ${rect.width} ${rect.height}`);
   linesSvg.innerHTML = '';
@@ -491,6 +442,20 @@ function layoutDiagram(container, center, nodesWrap, linesSvg, count) {
     path.style.animationDelay = `${i * 70}ms`;
     linesSvg.appendChild(path);
   });
+}
+
+/**
+ * Announce the open concept for screen readers. The globe is aria-hidden, so
+ * without this the cross-country mapping would be visual only.
+ */
+function announceConcept(concept, displayNodes, countries) {
+  const live = $('diagramLive');
+  if (!live) return;
+  const parts = displayNodes.slice(0, 12).map(v => {
+    const names = v.countries.map(c => countries[c]?.name || c).join(', ');
+    return `${v.term} en ${names}`;
+  });
+  live.textContent = `${concept.meaning_en}: ${displayNodes.length} equivalentes. ${parts.join('. ')}.`;
 }
 
 export function renderBrowse(s) {

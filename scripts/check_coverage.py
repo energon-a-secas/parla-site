@@ -1,38 +1,71 @@
 #!/usr/bin/env python3
-"""Check dictionary coverage - find concepts missing country variants."""
+"""Check dictionary coverage, and validate every country code the data uses.
+
+Validation runs first and exits non-zero on a bad code. This is the guard that
+would have caught the "_CL" typo, which rendered as literal text where a flag
+belonged and made that variant invisible to the CL filter.
+"""
 
 import json
+import sys
 from collections import defaultdict
-
-COUNTRIES = ['CL', 'CO', 'AR', 'MX', 'PE', 'VE', 'BR']
 
 with open('api/v1/dictionary.json', 'r', encoding='utf-8') as f:
     data = json.load(f)
+
+# Countries come from the data, never a hardcoded list, so this script cannot
+# go stale when a country is added.
+COUNTRIES = list(data['countries'])
+concepts = data['concepts']
+total_concepts = len(concepts)
+
+# -- Validation ------------------------------------------------------------
+
+errors = []
+
+for code, meta in data['countries'].items():
+    if code != code.upper() or len(code) != 2:
+        errors.append(f"country key {code!r} is not an uppercase alpha-2 code")
+    for field in ('name', 'flag', 'color'):
+        if not meta.get(field):
+            errors.append(f"country {code} is missing {field!r}")
+    anchor = meta.get('anchor') or {}
+    if not isinstance(anchor.get('lon'), (int, float)) or not isinstance(anchor.get('lat'), (int, float)):
+        errors.append(f"country {code} is missing a numeric anchor lon/lat")
+
+for concept in concepts:
+    for variant in concept['variants']:
+        for code in variant['countries']:
+            if code not in data['countries']:
+                errors.append(
+                    f"unknown country code {code!r} in {concept['id']} / {variant['term']!r}"
+                )
+
+if errors:
+    print("VALIDATION FAILED", file=sys.stderr)
+    for err in errors:
+        print(f"  {err}", file=sys.stderr)
+    sys.exit(1)
+
+# -- Coverage report -------------------------------------------------------
 
 print("=" * 80)
 print("DICTIONARY COVERAGE REPORT")
 print("=" * 80)
 
-concepts = data['concepts']
-total_concepts = len(concepts)
-
-# Count concepts with each country
 country_counts = defaultdict(int)
-missing_by_country = defaultdict(list)
 
 for concept in concepts:
     countries_in_concept = set()
     for variant in concept['variants']:
-        for country in variant['countries']:
-            countries_in_concept.add(country)
+        countries_in_concept.update(variant['countries'])
 
     for country in COUNTRIES:
         if country in countries_in_concept:
             country_counts[country] += 1
-        else:
-            missing_by_country[country].append(concept['id'])
 
 print(f"\nTotal concepts: {total_concepts}")
+print(f"Countries: {len(COUNTRIES)} ({', '.join(COUNTRIES)})")
 print("\nCountry coverage:")
 for country in COUNTRIES:
     pct = (country_counts[country] / total_concepts) * 100
@@ -45,15 +78,12 @@ print("=" * 80)
 for concept in concepts:
     countries_in_concept = set()
     for variant in concept['variants']:
-        for country in variant['countries']:
-            countries_in_concept.add(country)
+        countries_in_concept.update(variant['countries'])
 
     missing = [c for c in COUNTRIES if c not in countries_in_concept]
 
     if len(missing) >= 2:
-        country_list = ', '.join(countries_in_concept)
-        missing_list = ', '.join(missing)
         print(f"\n{concept['id']} - {concept['meaning_en']}")
-        print(f"  Has: {country_list}")
-        print(f"  Missing: {missing_list}")
+        print(f"  Has: {', '.join(sorted(countries_in_concept))}")
+        print(f"  Missing: {', '.join(missing)}")
         print(f"  Category: {concept['category']}")
