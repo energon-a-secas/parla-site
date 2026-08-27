@@ -3,7 +3,9 @@
 
 import { state, save } from './state.js';
 import { search } from './data.js';
-import { render, renderResults, renderBrowse, showDiagram, relayout, dismissWordOfDayForToday, getWordOfDayData } from './render.js';
+import { searchExpressions, findExpression } from './expressions.js';
+import { render, renderResults, renderBrowse, showDiagram, relayout, dismissWordOfDayForToday,
+  getWordOfDayData, renderExpressionResults } from './render.js';
 import { focusCountry, clearConcept, relayoutStage, isGlobeMode, setCountryPickHandler,
   setViewChangeHandler, resetView, isHomeView } from './diagram.js';
 import { $, debounce, showToast } from './utils.js';
@@ -43,7 +45,7 @@ export function bindEvents(s) {
   const input = $('searchInput');
   const clearBtn = $('searchClear');
 
-  const doSearch = debounce(() => {
+  function runSearch() {
     s.query = input.value.trim();
     clearBtn.classList.toggle('hidden', !s.query);
 
@@ -60,10 +62,19 @@ export function bindEvents(s) {
     }
 
     $('introState').classList.add('hidden');
+    if (s.mode === 'expressions') {
+      // Always opens the sheet: an expression answers in place, so there is no
+      // single-result shortcut onto the globe to take instead.
+      setSheet(true);
+      renderExpressionResults(searchExpressions(s.expressions, s.query, s.activeCountry), s);
+      return;
+    }
     const results = search(s.dictionary, s.query, s.activeCountry, s.activeCategory);
     if (results.length !== 1) setSheet(true);
     renderResults(results, s);
-  }, 180);
+  }
+
+  const doSearch = debounce(runSearch, 180);
 
   input.addEventListener('input', doSearch);
 
@@ -121,6 +132,88 @@ export function bindEvents(s) {
     if (!btn) return;
     const useful = isGlobeMode() && (!!s.activeCountry || !home);
     btn.classList.toggle('hidden', !useful);
+  }
+
+  // -- Mode switch ----------------------------------------------------------
+  // Palabras and Expresiones share the country filter and the globe; they do
+  // not share the category filter, which only the dictionary has, or the open
+  // concept, which would otherwise survive into a mode that cannot draw it.
+  /** Idempotent: paints the chrome for whatever s.mode already is. Called once
+   *  at bind time so a mode restored from localStorage owns the switch, the
+   *  placeholder and the body class it was saved with. */
+  function syncModeUI() {
+    for (const btn of document.querySelectorAll('.mode-btn')) {
+      const on = btn.dataset.mode === s.mode;
+      btn.classList.toggle('is-active', on);
+      btn.setAttribute('aria-selected', String(on));
+    }
+    document.body.classList.toggle('mode-expressions', s.mode === 'expressions');
+    input.placeholder = s.mode === 'expressions'
+      ? 'dar papaya, estar al horno\u2026'
+      : 'bac\u00e1n, chido, pega, foda\u2026';
+  }
+  syncModeUI();
+
+  function setMode(mode) {
+    if (s.mode === mode) return;
+    s.mode = mode;
+    s.activeConcept = null;
+    s.activeExpression = null;
+    s.matchedTerm = null;
+    clearConcept();
+    save(s);
+    syncModeUI();
+
+    $('diagramArea').classList.add('hidden');
+    $('resultsArea').innerHTML = '';
+    $('introState').classList.remove('hidden');
+    render(s);              // render() ends in renderBrowse(), which no-ops mid-query
+    if (s.query) runSearch();
+    setSheet(true);
+  }
+
+  $('modeSwitch')?.addEventListener('click', (e) => {
+    const btn = e.target.closest('.mode-btn');
+    if (btn) setMode(btn.dataset.mode);
+  });
+
+  // -- Expression cards ------------------------------------------------------
+  // One open at a time, and opening one sends the camera to its country, so
+  // the globe keeps answering the question the sheet is answering.
+  function toggleExpression(card) {
+    const expr = findExpression(s.expressions, card.dataset.expression);
+    if (!expr) return;
+    const wasOpen = card.classList.contains('is-open');
+    for (const other of document.querySelectorAll('.expr-card.is-open')) {
+      other.classList.remove('is-open');
+      other.setAttribute('aria-expanded', 'false');
+    }
+    if (wasOpen) {
+      s.activeExpression = null;
+      return;
+    }
+    card.classList.add('is-open');
+    card.setAttribute('aria-expanded', 'true');
+    s.activeExpression = expr.id;
+    focusCountry(expr.country);
+    syncResetControl(false);
+
+    // The sheet is short and the reveal grows downward, so a card opened near
+    // the fold shows its phrase and hides the answer. Waits out the reveal
+    // transition, otherwise it scrolls to the collapsed height.
+    const settle = () => card.scrollIntoView({
+      block: 'nearest',
+      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+    });
+    card.addEventListener('transitionend', settle, { once: true });
+    setTimeout(settle, 350);   // transitionend does not fire if the card was already open-height
+  }
+
+  for (const id of ['browseArea', 'resultsArea']) {
+    $(id).addEventListener('click', (e) => {
+      const card = e.target.closest('[data-expression]');
+      if (card) toggleExpression(card);
+    });
   }
 
   // Country filter dropdown

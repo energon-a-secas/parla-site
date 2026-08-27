@@ -3,6 +3,7 @@
 
 import { state, isWodDismissedToday, dismissWodToday } from './state.js';
 import { getCountries, getCategories, browseConcepts } from './data.js';
+import { browseExpressions, groupByCountry } from './expressions.js';
 import { showConcept } from './diagram.js';
 import { separate } from './collide.js';
 import { $, escHtml, categoryLabel, categoryIcon } from './utils.js';
@@ -460,6 +461,7 @@ function announceConcept(concept, displayNodes, countries) {
 
 export function renderBrowse(s) {
   if (s.query) return;
+  if (s.mode === 'expressions') return renderBrowseExpressions(s);
   const browse = $('browseArea');
   const intro = $('introState');
   const diagram = $('diagramArea');
@@ -546,4 +548,80 @@ export function relayout() {
   sizeDiagram(diagram);
   const count = nodes.querySelectorAll('.diagram-node').length;
   layoutDiagram(diagram, center, nodes, lines, count);
+}
+
+
+/* -- Expressions mode --------------------------------------------------------
+   One country per phrase, so the grouping is by country rather than category,
+   and there is no cross-country row to build. A card is closed until asked:
+   the literal reading is the joke and the meaning is the punchline, and
+   printing both at once on 71 cards gives the reader no reason to look.
+   -------------------------------------------------------------------------- */
+
+export function renderExpressionCard(e, s, open = false) {
+  const meta = getCountries(s.dictionary)[e.country] || {};
+  return `<button class="expr-card${open ? ' is-open' : ''}" data-expression="${escHtml(e.id)}"
+                  aria-expanded="${open ? 'true' : 'false'}">
+    <div class="expr-phrase">${escHtml(e.phrase)} <span class="expr-flag">${meta.flag || ''}</span></div>
+    <div class="expr-reveal">
+      <div class="expr-reveal-inner">
+        <div class="expr-line expr-literal">
+          <span class="expr-tag">Suena a</span>
+          <span class="expr-text">${escHtml(e.literal)}</span>
+        </div>
+        <div class="expr-line expr-meaning">
+          <span class="expr-tag">Quiere decir</span>
+          <span class="expr-text">${escHtml(e.meaning)}</span>
+        </div>
+      </div>
+    </div>
+  </button>`;
+}
+
+export function renderExpressionResults(results, s) {
+  const area = $('resultsArea');
+  const intro = $('introState');
+  const diagram = $('diagramArea');
+  const browse = $('browseArea');
+
+  intro.classList.add('hidden');
+  diagram.classList.add('hidden');
+  browse.classList.add('hidden');
+
+  area.innerHTML = results.length
+    ? results.map((e) => renderExpressionCard(e, s, results.length === 1)).join('')
+    : '<div class="no-results">Ninguna expresi\u00f3n coincide. Prueba con el significado, no s\u00f3lo con la frase.</div>';
+}
+
+function renderBrowseExpressions(s) {
+  const browse = $('browseArea');
+  const intro = $('introState');
+  const diagram = $('diagramArea');
+  const area = $('resultsArea');
+
+  if (!s.expressions) return;
+
+  area.innerHTML = '';
+  diagram.classList.add('hidden');
+  intro.classList.remove('hidden');
+  browse.classList.remove('hidden');
+
+  const countries = getCountries(s.dictionary);
+  const items = browseExpressions(s.expressions, s.activeCountry);
+  if (!items.length) {
+    browse.innerHTML = '<div class="no-results">Todav\u00eda no hay expresiones de este pa\u00eds.</div>';
+    return;
+  }
+
+  const groups = groupByCountry(items, Object.keys(countries));
+  let html = '';
+  for (const [code, list] of groups) {
+    const meta = countries[code] || {};
+    html += `<div class="browse-section expr-section">
+      <h2 class="browse-heading">${meta.flag || ''} ${escHtml(meta.name || code)}
+        <span class="browse-count">(${list.length})</span></h2>
+      <div class="expr-list">${list.map((e) => renderExpressionCard(e, s)).join('')}</div>
+    </div>`;
+  }
+  browse.innerHTML = html;
 }

@@ -33,7 +33,8 @@ Standard modular ES module app. Entry point is `js/app.js`.
 
 **The globe is the diagram** (`globe3d.js`, `geo.js`, `overlay.js`, `collide.js`):
 - `diagram.js` is the **facade and the only seam**. `render.js` and `events.js` import from it and never touch three, so app changes cannot regress the fallback.
-- `initStage()` runs a WebGL pre-flight *before* importing three, so a device without WebGL never downloads the 656 KB. A second guard wraps `new THREE.WebGLRenderer()`. Either failure adds `body.no-webgl` and the original radial diagram takes over in the old top-bar document flow. **Force it with `?nogl=1`**, nobody exercises that path by accident.
+- **The WebGL pre-flight is an inline script in `index.html`, immediately after `<body>`.** It is the only implementation; `webglSupported()` in `utils.js` just reads the `window.__parlaWebGL` it caches. It runs before the first paint and stamps `globe-mode` or `no-webgl` straight onto the body, so the stage layout is never corrected after load. It used to live at the end of `initStage()`, which meant the pre-globe document flow was painted for 207 ms on warm localhost and seconds on a real connection, because the decision sat behind 946 KB (dictionary 139 + three 655 + geometry 91 + OrbitControls 29). Being a plain check with no network, it never needed to wait for any of that. A second guard still wraps `new THREE.WebGLRenderer()`, and `fallback()` **removes** `globe-mode` as well as adding `no-webgl`: that is the one path that can still switch layout after load. **Force it with `?nogl=1`**, nobody exercises that path by accident.
+- Because the body commits to `globe-mode` at parse time, `showConcept()` has to tell *no stage yet* from *no stage ever*. During the boot window it queues the concept in `pendingConcept` and returns `true`; `initStage()` flushes it once the overlay exists. Returning `false` there would let the radial fallback draw itself over the stage about to appear.
 - Scene layers, outward: ocean sphere (r=1.000) · graticule · world land (1.002) · other-Americas land (1.003) · focus country fill (1.006) · side wall · border · atmosphere (1.09). The raised plateau with a lit wall is what makes a country read as a solid, and it removes z-fighting.
 - Country geometry is triangulated **in the browser** via `THREE.ShapeUtils.triangulateShape` (three bundles earcut), then each triangle is subdivided until every edge is under 1.5 degrees and projected onto the sphere. Without that subdivision **every one of the eight** sinks: a flat chord across the US spans 41 degrees and its midpoint sits 5.9% *below* the ocean radius, Brazil 5.3%, Chile 4.7%, and even Venezuela at 13 degrees does not clear it. The sea punches through the middle of the country. Subdivided, the residual sag is 8.6e-5 of the radius.
 - The camera centres a country by **longitude and latitude**, interpolating in spherical coordinates so north stays up. The retired 2D globe rotated about one axis, so focusing a country only aligned its longitude: latitude stayed at -sin(lat) of the radius, leaving Mexico 33% above the centre and Argentina 57% below it, 90% of the radius apart while both were reported as centred. `frameCountries()` fits the view to a set; the home view uses a wider cap so all of Latin America fits.
@@ -49,7 +50,7 @@ Standard modular ES module app. Entry point is `js/app.js`.
 
 **State persistence** (`state.js`):
 - localStorage key: `parla-state`
-- Only `activeCountry` and `activeCategory` are persisted. Query and diagram state are ephemeral.
+- Only `activeCountry`, `activeCategory` and `mode` are persisted. Query, diagram and open-expression state are ephemeral.
 - `diagramPushedState` (not persisted) tracks whether `showDiagram()` called `history.pushState`: used by the Back button and `popstate` handler to decide whether to call `history.back()` or just hide the diagram directly.
 
 **Dictionary data model** (`api/v1/dictionary.json`):
@@ -71,6 +72,33 @@ Standard modular ES module app. Entry point is `js/app.js`.
 ```
 - Categories: `greetings`, `insults`, `adjectives`, `work`, `daily`
 
+---
+
+## Expressions mode
+
+The second half of the app, reached by the `Palabras` / `Expresiones` switch in the sheet head. Data lives in **`api/v1/expressions.json`**, deliberately not in the dictionary: the two have opposite shapes.
+
+- A dictionary **concept** is one meaning wearing eight different words. An **expression** is one phrase belonging to one country, whose surface reading tells you nothing about what it means.
+- That gap is the entire point, so `literal` and `meaning` are both required. `make coverage` fails on an entry missing either, on an unknown country code, and on a duplicate id.
+
+```json
+{ "version": "1.0.0",
+  "expressions": [
+    { "id": "el-que-toca-mano-toca-cara", "phrase": "el que toca mano toca cara", "country": "CO",
+      "literal": "quien alcanza a tocarte la mano, alcanza a tocarte la cara",
+      "meaning": "anda buscando pelea: está midiendo hasta dónde puede llegar contigo" }
+  ] }
+```
+
+- 71 entries, 8 to 9 per country. US entries are calques (`vacunar la carpeta`, `hacer sentido`), which is the honest Spanglish story and matches how the dictionary already treats US.
+- `expressions.js` scans all 71 rows per keystroke rather than building an inverted index. Most people arrive from the *meaning*, not the phrase, and an index over 71 rows buys nothing measurable.
+- **Cards are closed until asked.** The phrase is the question and the reading plus the meaning are the answer; printing all three at once on 71 cards gives the reader no reason to look. One card is open at a time, and opening one sends the camera to its country **without** touching the country filter, so the list does not vanish underneath you.
+- The collapse uses the `0fr`/`1fr` grid trick, which needs **exactly one child** (`.expr-reveal-inner`). A second child lands in an implicit `auto` row and every closed card keeps its full height. Only `opacity` is transitioned: Firefox does not interpolate `fr` track sizes.
+- The globe's hover card (`overlay.js#showCountryCard`) reads `state.mode` and previews expressions instead of dictionary terms while the mode is on.
+- Switching modes clears the open concept and expression, and keeps the query, which is re-run against the other data set.
+
+---
+
 **Word of the day** is deterministically seeded by `YYYY * 10000 + MM * 100 + DD` modulo concept count, so it's stable for the entire day without any server.
 
 **Search normalization** strips diacritics via `NFD` decomposition and removes non-alphanumeric characters, so searching "bacan" matches "bacán".
@@ -90,7 +118,8 @@ Standard modular ES module app. Entry point is `js/app.js`.
 - `$(id)` in `utils.js` caches element references by ID: do not call it before the DOM is ready, and avoid re-using IDs across dynamic re-renders.
 - The diagram center element is re-rendered on every `showDiagram()` call, which inserts the Back/Share buttons. Event handlers for those buttons are delegated on `#diagramArea`, not attached to the buttons directly.
 - `relayout()` in `render.js` is called on window resize: it only works if `s.activeConcept` is set and `#diagramArea` is visible.
-- To add a new category, add entries to `CATEGORY_LABELS` and `CATEGORY_ICONS` in `utils.js` in addition to the dictionary data.
+- To add a new category, add entries to `CATEGORY_LABELS` and `CATEGORY_ICONS` in `utils.js` in addition to the dictionary data. Categories are a dictionary-only concept: `body.mode-expressions` hides `#categorySelect`.
+- The word-of-day dialog is fired **before** `initStage()`, since it needs only the dictionary. It used to wait for the stage and appeared a beat after the page had settled.
 - **To add a new country: add one entry to `api/v1/dictionary.json` under `countries` (with its `anchor` lon/lat), then run `make geometry`.** That is the whole procedure. The anchor is the single source of truth that `render.js`, the globe and the geometry build all read; it used to be duplicated in three places.
 - `make coverage` validates every country code in the data and **exits non-zero on an unknown one**. This is the guard for the `_CL` class of typo, which rendered as literal text where a flag belonged and made the variant invisible to the CL filter.
 - `scripts/build_geometry.py` re-downloads Natural Earth 1:50m. Its Douglas-Peucker has a zero-length-baseline guard: GeoJSON rings are closed, so `pts[0] == pts[-1]` and without the guard **every ring silently collapses to two points**. The script asserts a point-count floor to catch it.

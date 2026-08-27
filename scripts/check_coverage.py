@@ -13,6 +13,9 @@ from collections import defaultdict
 with open('api/v1/dictionary.json', 'r', encoding='utf-8') as f:
     data = json.load(f)
 
+with open('api/v1/expressions.json', 'r', encoding='utf-8') as f:
+    expressions = json.load(f)['expressions']
+
 # Countries come from the data, never a hardcoded list, so this script cannot
 # go stale when a country is added.
 COUNTRIES = list(data['countries'])
@@ -41,6 +44,21 @@ for concept in concepts:
                     f"unknown country code {code!r} in {concept['id']} / {variant['term']!r}"
                 )
 
+# Expressions carry the same risk as variants and worse: a bad code here also
+# drops the phrase out of its country group entirely, so it renders nowhere.
+seen_ids = set()
+for e in expressions:
+    if e['country'] not in data['countries']:
+        errors.append(f"unknown country code {e['country']!r} in expression {e['id']!r}")
+    if e['id'] in seen_ids:
+        errors.append(f"duplicate expression id {e['id']!r}")
+    seen_ids.add(e['id'])
+    # literal and meaning are the section's whole reason to exist; an entry
+    # missing either is a phrase with no answer behind it.
+    for field in ('phrase', 'literal', 'meaning'):
+        if not e.get(field):
+            errors.append(f"expression {e['id']!r} is missing {field!r}")
+
 if errors:
     print("VALIDATION FAILED", file=sys.stderr)
     for err in errors:
@@ -52,6 +70,12 @@ if errors:
 print("=" * 80)
 print("DICTIONARY COVERAGE REPORT")
 print("=" * 80)
+
+expr_counts = defaultdict(int)
+for e in expressions:
+    expr_counts[e['country']] += 1
+print(f"\nExpressions: {len(expressions)} across {len(expr_counts)} countries")
+print("  " + "  ".join(f"{c}:{expr_counts[c]}" for c in COUNTRIES))
 
 country_counts = defaultdict(int)
 

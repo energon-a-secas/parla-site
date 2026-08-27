@@ -9,6 +9,8 @@
 
 import { separate } from './collide.js';
 import { sampleTerms } from './data.js';
+import { sampleExpressions } from './expressions.js';
+import { state } from './state.js';
 import { $, escHtml } from './utils.js';
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
@@ -74,8 +76,16 @@ export function createOverlay({ globe, dictionary }) {
   function showCountryCard(code) {
     if (!cardEl) return;
     const meta = code && dictionary.countries[code];
-    const samples = meta ? sampleTerms(dictionary, code, 5) : [];
-    if (!meta || !samples.length) {
+    // The card previews whatever the current mode is about, so hovering a
+    // country in Expresiones does not advertise the dictionary the visitor
+    // just switched away from.
+    const expressive = state.mode === 'expressions';
+    const rows = !meta ? []
+      : expressive
+        ? sampleExpressions(state.expressions, code, 4)
+            .map((e) => ({ term: e.phrase, meaning: e.meaning }))
+        : sampleTerms(dictionary, code, 5);
+    if (!meta || !rows.length) {
       cardEl.classList.add('hidden');
       return;
     }
@@ -83,7 +93,7 @@ export function createOverlay({ globe, dictionary }) {
     const variety = meta.variety ? ` <span class="globe-card-variety">${escHtml(meta.variety)}</span>` : '';
     cardEl.innerHTML = `
       <div class="globe-card-head">${meta.flag} ${escHtml(meta.name)}${variety}</div>
-      <ul class="globe-card-terms">${samples.map((s2) =>
+      <ul class="globe-card-terms${expressive ? ' globe-card-terms--stacked' : ''}">${rows.map((s2) =>
         `<li><span class="globe-card-term">${escHtml(s2.term)}</span>` +
         `<span class="globe-card-meaning">${escHtml(s2.meaning)}</span></li>`).join('')}
     </ul>`;

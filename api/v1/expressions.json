@@ -1,0 +1,502 @@
+{
+  "version": "1.0.0",
+  "expressions": [
+    {
+      "id": "el-que-toca-mano-toca-cara",
+      "phrase": "el que toca mano toca cara",
+      "country": "CO",
+      "literal": "quien alcanza a tocarte la mano, alcanza a tocarte la cara",
+      "meaning": "anda buscando pelea: está midiendo hasta dónde puede llegar contigo"
+    },
+    {
+      "id": "dar-papaya",
+      "phrase": "dar papaya",
+      "country": "CO",
+      "literal": "regalarle a alguien una papaya",
+      "meaning": "exponerse de más y dejarle a otro la oportunidad servida de aprovecharse o robarte"
+    },
+    {
+      "id": "estar-en-la-olla",
+      "phrase": "estar en la olla",
+      "country": "CO",
+      "literal": "estar metido dentro de una olla",
+      "meaning": "estar en la ruina, sin plata y sin salida a la vista"
+    },
+    {
+      "id": "hacer-una-vaca",
+      "phrase": "hacer una vaca",
+      "country": "CO",
+      "literal": "fabricar una vaca",
+      "meaning": "juntar plata entre varios para comprar algo en común"
+    },
+    {
+      "id": "hacer-el-oso",
+      "phrase": "hacer el oso",
+      "country": "CO",
+      "literal": "comportarse como un oso",
+      "meaning": "hacer el ridículo en público"
+    },
+    {
+      "id": "estar-tragado",
+      "phrase": "estar tragado",
+      "country": "CO",
+      "literal": "haber sido tragado",
+      "meaning": "estar perdidamente enamorado de alguien"
+    },
+    {
+      "id": "sacar-la-piedra",
+      "phrase": "sacar la piedra",
+      "country": "CO",
+      "literal": "extraer una piedra",
+      "meaning": "hacer enfurecer a alguien hasta el límite"
+    },
+    {
+      "id": "quedar-paila",
+      "phrase": "quedar paila",
+      "country": "CO",
+      "literal": "quedar convertido en una paila",
+      "meaning": "quedar jodido: ya no hay nada que hacer"
+    },
+    {
+      "id": "echar-los-perros",
+      "phrase": "echar los perros",
+      "country": "CO",
+      "literal": "soltarle los perros a alguien",
+      "meaning": "cortejar a alguien de forma abierta e insistente"
+    },
+    {
+      "id": "andar-pato",
+      "phrase": "andar pato",
+      "country": "CL",
+      "literal": "andar como un pato",
+      "meaning": "estar sin un peso encima"
+    },
+    {
+      "id": "quedar-la-escoba",
+      "phrase": "quedar la escoba",
+      "country": "CL",
+      "literal": "quedar la escoba tirada",
+      "meaning": "armarse un desorden o un escándalo descomunal"
+    },
+    {
+      "id": "echar-la-foca",
+      "phrase": "echar la foca",
+      "country": "CL",
+      "literal": "lanzarle una foca a alguien",
+      "meaning": "retar a alguien a gritos, sin filtro"
+    },
+    {
+      "id": "irse-al-chancho",
+      "phrase": "irse al chancho",
+      "country": "CL",
+      "literal": "irse hacia el chancho",
+      "meaning": "pasarse de la raya, abusar de la confianza o excederse"
+    },
+    {
+      "id": "pasar-piola",
+      "phrase": "pasar piola",
+      "country": "CL",
+      "literal": "pasar como una cuerda delgada",
+      "meaning": "pasar desapercibido, no llamar la atención"
+    },
+    {
+      "id": "cortar-el-queque",
+      "phrase": "cortar el queque",
+      "country": "CL",
+      "literal": "cortar el pastel",
+      "meaning": "ser el que manda y decide en un lugar"
+    },
+    {
+      "id": "estar-chato",
+      "phrase": "estar chato",
+      "country": "CL",
+      "literal": "estar aplanado",
+      "meaning": "estar harto hasta el cansancio de algo"
+    },
+    {
+      "id": "andar-con-la-cana",
+      "phrase": "andar con la caña",
+      "country": "CL",
+      "literal": "andar cargando una caña",
+      "meaning": "andar con resaca al día siguiente"
+    },
+    {
+      "id": "ponerse-con",
+      "phrase": "ponerse con",
+      "country": "CL",
+      "literal": "colocarse junto a algo",
+      "meaning": "poner plata o aportar lo tuyo para algo común"
+    },
+    {
+      "id": "no-dar-bola",
+      "phrase": "no dar bola",
+      "country": "AR",
+      "literal": "no entregar una pelota",
+      "meaning": "ignorar por completo a alguien"
+    },
+    {
+      "id": "estar-al-horno",
+      "phrase": "estar al horno",
+      "country": "AR",
+      "literal": "estar dentro del horno",
+      "meaning": "estar en un problema serio, sin salida fácil"
+    },
+    {
+      "id": "tener-un-cocodrilo-en-el-bolsillo",
+      "phrase": "tener un cocodrilo en el bolsillo",
+      "country": "AR",
+      "literal": "llevar un cocodrilo en el bolsillo",
+      "meaning": "ser tan tacaño que nunca saca la billetera"
+    },
+    {
+      "id": "mandar-fruta",
+      "phrase": "mandar fruta",
+      "country": "AR",
+      "literal": "enviar fruta",
+      "meaning": "hablar sin ningún fundamento, inventar sobre la marcha"
+    },
+    {
+      "id": "irse-al-mazo",
+      "phrase": "irse al mazo",
+      "country": "AR",
+      "literal": "volver al mazo de cartas",
+      "meaning": "rendirse y abandonar la jugada"
+    },
+    {
+      "id": "ponerse-la-gorra",
+      "phrase": "ponerse la gorra",
+      "country": "AR",
+      "literal": "calzarse la gorra de policía",
+      "meaning": "empezar a actuar como autoridad y arruinarle la diversión al resto"
+    },
+    {
+      "id": "hacer-la-plancha",
+      "phrase": "hacer la plancha",
+      "country": "AR",
+      "literal": "flotar de espaldas en el agua",
+      "meaning": "no hacer absolutamente nada y dejar que otros resuelvan"
+    },
+    {
+      "id": "comerse-un-garron",
+      "phrase": "comerse un garrón",
+      "country": "AR",
+      "literal": "comerse un garrón de vaca",
+      "meaning": "que te toque algo injusto o desagradable sin comerla ni beberla"
+    },
+    {
+      "id": "ni-en-pedo",
+      "phrase": "ni en pedo",
+      "country": "AR",
+      "literal": "ni estando borracho",
+      "meaning": "de ninguna manera, ni loco"
+    },
+    {
+      "id": "me-hizo-lo-que-el-viento-a-juarez",
+      "phrase": "me hizo lo que el viento a Juárez",
+      "country": "MX",
+      "literal": "me hizo lo mismo que el viento le hizo a Juárez",
+      "meaning": "no me hizo absolutamente nada: su amenaza no me afectó en nada"
+    },
+    {
+      "id": "echar-aguas",
+      "phrase": "echar aguas",
+      "country": "MX",
+      "literal": "arrojar agua",
+      "meaning": "avisar del peligro, hacer de vigía mientras otro hace algo"
+    },
+    {
+      "id": "hacerse-pato",
+      "phrase": "hacerse pato",
+      "country": "MX",
+      "literal": "convertirse en pato",
+      "meaning": "hacerse el tonto para escaparse de una responsabilidad"
+    },
+    {
+      "id": "dar-el-avion",
+      "phrase": "dar el avión",
+      "country": "MX",
+      "literal": "regalarle un avión a alguien",
+      "meaning": "fingir que le prestas atención a alguien mientras lo ignoras por completo"
+    },
+    {
+      "id": "irse-de-pinta",
+      "phrase": "irse de pinta",
+      "country": "MX",
+      "literal": "irse de pinta",
+      "meaning": "faltar a clases y desaparecer el día entero"
+    },
+    {
+      "id": "dar-el-gatazo",
+      "phrase": "dar el gatazo",
+      "country": "MX",
+      "literal": "dar un golpe de gato",
+      "meaning": "aparentar mucha más calidad o categoría de la que se tiene"
+    },
+    {
+      "id": "no-manches",
+      "phrase": "no manches",
+      "country": "MX",
+      "literal": "no lo manches",
+      "meaning": "no puede ser: incredulidad o asombro ante lo que te acaban de contar"
+    },
+    {
+      "id": "estar-hasta-las-chanclas",
+      "phrase": "estar hasta las chanclas",
+      "country": "MX",
+      "literal": "llegar hasta las sandalias",
+      "meaning": "estar borrachísimo"
+    },
+    {
+      "id": "sacar-la-casta",
+      "phrase": "sacar la casta",
+      "country": "MX",
+      "literal": "sacar el linaje",
+      "meaning": "dar lo mejor de uno justo cuando la situación se pone difícil"
+    },
+    {
+      "id": "estar-en-la-lona",
+      "phrase": "estar en la lona",
+      "country": "PE",
+      "literal": "estar tirado sobre la lona del ring",
+      "meaning": "estar en la ruina, sin un sol en el bolsillo"
+    },
+    {
+      "id": "hablar-paja",
+      "phrase": "hablar paja",
+      "country": "PE",
+      "literal": "hablar paja seca",
+      "meaning": "decir puras tonterías, hablar sin sustento"
+    },
+    {
+      "id": "sacar-la-vuelta",
+      "phrase": "sacar la vuelta",
+      "country": "PE",
+      "literal": "dar una vuelta por fuera",
+      "meaning": "serle infiel a la pareja, o escaquearse del trabajo"
+    },
+    {
+      "id": "estar-palteado",
+      "phrase": "estar palteado",
+      "country": "PE",
+      "literal": "estar convertido en palta",
+      "meaning": "estar avergonzado o preocupado por algo"
+    },
+    {
+      "id": "meter-letra",
+      "phrase": "meter letra",
+      "country": "PE",
+      "literal": "insertar letras",
+      "meaning": "hablarle a alguien con intención de conquistarlo"
+    },
+    {
+      "id": "bajar-el-dedo",
+      "phrase": "bajar el dedo",
+      "country": "PE",
+      "literal": "bajar el dedo",
+      "meaning": "hablar mal de alguien a sus espaldas para arruinarle una oportunidad"
+    },
+    {
+      "id": "tirar-dedo",
+      "phrase": "tirar dedo",
+      "country": "PE",
+      "literal": "lanzar el dedo",
+      "meaning": "delatar a alguien, señalarlo ante quien no debía enterarse"
+    },
+    {
+      "id": "jugar-vivo",
+      "phrase": "jugar vivo",
+      "country": "PE",
+      "literal": "jugar de manera despierta",
+      "meaning": "sacar ventaja con viveza, aprovecharse del descuido ajeno"
+    },
+    {
+      "id": "que-roche",
+      "phrase": "qué roche",
+      "country": "PE",
+      "literal": "qué roce",
+      "meaning": "qué vergüenza, qué papelón"
+    },
+    {
+      "id": "mas-perdido-que-el-hijo-de-lindbergh",
+      "phrase": "más perdido que el hijo de Lindbergh",
+      "country": "VE",
+      "literal": "más extraviado que el hijo de Lindbergh",
+      "meaning": "estar completamente perdido, sin la menor idea de dónde se está parado"
+    },
+    {
+      "id": "echarle-bolas",
+      "phrase": "echarle bolas",
+      "country": "VE",
+      "literal": "lanzarle bolas a algo",
+      "meaning": "meterle esfuerzo y empeño de verdad a algo"
+    },
+    {
+      "id": "estar-pelando-bolas",
+      "phrase": "estar pelando bolas",
+      "country": "VE",
+      "literal": "andar pelando bolas",
+      "meaning": "no tener un centavo, o no tener absolutamente nada que hacer"
+    },
+    {
+      "id": "dar-la-cola",
+      "phrase": "dar la cola",
+      "country": "VE",
+      "literal": "entregar la cola",
+      "meaning": "llevar a alguien en el carro, darle aventón"
+    },
+    {
+      "id": "jalar-bola",
+      "phrase": "jalar bola",
+      "country": "VE",
+      "literal": "tirar de la bola",
+      "meaning": "adular descaradamente a alguien para sacarle un favor"
+    },
+    {
+      "id": "estar-arrecho",
+      "phrase": "estar arrecho",
+      "country": "VE",
+      "literal": "estar arrecho",
+      "meaning": "estar furioso; aunque según el tono también significa que algo está buenísimo"
+    },
+    {
+      "id": "comerse-una-luz",
+      "phrase": "comerse una luz",
+      "country": "VE",
+      "literal": "comerse una luz",
+      "meaning": "pasarse el semáforo en rojo, y por extensión saltarse una regla"
+    },
+    {
+      "id": "echarse-los-palos",
+      "phrase": "echarse los palos",
+      "country": "VE",
+      "literal": "echarse los palos encima",
+      "meaning": "salir a beber, meterse unos tragos"
+    },
+    {
+      "id": "chutar-o-balde",
+      "phrase": "chutar o balde",
+      "country": "BR",
+      "literal": "chutar o balde",
+      "meaning": "perder a paciência e largar tudo de vez: nada a ver com morrer, como em inglês"
+    },
+    {
+      "id": "pagar-mico",
+      "phrase": "pagar mico",
+      "country": "BR",
+      "literal": "pagar um macaco",
+      "meaning": "passar vergonha em público, fazer papel ridículo"
+    },
+    {
+      "id": "encher-linguica",
+      "phrase": "encher linguiça",
+      "country": "BR",
+      "literal": "rechear linguiça",
+      "meaning": "enrolar, falar muito para não dizer nada"
+    },
+    {
+      "id": "viajar-na-maionese",
+      "phrase": "viajar na maionese",
+      "country": "BR",
+      "literal": "viajar dentro da maionese",
+      "meaning": "falar ou pensar coisa sem pé nem cabeça, estar completamente equivocado"
+    },
+    {
+      "id": "pisar-na-bola",
+      "phrase": "pisar na bola",
+      "country": "BR",
+      "literal": "pisar em cima da bola",
+      "meaning": "decepcionar alguém, falhar com um compromisso"
+    },
+    {
+      "id": "engolir-sapo",
+      "phrase": "engolir sapo",
+      "country": "BR",
+      "literal": "engolir um sapo",
+      "meaning": "aguentar calado algo desagradável que você não pode responder"
+    },
+    {
+      "id": "tirar-o-cavalinho-da-chuva",
+      "phrase": "tirar o cavalinho da chuva",
+      "country": "BR",
+      "literal": "tirar o cavalinho de baixo da chuva",
+      "meaning": "desistir da expectativa: pode esquecer, não vai acontecer"
+    },
+    {
+      "id": "cara-de-pau",
+      "phrase": "cara de pau",
+      "country": "BR",
+      "literal": "cara feita de madeira",
+      "meaning": "pessoa descarada, que faz sem o menor constrangimento"
+    },
+    {
+      "id": "dar-um-perdido",
+      "phrase": "dar um perdido",
+      "country": "BR",
+      "literal": "dar um perdido em alguém",
+      "meaning": "sumir e deixar a pessoa esperando sem satisfação"
+    },
+    {
+      "id": "te-llamo-para-atras",
+      "phrase": "te llamo para atrás",
+      "country": "US",
+      "literal": "te llamo hacia atrás",
+      "meaning": "te devuelvo la llamada: calco directo de call you back"
+    },
+    {
+      "id": "vacunar-la-carpeta",
+      "phrase": "vacunar la carpeta",
+      "country": "US",
+      "literal": "ponerle una vacuna a la carpeta",
+      "meaning": "aspirar la alfombra: de vacuum the carpet, donde carpet no es carpeta"
+    },
+    {
+      "id": "hacer-sentido",
+      "phrase": "hacer sentido",
+      "country": "US",
+      "literal": "fabricar sentido",
+      "meaning": "tener sentido: calco de make sense, que en español se dice al revés"
+    },
+    {
+      "id": "aplicar-para-un-trabajo",
+      "phrase": "aplicar para un trabajo",
+      "country": "US",
+      "literal": "aplicarse a un trabajo",
+      "meaning": "postular a un empleo: de apply for a job"
+    },
+    {
+      "id": "tirar-un-party",
+      "phrase": "tirar un party",
+      "country": "US",
+      "literal": "arrojar una fiesta",
+      "meaning": "hacer una fiesta: de throw a party"
+    },
+    {
+      "id": "dar-para-atras",
+      "phrase": "dar para atrás",
+      "country": "US",
+      "literal": "entregar hacia atrás",
+      "meaning": "devolver algo: de give it back"
+    },
+    {
+      "id": "la-marketa",
+      "phrase": "la marketa",
+      "country": "US",
+      "literal": "la marketa",
+      "meaning": "el supermercado del barrio"
+    },
+    {
+      "id": "wachear",
+      "phrase": "wachear",
+      "country": "US",
+      "literal": "wachear",
+      "meaning": "mirar o vigilar: de to watch, y en imperativo wáchale es cuidado"
+    },
+    {
+      "id": "echar-pa-lante",
+      "phrase": "echar pa'lante",
+      "country": "US",
+      "literal": "echar hacia adelante",
+      "meaning": "seguir empujando pese a todo, sacar a la familia adelante"
+    }
+  ]
+}

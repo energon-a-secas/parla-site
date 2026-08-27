@@ -1279,3 +1279,165 @@ body.no-webgl .globe-reset { display: none; }
     white-space: nowrap;
   }
 }
+
+/* ==========================================================================
+   Expressions mode
+   Palabras answers "how do they say this over there"; Expresiones answers
+   "what on earth did they just say to me". The card holds that second question
+   open: the phrase alone, until you ask for the reading and the meaning.
+   ========================================================================== */
+
+.mode-switch {
+  display: flex;
+  width: 100%;
+  gap: 2px;
+  padding: 2px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface-sunken, rgba(0, 0, 0, 0.18));
+}
+
+.mode-btn {
+  flex: 1;
+  min-width: 0;
+  padding: 7px var(--space-3);
+  border: none;
+  border-radius: calc(var(--radius-md) - 3px);
+  background: transparent;
+  color: var(--text-muted);
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--dur) var(--ease-out), color var(--dur) var(--ease-out);
+}
+
+.mode-btn:hover { color: var(--text-primary); }
+
+.mode-btn.is-active {
+  background: var(--accent);
+  color: #fff;
+}
+
+.mode-btn:focus-visible {
+  outline: 2px solid var(--accent-bright);
+  outline-offset: 1px;
+}
+
+/* Expressions carry no category, so the filter that only the dictionary has
+   goes away rather than sitting there doing nothing. */
+body.mode-expressions #categorySelect { display: none; }
+
+.browse-count {
+  color: var(--text-muted);
+  font-weight: 400;
+  font-size: var(--text-sm);
+}
+
+.expr-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.expr-card {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  transition: border-color var(--dur) var(--ease-out), background var(--dur) var(--ease-out);
+}
+
+.expr-card:hover { border-color: var(--accent); }
+
+.expr-card:focus-visible {
+  outline: 2px solid var(--accent-bright);
+  outline-offset: 2px;
+}
+
+.expr-card.is-open {
+  border-color: var(--accent);
+  background: var(--surface-raised, var(--surface));
+}
+
+.expr-phrase {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.35;
+}
+
+.expr-flag { margin-left: 4px; }
+
+/* Collapsed to nothing rather than display:none, so the reveal animates.
+   The 0fr..1fr grid trick needs EXACTLY one child: a second child lands in an
+   implicit auto row, which no longer collapses and leaves every closed card
+   padded out with dead space. Hence .expr-reveal-inner. */
+.expr-reveal {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  /* Only the fade is transitioned. Animating grid-template-rows 0fr..1fr is
+     the tidy version, and Firefox does not interpolate fr track sizes at all,
+     so there it would jump rather than slide. The grid still does the
+     measuring, so the height stays exact with no magic max-height to outgrow;
+     only the easing is given up. */
+  transition: opacity var(--dur) var(--ease-out);
+}
+
+.expr-card.is-open .expr-reveal {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  margin-top: var(--space-3);
+}
+
+.expr-reveal-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.expr-line {
+  display: block;
+  padding: var(--space-2) 0 0;
+}
+
+.expr-line + .expr-line { border-top: 1px solid var(--border-subtle); margin-top: var(--space-2); }
+
+.expr-tag {
+  display: block;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+
+.expr-literal .expr-text {
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.expr-meaning .expr-text { color: var(--text-primary); }
+
+.expr-text {
+  display: block;
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}
+
+/* A phrase and its meaning are both sentences, so the hover card stacks them
+   with more room than the one-word dictionary rows need. */
+.globe-card-terms--stacked li { padding: 8px 0; }
+.globe-card-terms--stacked .globe-card-term { font-style: italic; }
+
+@media (prefers-reduced-motion: reduce) {
+  .expr-reveal { transition: none; }
+  .expr-card { transition: none; }
+}
