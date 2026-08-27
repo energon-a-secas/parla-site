@@ -13,6 +13,7 @@ const GEOMETRY_URL = 'data/americas.json';
 
 let stage = null;      // the live globe, or null in fallback mode
 let overlay = null;
+let pendingConcept = null;   // asked for while the stage was still loading
 let onPickCountry = null;
 let onViewChanged = null;
 
@@ -69,7 +70,7 @@ export async function initStage(dictionary) {
   }
 
   stage = globe;
-  document.body.classList.add('globe-mode');
+  // The pre-flight already put body in globe-mode; nothing to switch here.
   globe.onPick = (code) => onPickCountry?.(code);
   globe.onViewChange = (home) => onViewChanged?.(home);
 
@@ -80,6 +81,10 @@ export async function initStage(dictionary) {
   globe.onHover = (code) => overlay.hoverCountry(code);
 
   trackDock(globe);
+  if (pendingConcept) {
+    overlay.attach(...pendingConcept);
+    pendingConcept = null;
+  }
   return stage;
 }
 
@@ -93,6 +98,10 @@ function trackDock(globe) {
 }
 
 function fallback(reason) {
+  // Undoes the pre-flight's optimism. Only reached when a device passes the
+  // WebGL check and still fails to give us a context, so this is the one path
+  // that can still change the layout after load.
+  document.body.classList.remove('globe-mode');
   document.body.classList.add('no-webgl');
   if (reason) console.info('Parla: radial diagram mode.', reason);
   return null;
@@ -109,12 +118,21 @@ export function focusCountry(code) {
 }
 
 export function showConcept(concept, matchedVariant, groupedVariants, s) {
-  if (!stage) return false;
+  if (!stage) {
+    // No stage yet does not mean no stage ever. The pre-flight commits the body
+    // to globe-mode at parse time, so between then and the end of initStage a
+    // click must be held rather than answered with the radial fallback, which
+    // would draw itself over the stage about to appear.
+    if (!document.body.classList.contains('globe-mode')) return false;
+    pendingConcept = [concept, matchedVariant, groupedVariants, s];
+    return true;
+  }
   overlay.attach(concept, matchedVariant, groupedVariants, s);
   return true;
 }
 
 export function clearConcept() {
+  pendingConcept = null;
   overlay?.clear();
   stage?.setSelection({ country: null });
 }

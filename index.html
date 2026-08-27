@@ -57,6 +57,23 @@
   </script>
 </head>
 <body>
+  <!-- Stage pre-flight. WebGL support is knowable synchronously with no network,
+       so the layout is committed here, before the first paint, instead of at the
+       end of initStage() behind 946 KB of dictionary + three.js + geometry.
+       This is the only implementation: js/utils.js reads the verdict it caches.
+       Removing this script drops every visitor into the radial fallback. -->
+  <script>
+  (function () {
+    var ok = false;
+    try {
+      ok = !/[?&]nogl=/.test(location.search) &&
+           !!(document.createElement('canvas').getContext('webgl2') ||
+              document.createElement('canvas').getContext('webgl'));
+    } catch (e) { ok = false; }
+    window.__parlaWebGL = ok;
+    document.body.classList.add(ok ? 'globe-mode' : 'no-webgl');
+  })();
+  </script>
 
   <a class="skip-link" href="#main">Skip to content</a>
 
@@ -103,6 +120,12 @@
         <div class="sheet-inner">
           <div class="sheet-head">
             <button type="button" class="sheet-grab" id="sheetGrab" aria-label="Cerrar el panel"></button>
+            <div class="mode-switch" id="modeSwitch" role="tablist" aria-label="Qué estás buscando">
+              <button type="button" class="mode-btn is-active" id="modeWords"
+                      role="tab" aria-selected="true" data-mode="words">Palabras</button>
+              <button type="button" class="mode-btn" id="modeExpressions"
+                      role="tab" aria-selected="false" data-mode="expressions">Expresiones</button>
+            </div>
             <div class="sheet-filters">
               <label class="sr-only" for="countrySelect">Filtrar por país</label>
               <select class="filter-select" id="countrySelect" aria-label="Filtrar por país"></select>

@@ -4,26 +4,33 @@
 
 import { state, loadSaved } from './state.js';
 import { loadDictionary } from './data.js';
+import { loadExpressions } from './expressions.js';
 import { render, renderIntro, showDiagram, showWordOfDayDialog } from './render.js';
 import { bindEvents } from './events.js';
 import { initStage, focusCountry } from './diagram.js';
 
 async function init() {
   loadSaved(state);
-  await loadDictionary(state);
+  // Fetched together: the mode is restored from localStorage, so the app can
+  // come up in Expresiones and must not render an empty sheet while a second
+  // request lands.
+  await Promise.all([loadDictionary(state), loadExpressions(state)]);
+  document.body.classList.toggle('mode-expressions', state.mode === 'expressions');
   renderIntro(state);
   render(state);
   bindEvents(state);
+
+  // Fired before initStage because it needs only the dictionary. Waiting for
+  // the stage made the dialog appear a beat after the page had settled.
+  if (!window.location.hash.startsWith('#w=')) {
+    showWordOfDayDialog(state);
+  }
 
   // Must run after loadDictionary (it needs country colours and anchors) and
   // before openFromHash, so a deep link lands on a stage that already exists.
   await initStage(state.dictionary);
   focusCountry(state.activeCountry);
   openFromHash(state);
-
-  if (!window.location.hash.startsWith('#w=')) {
-    showWordOfDayDialog(state);
-  }
 
   window.addEventListener('hashchange', () => openFromHash(state));
 }

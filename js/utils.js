@@ -22,20 +22,11 @@ export function showToast(msg) {
 }
 
 
-/**
- * WebGL pre-flight. Lives here, not in globe3d.js, because a static import of
- * that module would pull three.js into the graph and download 656 KB on the
- * exact devices this check exists to spare. Append ?nogl=1 to force the
- * fallback path.
- */
+/** The verdict from the inline pre-flight in index.html, which runs before the
+ *  first paint so the stage layout is never corrected after load. That script
+ *  is the only implementation; this reads what it cached. */
 export function webglSupported() {
-  if (new URLSearchParams(location.search).has('nogl')) return false;
-  try {
-    const c = document.createElement('canvas');
-    return !!(c.getContext('webgl2') || c.getContext('webgl'));
-  } catch {
-    return false;
-  }
+  return window.__parlaWebGL === true;
 }
 
 
