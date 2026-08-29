@@ -20,7 +20,7 @@ return Math.atan2(-(cap.lat - refLat), cap.lon - refLon);
 
 Real latitudes. Real longitudes. A real bearing from a reference point near Peru. Every number in that line is honest.
 
-And it still wasn't a map. It was a wheel with a compass bearing. Two countries at the same bearing landed on top of each other regardless of how far apart they are. Distance was thrown away and replaced with "how many countries share this word" — nodes with more countries sat further out. So a word's position encoded a bearing and a count, and the reader's eye read it as geography.
+And it still wasn't a map. It was a wheel with a compass bearing. Two countries at the same bearing landed on top of each other regardless of how far apart they are. Distance was thrown away and replaced with "how many countries share this word", nodes with more countries sat further out. So a word's position encoded a bearing and a count, and the reader's eye read it as geography.
 
 Nobody complained. It looked right. That's what bothered me.
 
