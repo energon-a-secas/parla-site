@@ -255,8 +255,13 @@ export function createOverlay({ globe, dictionary }) {
     if (!screen) return;
     safe = null;          // the dock may have opened or closed since
     measureHero();
-    resolve(screen);
-    place(screen);
+    // update(), not resolve()+place(). The safe band is first measured a frame
+    // into the sheet's 200ms collapse, so cards get squeezed into a band sized
+    // for an open dock; re-separating them inside that stale band only pushes
+    // them apart again, it never puts them back over their countries. update()
+    // re-projects first. Its one-shot `reframed` latch means the refit inside
+    // it cannot loop when reached from here.
+    update();
   }
 
   /** Write positions and redraw the leaders. */

@@ -34,7 +34,20 @@ const MAX_EDGE_WORLD = 4;
 
 const FOV = 35;
 const HOME = { lon: -75, lat: -12 };
-const TWEEN_MS = 700;
+// A flat duration made a Colombia-to-Venezuela nudge take exactly as long as a
+// Los Angeles-to-Buenos Aires swing. Scaled to the arc actually travelled plus
+// the zoom delta, so short moves feel immediate and long ones keep their sweep.
+// This is not only cosmetic: a moving camera holds wasMoving true, so every
+// frame of the tween re-projects the overlay, re-runs the collision solver and
+// rebuilds the leader SVG, and onSettle waits for the whole duration.
+const TWEEN_MIN_MS = 240;
+const TWEEN_MAX_MS = 760;
+const TWEEN_MS_PER_DEG = 5.5;
+const TWEEN_MS_PER_DIST = 260;
+// Below this the move is not worth animating at all: clicking a second card
+// from the same country used to block settle for 700ms while nothing moved.
+const TWEEN_EPS_DEG = 0.05;
+const TWEEN_EPS_DIST = 0.002;
 const MAX_FIT_ANGLE = 26;   // a huge country must not shrink the globe to a marble
 // The home view frames Latin America, which is the product. The US takes part
 // but must not drag the default camera up over North America.
@@ -298,18 +311,24 @@ export function createGlobe3D(container, { countries, geometry, reducedMotion = 
       lat: THREE.MathUtils.clamp(lat, -73, 73),
       dist: THREE.MathUtils.clamp(dist, controls.minDistance, controls.maxDistance),
     };
-    if (!animate || reducedMotion) {
+    const arc = greatCircleDeg(from.lon, from.lat, to.lon, to.lat);
+    const ddist = Math.abs(to.dist - from.dist);
+    if (!animate || reducedMotion || (arc < TWEEN_EPS_DEG && ddist < TWEEN_EPS_DIST)) {
       tween = null;
       applyView(to.lon, to.lat, to.dist);
       return;
     }
-    tween = { from, to, t0: performance.now() };
+    const ms = THREE.MathUtils.clamp(
+      TWEEN_MIN_MS + arc * TWEEN_MS_PER_DEG + ddist * TWEEN_MS_PER_DIST,
+      TWEEN_MIN_MS, TWEEN_MAX_MS,
+    );
+    tween = { from, to, t0: performance.now(), ms };
     requestRender();
   }
 
   function stepTween(now) {
     if (!tween) return false;
-    const k = Math.min(1, (now - tween.t0) / TWEEN_MS);
+    const k = Math.min(1, (now - tween.t0) / tween.ms);
     const e = easeInOutCubic(k);
     const { from, to } = tween;
     applyView(
