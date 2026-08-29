@@ -1209,7 +1209,10 @@ body.no-webgl .command-bar {
   position: sticky;
   top: 76px;
   z-index: 50;
+  transition: top .2s ease;
 }
+/* Autohide companion for the no-webgl fallback bar. */
+body.no-webgl:has(.header-bar.header-hidden) .command-bar { top: 0; }
 
 /* The dock sits after the diagram in source order because the stage wants it
    pinned to the floor. In the fallback it has to lead, as the command bar did. */
