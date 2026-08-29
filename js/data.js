@@ -59,7 +59,6 @@ export function search(dict, query, countryFilter, categoryFilter) {
     for (const { concept, variant } of exact) {
       if (seen.has(concept.id)) continue;
       if (categoryFilter && concept.category !== categoryFilter) continue;
-      if (countryFilter && !variant.countries.includes(countryFilter)) continue;
       seen.add(concept.id);
       results.push({ concept, matchedVariant: variant, score: 3 });
     }
@@ -71,7 +70,6 @@ export function search(dict, query, countryFilter, categoryFilter) {
       for (const { concept, variant } of entries) {
         if (seen.has(concept.id)) continue;
         if (categoryFilter && concept.category !== categoryFilter) continue;
-        if (countryFilter && !variant.countries.includes(countryFilter)) continue;
         seen.add(concept.id);
         results.push({ concept, matchedVariant: variant, score: 2 });
       }
@@ -84,7 +82,6 @@ export function search(dict, query, countryFilter, categoryFilter) {
       for (const { concept, variant } of entries) {
         if (seen.has(concept.id)) continue;
         if (categoryFilter && concept.category !== categoryFilter) continue;
-        if (countryFilter && !variant.countries.includes(countryFilter)) continue;
         seen.add(concept.id);
         results.push({ concept, matchedVariant: variant, score: 1 });
       }
@@ -97,17 +94,26 @@ export function search(dict, query, countryFilter, categoryFilter) {
     if (categoryFilter && concept.category !== categoryFilter) continue;
     const meaningNorm = normalize(concept.meaning_en);
     if (meaningNorm.includes(q)) {
-      if (countryFilter) {
-        const hasCountry = concept.variants.some(v => v.countries.includes(countryFilter));
-        if (!hasCountry) continue;
-      }
       const matchedVariant = concept.variants[0];
       seen.add(concept.id);
       results.push({ concept, matchedVariant, score: 0 });
     }
   }
 
-  results.sort((a, b) => b.score - a.score);
+  // The country filter used to exclude. It now ranks, because a search is an
+  // explicit request for a word and the filter only says which country the
+  // reader cares about. Searching "laburo" while filtered to Chile reported
+  // that the word does not exist, on a site whose whole purpose is telling you
+  // that Argentina says laburo where Chile says pega. The four passes also
+  // disagreed about what the filter even meant: three tested the matched
+  // variant's countries, the fourth tested the whole concept's.
+  const countryRank = (r) => {
+    if (!countryFilter) return 0;
+    if (r.matchedVariant.countries.includes(countryFilter)) return 2;
+    if (r.concept.variants.some(v => v.countries.includes(countryFilter))) return 1;
+    return 0;
+  };
+  results.sort((a, b) => (b.score - a.score) || (countryRank(b) - countryRank(a)));
   return results;
 }
 
