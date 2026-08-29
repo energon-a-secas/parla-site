@@ -5,6 +5,7 @@
 import { state, loadSaved } from './state.js';
 import { loadDictionary } from './data.js';
 import { loadExpressions } from './expressions.js';
+import { loadUsage } from './usage.js';
 import { render, renderIntro, showDiagram, showWordOfDayDialog } from './render.js';
 import { bindEvents } from './events.js';
 import { initStage, focusCountry } from './diagram.js';
@@ -31,6 +32,18 @@ async function init() {
   await initStage(state.dictionary);
   focusCountry(state.activeCountry);
   openFromHash(state);
+
+  // Deliberately not awaited and deliberately last: examples are only needed
+  // once a word is open, and nothing above should wait on them. If they land
+  // while a concept is already showing, that concept redraws to pick them up.
+  loadUsage();
+  window.addEventListener('parla:usage-ready', () => {
+    if (state.activeConcept) {
+      const v = state.activeConcept.variants.find(x => x.term === state.matchedTerm)
+        || state.activeConcept.variants[0];
+      showDiagram(state.activeConcept, v, state);
+    }
+  });
 
   window.addEventListener('hashchange', () => openFromHash(state));
 }

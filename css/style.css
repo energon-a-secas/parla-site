@@ -1444,3 +1444,90 @@ body.mode-expressions #categorySelect { display: none; }
   .expr-reveal { transition: none; }
   .expr-card { transition: none; }
 }
+
+/* ==========================================================================
+   Usage examples
+   The dictionary says what a word means. These say how somebody actually says
+   it, which is the part you need before using it in front of anyone.
+   ========================================================================== */
+
+/* Marks that an example exists. Not a control: the node around it is the
+   trigger, because a button inside a button is invalid markup. */
+.node-info {
+  position: absolute;
+  top: 6px;
+  right: 7px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid var(--node-color, var(--accent));
+  color: var(--node-color, var(--accent));
+  font-size: 10px;
+  font-weight: 700;
+  font-style: italic;
+  line-height: 12px;
+  text-align: center;
+  opacity: 0.55;
+  transition: opacity var(--dur) var(--ease-out);
+}
+
+.diagram-node { position: relative; }
+.diagram-node.has-usage { padding-right: 26px; }
+.diagram-node:hover .node-info,
+.diagram-node:focus-visible .node-info { opacity: 1; }
+
+/* The compact and rim variants already hide child detail; the marker follows,
+   or it collides with the flags in a box that has no room for it. */
+.diagram-node--compact .node-info,
+.diagram-node--rim .node-info { display: none; }
+
+.usage-pop {
+  position: fixed;
+  z-index: 80;
+  max-width: min(290px, calc(100vw - 24px));
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface-solid);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: var(--text-primary);
+  pointer-events: none;   /* never eats a click meant for the globe */
+}
+
+.usage-label {
+  display: block;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 3px;
+}
+
+/* The hero's example is inline rather than hover-only: it is the word the
+   visitor actually asked about, and there is room on that card. */
+.center-usage {
+  margin: var(--space-2) 0 0;
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--border-subtle);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+/* Deliberately NOT hidden when compact. The hero's example is the most useful
+   line on the card and, with the node markers gone at this size, it is the only
+   thing telling a phone visitor that examples exist at all. */
+
+/* Pinned above the dock rather than anchored to a card: on a phone the stage is
+   too narrow for an anchored popover to avoid landing on the hero. */
+.usage-pop--pinned {
+  left: 50% !important;
+  top: auto !important;
+  bottom: calc(var(--dock-height, 96px) + 12px);
+  transform: translateX(-50%);
+  width: min(340px, calc(100vw - 24px));
+  max-width: none;
+}

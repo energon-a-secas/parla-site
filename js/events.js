@@ -9,6 +9,7 @@ import { render, renderResults, renderBrowse, showDiagram, relayout, dismissWord
 import { focusCountry, clearConcept, relayoutStage, isGlobeMode, setCountryPickHandler,
   setViewChangeHandler, resetView, isHomeView } from './diagram.js';
 import { $, debounce, showToast } from './utils.js';
+import { escHtml } from './neorgon-dom.js';
 
 export function bindEvents(s) {
   // -- Results sheet --------------------------------------------------------
@@ -322,6 +323,80 @@ export function bindEvents(s) {
     const first = (node.dataset.countries || '').split(',').filter(Boolean)[0];
     if (first) focusCountry(first);
   });
+
+  // -- Usage examples -------------------------------------------------------
+  // The node is already a button, so a nested info button would be invalid
+  // markup. The glyph only marks that an example exists; the node is the
+  // trigger, which gives hover, focus and tap for free and one target on
+  // touch. The example also rides the node's aria-label, so this popover is
+  // an enhancement rather than the only way to reach it.
+  const pop = $('usagePop');
+
+  function hideUsage() {
+    if (!pop) return;
+    pop.classList.add('hidden');
+    pop.setAttribute('aria-hidden', 'true');
+  }
+
+  function showUsage(node) {
+    const text = node?.dataset.usage;
+    if (!pop || !text) return hideUsage();
+    pop.innerHTML = `<span class="usage-label">Se usa así</span>${escHtml(text)}`;
+    pop.classList.remove('hidden');
+    pop.setAttribute('aria-hidden', 'false');
+    // On a phone there is no room to anchor: the stage is narrow, the cards are
+    // compact, and an anchored popover lands on the hero card as often as not.
+    // It becomes a strip pinned above the dock instead, which CSS positions, so
+    // the inline coordinates have to be cleared or they would win.
+    if (narrow.matches) {
+      pop.classList.add('usage-pop--pinned');
+      pop.style.removeProperty('left');
+      pop.style.removeProperty('top');
+      return;
+    }
+    pop.classList.remove('usage-pop--pinned');
+    // Measured after the content is in, then clamped to the viewport. Placed
+    // above the node when there is room and below when there is not, so a node
+    // near the top of the stage does not push the popover off screen.
+    const n = node.getBoundingClientRect();
+    const p = pop.getBoundingClientRect();
+    const pad = 10;
+    let left = n.left + n.width / 2 - p.width / 2;
+    let top = n.top - p.height - 8;
+    if (top < pad) top = n.bottom + 8;
+    left = Math.max(pad, Math.min(left, window.innerWidth - p.width - pad));
+    top = Math.max(pad, Math.min(top, window.innerHeight - p.height - pad));
+    pop.style.left = `${left}px`;
+    pop.style.top = `${top}px`;
+  }
+
+  const nodesWrap = $('diagramNodes');
+  if (nodesWrap && pop) {
+    const nodeFrom = (e) => e.target.closest('.diagram-node.has-usage');
+    nodesWrap.addEventListener('pointerover', (e) => {
+      const n = nodeFrom(e);
+      if (n && e.pointerType !== 'touch') showUsage(n);
+    });
+    nodesWrap.addEventListener('pointerout', (e) => {
+      if (nodeFrom(e) && e.pointerType !== 'touch') hideUsage();
+    });
+    // focusin/focusout rather than focus/blur: those do not bubble.
+    nodesWrap.addEventListener('focusin', (e) => {
+      const n = nodeFrom(e);
+      if (n) showUsage(n);
+    });
+    nodesWrap.addEventListener('focusout', hideUsage);
+    // Touch: the tap that focuses the country also shows the example.
+    nodesWrap.addEventListener('click', (e) => {
+      const n = nodeFrom(e);
+      if (n) showUsage(n);
+    });
+    // Any camera move invalidates the anchor, so the popover goes rather than
+    // hanging over empty ocean.
+    window.addEventListener('parla:concept', hideUsage);
+    document.addEventListener('scroll', hideUsage, true);
+    window.addEventListener('resize', hideUsage);
+  }
 
   // Expand/collapse browse sections
   $('browseArea').addEventListener('click', (e) => {

@@ -7,6 +7,7 @@ belonged and made that variant invisible to the CL filter.
 """
 
 import json
+import re
 import sys
 from collections import defaultdict
 
@@ -15,6 +16,9 @@ with open('api/v1/dictionary.json', 'r', encoding='utf-8') as f:
 
 with open('api/v1/expressions.json', 'r', encoding='utf-8') as f:
     expressions = json.load(f)['expressions']
+
+with open('api/v1/usage.json', 'r', encoding='utf-8') as f:
+    usage = json.load(f)['usage']
 
 # Countries come from the data, never a hardcoded list, so this script cannot
 # go stale when a country is added.
@@ -75,6 +79,78 @@ for e in expressions:
         if not e.get(field):
             errors.append(f"expression {e['id']!r} is missing {field!r}")
 
+# Usage examples are keyed "<concept id>|<lowercased term>". A key that resolves
+# to nothing is an example nobody will ever see, and the renderer cannot tell the
+# difference between that and a word that simply has no example yet.
+import unicodedata
+
+
+# Trailing object pronouns, then the infinitive ending, then a final vowel that
+# gender or conjugation will change anyway. Floored at 3 characters, below which
+# the test stops discriminating and starts matching anything.
+CLITICS = ('selo', 'sela', 'nos', 'las', 'los', 'le', 'la', 'lo', 'se', 'me', 'te')
+
+
+def stem(word):
+    for c in CLITICS:
+        if len(word) > len(c) + 2 and word.endswith(c):
+            word = word[:-len(c)]
+            break
+    for end in ('ar', 'er', 'ir'):
+        if len(word) > 4 and word.endswith(end):
+            word = word[:-2]
+            break
+    if len(word) > 3 and word[-1] in 'aeiou':
+        word = word[:-1]
+    return word if len(word) >= 3 else ''
+
+
+def strip_accents(text):
+    return ''.join(c for c in unicodedata.normalize('NFD', text)
+                   if unicodedata.category(c) != 'Mn').lower()
+
+
+def fold(text):
+    """Accent-free, with the Spanish spelling alternations flattened.
+
+    Conjugation changes the SPELLING of a stem, not just its ending: buscar
+    becomes busqué, arrancar becomes arranquemos, empezar becomes empecé, pagar
+    becomes pagué. Folding qu to c, gu to g and z to c on both sides of the
+    comparison makes those the same string. Applied to the example and to the
+    stem alike, so it can only ever make matching more permissive, never wrong
+    in a way that hides a missing word.
+    """
+    t = strip_accents(text)
+    return t.replace('qu', 'c').replace('gu', 'g').replace('z', 'c')
+
+
+valid_keys = {f"{c['id']}|{v['term'].lower()}"
+              for c in concepts for v in c['variants']}
+for key, example in usage.items():
+    if key not in valid_keys:
+        errors.append(f"usage key {key!r} matches no concept/variant pair")
+        continue
+    if not example or not example.strip():
+        errors.append(f"usage key {key!r} has an empty example")
+        continue
+    # An example that never says the word is the one failure mode that makes the
+    # feature actively misleading. Matching has to survive Spanish inflection,
+    # which changes the stem, not just the ending: "cagarla" appears as "la
+    # cagué", "picar" as "me las pico", "malo" as "mala". A flat 4-character
+    # prefix flagged all three as missing, so the term is reduced to a stem
+    # first and the stem is what must appear.
+    term = key.split('|', 1)[1]
+    haystack = fold(example)
+    words = [w for w in strip_accents(term).split() if len(w) >= 3]
+    if words:
+        hit = any(stem(w) and fold(stem(w)) in haystack for w in words)
+    else:
+        # A term too short to stem (re, ya) can only be matched whole, and only
+        # as its own word, or "re" would match inside "regalo".
+        hit = re.search(rf"\b{re.escape(fold(term))}\b", haystack) is not None
+    if not hit:
+        errors.append(f"usage example for {key!r} never uses the word: {example!r}")
+
 if errors:
     print("VALIDATION FAILED", file=sys.stderr)
     for err in errors:
@@ -90,6 +166,9 @@ print("=" * 80)
 expr_counts = defaultdict(int)
 for e in expressions:
     expr_counts[e['country']] += 1
+usage_pct = (len(usage) / max(1, sum(len(c['variants']) for c in concepts))) * 100
+print(f"\nUsage examples: {len(usage)} of "
+      f"{sum(len(c['variants']) for c in concepts)} variants ({usage_pct:.0f}%)")
 print(f"\nExpressions: {len(expressions)} across {len(expr_counts)} countries")
 print("  " + "  ".join(f"{c}:{expr_counts[c]}" for c in COUNTRIES))
 

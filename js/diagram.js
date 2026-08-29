@@ -92,7 +92,13 @@ export async function initStage(dictionary) {
 function trackDock(globe) {
   const dock = document.querySelector('.dock');
   if (!dock) return;
-  const sync = () => globe.setBottomInset(dock.getBoundingClientRect().height);
+  const sync = () => {
+    const h = dock.getBoundingClientRect().height;
+    globe.setBottomInset(h);
+    // Published so CSS can sit things above the dock without measuring it a
+    // second time and drifting. The usage popover uses it on narrow viewports.
+    document.documentElement.style.setProperty('--dock-height', `${Math.round(h)}px`);
+  };
   new ResizeObserver(sync).observe(dock);
   sync();
 }

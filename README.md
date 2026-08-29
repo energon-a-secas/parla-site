@@ -45,7 +45,8 @@ Search any Latin American slang word and instantly see its equivalents across Ch
 - **English search** -- search by English meaning to discover slang you don't know yet
 - **Browse mode** -- explore the full dictionary grouped by category
 - **Colloquial expressions** -- a second mode for the phrases a dictionary cannot help with. 71 country-specific idioms, each showing what it *sounds like* next to what it actually means, so `el que toca mano toca cara` resolves to "he is looking for a fight". Search reaches the meaning, not just the phrase
-- **Static JSON API** -- `GET /api/v1/dictionary.json` and `GET /api/v1/expressions.json` for programmatic access
+- **Usage examples** -- every word carries a short sentence showing how it is actually said, in that country's own register. Inline on the word you opened, on hover or tap for the rest
+- **Static JSON API** -- `GET /api/v1/dictionary.json`, `GET /api/v1/expressions.json` and `GET /api/v1/usage.json` for programmatic access
 - **3D globe** -- the whole stage. Countries are raised solids in their own colours, drag to rotate and scroll to zoom, hover one for a sample of its slang. Click a country to filter to it and open its terms; rotation is bounded so Latin America never leaves the screen, and one control returns you to all countries
 - **Definitions on the map** -- opening a word pins each regional term to the country that says it, with a leader line back to the land; the camera frames exactly the countries involved
 - **Works without WebGL** -- falls back to the original radial diagram; force it with `?nogl=1`
@@ -96,6 +97,7 @@ parla-site/
 │   ├── state.js            # Search state, filters, localStorage
 │   ├── data.js             # Load dictionary, search index, matching
 │   ├── expressions.js      # Load, search and group the idioms
+│   ├── usage.js            # Lazily loaded usage examples
 │   ├── render.js           # DOM rendering, diagram layout, browse view
 │   ├── diagram.js          # Re-exports background init
 │   ├── globe3d.js          # Three.js globe: scene, camera, picking
@@ -106,6 +108,7 @@ parla-site/
 │   └── utils.js            # Helpers (escHtml, toast, debounce)
 ├── api/v1/dictionary.json  # Full dictionary (static JSON API)
 ├── api/v1/expressions.json # Country-specific idioms (static JSON API)
+├── api/v1/usage.json       # One usage example per variant (static JSON API)
 ├── data/americas.json      # Country outlines (generated, `make geometry`)
 ├── vendor/three/           # three.js r160 + OrbitControls (vendored)
 ├── scripts/build_geometry.py  # Natural Earth -> data/americas.json

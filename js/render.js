@@ -4,6 +4,7 @@
 import { state, isWodDismissedToday, dismissWodToday } from './state.js';
 import { getCountries, getCategories, browseConcepts, mergeVariants } from './data.js';
 import { browseExpressions, groupByCountry } from './expressions.js';
+import { usageFor } from './usage.js';
 import { showConcept } from './diagram.js';
 import { separate } from './collide.js';
 import { $, escHtml, categoryLabel, categoryIcon } from './utils.js';
@@ -185,6 +186,14 @@ function renderResultCard(result, s) {
   </button>`;
 }
 
+/** The hero's own example, inline. Empty string when there is none, so the
+ *  template collapses rather than leaving a labelled blank. */
+function heroUsage(conceptId, term) {
+  const example = usageFor(conceptId, term);
+  if (!example) return '';
+  return `<div class="center-usage"><span class="usage-label">Se usa así</span>${escHtml(example)}</div>`;
+}
+
 export function showDiagram(concept, matchedVariant, s) {
   const diagram = $('diagramArea');
   const center = $('diagramCenter');
@@ -220,6 +229,7 @@ export function showDiagram(concept, matchedVariant, s) {
     center.innerHTML = `
       <div class="center-term">${escHtml(heroTerm)} <span class="center-flag">${heroFlag}</span></div>
       <div class="center-meaning">${escHtml(concept.meaning_en)}</div>
+      ${heroUsage(concept.id, heroTerm)}
       <div class="center-category">${categoryIcon(concept.category)} ${categoryLabel(concept.category)}</div>
     `;
   } else {
@@ -228,6 +238,7 @@ export function showDiagram(concept, matchedVariant, s) {
     center.innerHTML = `
       <div class="center-term">${escHtml(s.matchedTerm)} <span class="center-flag">${heroFlags}</span></div>
       <div class="center-meaning">${escHtml(concept.meaning_en)}</div>
+      ${heroUsage(concept.id, s.matchedTerm)}
       <div class="center-category">${categoryIcon(concept.category)} ${categoryLabel(concept.category)}</div>
     `;
   }
@@ -268,7 +279,16 @@ export function showDiagram(concept, matchedVariant, s) {
     const isMatch = v.term.toLowerCase() === s.matchedTerm?.toLowerCase();
     const note = v.note ? `<div class="node-note">${escHtml(v.note)}</div>` : '';
     const countryNames = v.countries.map(c => countries[c]?.name || c).join(', ');
-    return `<button type="button" class="diagram-node ${isMatch ? 'matched' : ''}" data-index="${i}" data-countries="${v.countries.join(',')}" style="--node-color:${borderColor}" aria-label="${escHtml(v.term)}, ${escHtml(countryNames)}">
+    // A nested button inside this button would be invalid, so the glyph is only
+    // a marker that an example exists and the node itself is the trigger. The
+    // example also rides the aria-label, so a screen reader never has to open
+    // a popover to reach it.
+    const example = usageFor(concept.id, v.term);
+    const info = example ? '<span class="node-info" aria-hidden="true">i</span>' : '';
+    const usageAttr = example ? ` data-usage="${escHtml(example)}"` : '';
+    const spoken = example ? `${countryNames}. Ejemplo: ${example}` : countryNames;
+    return `<button type="button" class="diagram-node ${isMatch ? 'matched' : ''}${example ? ' has-usage' : ''}" data-index="${i}" data-countries="${v.countries.join(',')}"${usageAttr} style="--node-color:${borderColor}" aria-label="${escHtml(v.term)}, ${escHtml(spoken)}">
+      ${info}
       <div class="node-flags">${flags}</div>
       <div class="node-term">${escHtml(v.term)}</div>
       <div class="node-countries">${escHtml(countryNames)}</div>

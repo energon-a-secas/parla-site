@@ -20,7 +20,8 @@ Standard modular ES module app. Entry point is `js/app.js`.
 
 **Data flow:**
 1. `app.js` calls `loadDictionary()` → fetches `api/v1/dictionary.json` and builds an inverted search index in memory.
-2. User types → `search()` in `data.js` runs 4 passes in priority order: exact match (score 3), prefix (score 2), contains (score 1), English meaning match (score 0). Results sorted by score.
+2. User types → `search()` in `data.js` runs 4 passes in priority order: exact match (score 3), prefix (score 2), contains (score 1), English meaning match (score 0). Results sorted by score, then by country relevance.
+   - **The country filter ranks, it does not exclude.** Searching `laburo` while filtered to Chile used to report that the word does not exist, on a site whose purpose is telling you Argentina says `laburo` where Chile says `pega`. Three passes tested the matched variant's countries and the fourth tested the whole concept, so they disagreed about what the filter even meant. Within a score, a result whose matched variant is in the active country outranks one where only some other variant is, which outranks one with no connection.
 3. Single result → `showDiagram()` directly. Multiple results → result cards list. Clicking a card calls `showDiagram()`.
 4. `showDiagram()` handles URL hash (`#w=<concept-id>`) via `history.pushState` and popstate so browser back/forward works correctly.
 
@@ -100,6 +101,22 @@ The second half of the app, reached by the `Palabras` / `Expresiones` switch in 
 ---
 
 **Word of the day** is deterministically seeded by `YYYY * 10000 + MM * 100 + DD` modulo concept count, so it's stable for the entire day without any server.
+
+---
+
+## Usage examples
+
+One short sentence per variant, showing the word in a situation rather than defining it. Data lives in **`api/v1/usage.json`**, keyed `"<concept id>|<lowercased term>"`.
+
+- **Deliberately not in `dictionary.json`.** That file gates the first render and the search index; examples are only needed once a word is open. `loadUsage()` is fired from `app.js` after `initStage`, not awaited, and never blocks anything.
+- If it lands while a concept is already open, it dispatches `parla:usage-ready` and `app.js` redraws that concept. Without it, a word opened during the fetch would keep an empty example for as long as it stayed open.
+- A missing or failed `usage.json` is not fatal: `usageFor()` returns null and every surface treats that as "no example", so no marker and no popover.
+- **The hero card shows its example inline** (`.center-usage`). It is the word the visitor asked about and there is room on that card.
+- **Nodes get a marker, not a button.** `.diagram-node` is already a `<button>`, and a nested button is invalid markup, so `.node-info` is an inert glyph and the node itself is the trigger: hover on pointer devices, `focusin` for keyboard, tap on touch. The example is also appended to the node's `aria-label`, so the popover is an enhancement rather than the only route to it.
+- `#usagePop` is `position: fixed` with `pointer-events: none`, placed above the node when there is room and below when there is not, then clamped to the viewport. It hides on `parla:concept`, scroll and resize, because a camera move invalidates its anchor.
+- `make coverage` fails on a key matching no concept/variant pair, an empty example, and an example that never uses its own word (matched on a 4-character accent-free prefix so conjugation and agreement still count).
+
+---
 
 **Search normalization** strips diacritics via `NFD` decomposition and removes non-alphanumeric characters, so searching "bacan" matches "bacán".
 
