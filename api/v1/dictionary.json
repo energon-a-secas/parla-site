@@ -460,8 +460,10 @@
           "term": "encabronado",
           "countries": [
             "MX",
-            "US"
-          ]
+            "US",
+            "CL"
+          ],
+          "note": "pissed off"
         },
         {
           "term": "arrecho",
@@ -488,13 +490,6 @@
             "CL"
           ],
           "note": "furious"
-        },
-        {
-          "term": "encabronado",
-          "countries": [
-            "CL"
-          ],
-          "note": "pissed off"
         },
         {
           "term": "envergonzado",
@@ -1118,9 +1113,10 @@
         {
           "term": "huevada",
           "countries": [
-            "CL"
+            "CL",
+            "PE"
           ],
-          "note": "also 'weá'"
+          "note": "also 'weá' in Chile"
         },
         {
           "term": "vaina",
@@ -1135,12 +1131,6 @@
           "countries": [
             "AR",
             "MX"
-          ]
-        },
-        {
-          "term": "huevada",
-          "countries": [
-            "PE"
           ]
         },
         {
@@ -1213,25 +1203,15 @@
           "countries": [
             "CL",
             "AR",
-            "US"
+            "US",
+            "MX",
+            "PE"
           ]
         },
         {
           "term": "embarrarla",
           "countries": [
             "CO"
-          ]
-        },
-        {
-          "term": "cagarla",
-          "countries": [
-            "MX"
-          ]
-        },
-        {
-          "term": "cagarla",
-          "countries": [
-            "PE"
           ]
         },
         {
@@ -1275,12 +1255,7 @@
         {
           "term": "harto",
           "countries": [
-            "MX"
-          ]
-        },
-        {
-          "term": "harto",
-          "countries": [
+            "MX",
             "PE"
           ]
         },
@@ -1445,7 +1420,8 @@
         {
           "term": "huevear",
           "countries": [
-            "CL"
+            "CL",
+            "PE"
           ]
         },
         {
@@ -1465,12 +1441,6 @@
           "term": "cotorrear",
           "countries": [
             "MX"
-          ]
-        },
-        {
-          "term": "huevear",
-          "countries": [
-            "PE"
           ]
         },
         {
@@ -1506,12 +1476,7 @@
             "CO",
             "VE",
             "PE",
-            "US"
-          ]
-        },
-        {
-          "term": "carro",
-          "countries": [
+            "US",
             "BR"
           ]
         },
@@ -2242,12 +2207,7 @@
         {
           "term": "meter la pata",
           "countries": [
-            "PE"
-          ]
-        },
-        {
-          "term": "meter la pata",
-          "countries": [
+            "PE",
             "VE"
           ]
         }
@@ -2294,13 +2254,15 @@
         {
           "term": "jalar",
           "countries": [
-            "CL"
+            "CL",
+            "PE"
           ]
         },
         {
           "term": "jambar",
           "countries": [
-            "CO"
+            "CO",
+            "VE"
           ]
         },
         {
@@ -2313,18 +2275,6 @@
           "term": "tragar",
           "countries": [
             "MX"
-          ]
-        },
-        {
-          "term": "jalar",
-          "countries": [
-            "PE"
-          ]
-        },
-        {
-          "term": "jambar",
-          "countries": [
-            "VE"
           ]
         },
         {
@@ -2421,15 +2371,17 @@
         {
           "term": "aplicado",
           "countries": [
-            "CL"
+            "CL",
+            "MX"
           ]
         },
         {
           "term": "juicioso",
           "countries": [
-            "CO"
+            "CO",
+            "VE"
           ],
-          "note": "very Colombian"
+          "note": "especially Colombian"
         },
         {
           "term": "portado",
@@ -2438,21 +2390,9 @@
           ]
         },
         {
-          "term": "aplicado",
-          "countries": [
-            "MX"
-          ]
-        },
-        {
           "term": "tranquilo",
           "countries": [
             "PE"
-          ]
-        },
-        {
-          "term": "juicioso",
-          "countries": [
-            "VE"
           ]
         }
       ]
@@ -4213,7 +4153,10 @@
         {
           "term": "gil",
           "countries": [
-            "CL"
+            "CL",
+            "AR",
+            "PE",
+            "VE"
           ]
         },
         {
@@ -4224,22 +4167,9 @@
           "note": "lit. fallen from the attic; oblivious and out of touch"
         },
         {
-          "term": "gil",
-          "countries": [
-            "AR"
-          ]
-        },
-        {
           "term": "pendejo",
           "countries": [
             "MX"
-          ]
-        },
-        {
-          "term": "gil",
-          "countries": [
-            "PE",
-            "VE"
           ]
         },
         {
@@ -4258,12 +4188,7 @@
         {
           "term": "tirar los perros",
           "countries": [
-            "CL"
-          ]
-        },
-        {
-          "term": "tirar los perros",
-          "countries": [
+            "CL",
             "PE",
             "VE"
           ]
@@ -4531,7 +4456,8 @@
         {
           "term": "los pacos",
           "countries": [
-            "CL"
+            "CL",
+            "VE"
           ]
         },
         {
@@ -4553,12 +4479,6 @@
           "countries": [
             "CO",
             "PE"
-          ]
-        },
-        {
-          "term": "los pacos",
-          "countries": [
-            "VE"
           ]
         },
         {
@@ -4741,7 +4661,9 @@
         {
           "term": "la coima",
           "countries": [
-            "CL"
+            "CL",
+            "AR",
+            "PE"
           ]
         },
         {
@@ -4752,13 +4674,6 @@
             "US"
           ],
           "note": "lit. the bite; iconic for petty corruption, especially traffic cops"
-        },
-        {
-          "term": "la coima",
-          "countries": [
-            "AR",
-            "PE"
-          ]
         },
         {
           "term": "la matraca",
@@ -5538,12 +5453,7 @@
             "AR",
             "PE",
             "VE",
-            "MX"
-          ]
-        },
-        {
-          "term": "caro",
-          "countries": [
+            "MX",
             "BR"
           ]
         }
@@ -5562,12 +5472,7 @@
             "AR",
             "PE",
             "VE",
-            "MX"
-          ]
-        },
-        {
-          "term": "barato",
-          "countries": [
+            "MX",
             "BR"
           ]
         }

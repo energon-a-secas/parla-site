@@ -141,6 +141,36 @@ export function sampleTerms(dict, code, n = 5) {
   return pool.slice(0, n);
 }
 
+/**
+ * Collapse variants that spell the same term into one row, unioning their
+ * countries. The dictionary stores `carro` twice, once for MX/CO/VE/PE/US and
+ * once for BR, and every surface that renders variants has to agree on which
+ * of those it is looking at. This used to live inside showDiagram(), which ran
+ * it AFTER picking the hero card, so the hero showed the raw row's countries
+ * and the merged row was then filtered out of the outer nodes: 17 concept/term
+ * pairs had a country that appeared nowhere on screen.
+ *
+ * A note is kept only when every merged row agrees on it. First-note-wins put
+ * "very Colombian" under the CO and VE flags on `juicioso`.
+ */
+export function mergeVariants(variants) {
+  const merged = [];
+  const byTerm = new Map();
+  for (const v of variants) {
+    const key = v.term.toLowerCase();
+    const seen = byTerm.get(key);
+    if (seen) {
+      seen.countries = [...new Set([...seen.countries, ...v.countries])];
+      if (seen.note !== v.note) seen.note = undefined;
+    } else {
+      const entry = { term: v.term, countries: [...v.countries], note: v.note };
+      byTerm.set(key, entry);
+      merged.push(entry);
+    }
+  }
+  return merged;
+}
+
 export function getCountries(dict) {
   return dict ? dict.countries : {};
 }

@@ -143,12 +143,14 @@
             </div>
           </div>
           <div class="sheet-body">
-            <div class="results-area" id="resultsArea">
-              <div class="intro-state" id="introState">
-                <p class="intro-text">Toca un país en el globo, o busca una palabra</p>
-                <div class="intro-examples" id="introExamples"></div>
-              </div>
+            <!-- A sibling of #resultsArea, not a child. renderBrowse clears
+                 #resultsArea, so nesting the intro inside it destroyed the copy
+                 and the example pills on the first render of every visit. -->
+            <div class="intro-state" id="introState">
+              <p class="intro-text">Toca un país en el globo, o busca una palabra</p>
+              <div class="intro-examples" id="introExamples"></div>
             </div>
+            <div class="results-area" id="resultsArea"></div>
             <div class="browse-area" id="browseArea"></div>
           </div>
         </div>

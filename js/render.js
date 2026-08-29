@@ -2,7 +2,7 @@
 // All functions that create or update DOM elements.
 
 import { state, isWodDismissedToday, dismissWodToday } from './state.js';
-import { getCountries, getCategories, browseConcepts } from './data.js';
+import { getCountries, getCategories, browseConcepts, mergeVariants } from './data.js';
 import { browseExpressions, groupByCountry } from './expressions.js';
 import { showConcept } from './diagram.js';
 import { separate } from './collide.js';
@@ -31,7 +31,12 @@ export function getWordOfDayData(s) {
   const seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
   const concepts = s.dictionary.concepts;
   const concept = concepts[seed % concepts.length];
-  const variant = concept.variants[seed % concept.variants.length];
+  // Picked from the raw list so the seed keeps choosing the same term it always
+  // has, then looked up in the merged rows so the flags are the full set. Seeding
+  // off the merged length instead would silently change the word on 13 concepts.
+  const raw = concept.variants[seed % concept.variants.length];
+  const variant = mergeVariants(concept.variants)
+    .find(v => v.term.toLowerCase() === raw.term.toLowerCase()) || raw;
   const promptIdx = seed % PROMPTS.length;
   return { concept, variant, prompt: PROMPTS[promptIdx], countries };
 }
@@ -154,8 +159,9 @@ export function renderResults(results, s, autoOpen = true) {
 function renderResultCard(result, s) {
   const { concept, matchedVariant } = result;
   const countries = getCountries(s.dictionary);
+  const variants = mergeVariants(concept.variants);
   if (s.activeCountry) {
-    const cv = concept.variants.find(v => v.countries.includes(s.activeCountry));
+    const cv = variants.find(v => v.countries.includes(s.activeCountry));
     const heroTerm = cv ? cv.term : matchedVariant.term;
     const heroFlag = countries[s.activeCountry]?.flag || '';
     return `<button class="result-card" data-concept="${escHtml(concept.id)}" data-term="${escHtml(heroTerm)}">
@@ -167,11 +173,12 @@ function renderResultCard(result, s) {
       <span class="result-arrow">\u2192</span>
     </button>`;
   }
-  const flags = matchedVariant.countries.map(c => countries[c]?.flag || c).join(' ');
+  const matched = variants.find(v => v.term.toLowerCase() === matchedVariant.term.toLowerCase()) || matchedVariant;
+  const flags = matched.countries.map(c => countries[c]?.flag || c).join(' ');
   return `<button class="result-card" data-concept="${escHtml(concept.id)}" data-term="${escHtml(matchedVariant.term)}">
     <div class="result-body">
       <div class="result-term">${escHtml(concept.meaning_en)}</div>
-      <div class="result-meaning">${escHtml(matchedVariant.term)} <span class="result-flags">${flags}</span></div>
+      <div class="result-meaning">${escHtml(matched.term)} <span class="result-flags">${flags}</span></div>
       <div class="result-category">${categoryIcon(concept.category)} ${categoryLabel(concept.category)}</div>
     </div>
     <span class="result-arrow">\u2192</span>
@@ -198,8 +205,15 @@ export function showDiagram(concept, matchedVariant, s) {
   s.activeConcept = concept;
   s.matchedTerm = matchedVariant?.term || concept.variants[0].term;
 
+  // Merge before anything reads a variant. The hero used to be built from the
+  // raw matched row, and the merged row carrying the full country union was
+  // then filtered back out of the outer nodes, so those countries were drawn
+  // nowhere while the globe still lit them up.
+  const grouped = mergeVariants(concept.variants);
+  const heroOf = (term) => grouped.find(v => v.term.toLowerCase() === term?.toLowerCase());
+
   if (s.activeCountry) {
-    const cv = concept.variants.find(v => v.countries.includes(s.activeCountry));
+    const cv = grouped.find(v => v.countries.includes(s.activeCountry));
     const heroTerm = cv ? cv.term : s.matchedTerm;
     const heroFlag = countries[s.activeCountry]?.flag || '';
     s.matchedTerm = heroTerm;
@@ -209,7 +223,7 @@ export function showDiagram(concept, matchedVariant, s) {
       <div class="center-category">${categoryIcon(concept.category)} ${categoryLabel(concept.category)}</div>
     `;
   } else {
-    const heroFlags = (matchedVariant?.countries || concept.variants[0].countries)
+    const heroFlags = (heroOf(s.matchedTerm)?.countries || matchedVariant?.countries || concept.variants[0].countries)
       .map(c => countries[c]?.flag || '').join(' ');
     center.innerHTML = `
       <div class="center-term">${escHtml(s.matchedTerm)} <span class="center-flag">${heroFlags}</span></div>
@@ -238,22 +252,6 @@ export function showDiagram(concept, matchedVariant, s) {
   } else {
     history.pushState(null, '', newHash);
     s.diagramPushedState = true;
-  }
-
-  // Group variants: merge those with same term
-  const grouped = [];
-  const termMap = new Map();
-  for (const v of concept.variants) {
-    const key = v.term.toLowerCase();
-    if (termMap.has(key)) {
-      const existing = termMap.get(key);
-      existing.countries = [...new Set([...existing.countries, ...v.countries])];
-      if (v.note && !existing.note) existing.note = v.note;
-    } else {
-      const entry = { term: v.term, countries: [...v.countries], note: v.note };
-      termMap.set(key, entry);
-      grouped.push(entry);
-    }
   }
 
   // Filter out the matched term from outer nodes (it's in the center)
@@ -493,27 +491,28 @@ export function renderBrowse(s) {
     for (let idx = 0; idx < items.length; idx++) {
       const concept = items[idx];
       const hidden = idx >= 3 ? ' hidden' : '';
+      const variants = mergeVariants(concept.variants);
       if (s.activeCountry) {
-        const cv = concept.variants.find(v => v.countries.includes(s.activeCountry));
-        const heroTerm = cv ? cv.term : concept.variants[0].term;
+        const cv = variants.find(v => v.countries.includes(s.activeCountry));
+        const heroTerm = cv ? cv.term : variants[0].term;
         const heroFlag = countries[s.activeCountry]?.flag || '';
-        const others = concept.variants.filter(v => v !== cv).slice(0, 3);
+        const others = variants.filter(v => v !== cv).slice(0, 3);
         const translations = others.map(v => {
           const fl = v.countries.map(c => countries[c]?.flag || c).join('');
           return `<span class="browse-term">${escHtml(v.term)} <span class="browse-term-flags">${fl}</span></span>`;
         }).join('');
-        const more = others.length < concept.variants.length - 1 ? `<span class="browse-more">+${concept.variants.length - 1 - others.length}</span>` : '';
+        const more = others.length < variants.length - 1 ? `<span class="browse-more">+${variants.length - 1 - others.length}</span>` : '';
         html += `<button class="browse-card${hidden}" data-concept="${escHtml(concept.id)}">
           <div class="browse-hero">${escHtml(heroTerm)} <span class="browse-hero-flag">${heroFlag}</span></div>
           <div class="browse-terms">${translations}${more}</div>
           <div class="browse-meaning">${escHtml(concept.meaning_en)}</div>
         </button>`;
       } else {
-        const heroTerms = concept.variants.slice(0, 3).map(v => {
+        const heroTerms = variants.slice(0, 3).map(v => {
           const fl = v.countries.map(c => countries[c]?.flag || c).join('');
           return `<span class="browse-term">${escHtml(v.term)} <span class="browse-term-flags">${fl}</span></span>`;
         }).join('');
-        const more = concept.variants.length > 3 ? `<span class="browse-more">+${concept.variants.length - 3}</span>` : '';
+        const more = variants.length > 3 ? `<span class="browse-more">+${variants.length - 3}</span>` : '';
         html += `<button class="browse-card${hidden}" data-concept="${escHtml(concept.id)}">
           <div class="browse-hero">${escHtml(concept.meaning_en)}</div>
           <div class="browse-terms">${heroTerms}${more}</div>

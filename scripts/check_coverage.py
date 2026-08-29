@@ -44,6 +44,22 @@ for concept in concepts:
                     f"unknown country code {code!r} in {concept['id']} / {variant['term']!r}"
                 )
 
+# A concept listing the same term twice is the data shape behind the bug where a
+# country appeared on the globe but on no card: the renderer merges these rows,
+# and every surface that forgot to merge disagreed with the one that did. The
+# renderer still merges defensively, so this keeps the data honest rather than
+# relying on it.
+for concept in concepts:
+    seen_terms = {}
+    for variant in concept['variants']:
+        key = variant['term'].strip().lower()
+        if key in seen_terms:
+            errors.append(
+                f"concept {concept['id']!r} lists {variant['term']!r} twice "
+                f"({seen_terms[key]} and {variant['countries']}); merge them into one variant"
+            )
+        seen_terms[key] = variant['countries']
+
 # Expressions carry the same risk as variants and worse: a bad code here also
 # drops the phrase out of its country group entirely, so it renders nowhere.
 seen_ids = set()

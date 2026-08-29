@@ -21,7 +21,13 @@ export function bindEvents(s) {
     if (!sheet) return;
     sheet.classList.toggle('is-open', open);
     sheetToggle?.setAttribute('aria-expanded', String(open));
+    // A closed sheet is only max-height:0 and opacity:0, so without this its
+    // contents stay in the tab order: the mode switch, both filters and every
+    // rendered browse card, invisible, inside a zero-height box. Measured at
+    // 200 reachable controls in Expresiones mode.
+    sheet.inert = !open;
   }
+  setSheet(false);   // the sheet ships closed, and nothing else calls this at boot
   function sheetOpen() {
     return !!sheet?.classList.contains('is-open');
   }
@@ -267,16 +273,27 @@ export function bindEvents(s) {
       const url = window.location.href;
       const term = document.querySelector('.center-term')?.textContent?.trim() || 'a slang word';
       const shareData = { title: `Parla: ${term}`, text: `Check out "${term}" on Parla, the Latin American slang map`, url };
-      const doShare = navigator.share && navigator.canShare?.(shareData)
+      // navigator.clipboard is undefined outside a secure context, and the
+      // ternary used to evaluate .writeText eagerly, so testing over the LAN
+      // threw a TypeError before .then was ever attached. The two paths also
+      // reported the same thing: a native share is not a copied link.
+      const shared = navigator.share && navigator.canShare?.(shareData);
+      const doShare = shared
         ? navigator.share(shareData)
-        : navigator.clipboard.writeText(url);
+        : navigator.clipboard
+          ? navigator.clipboard.writeText(url)
+          : Promise.reject(new Error('clipboard unavailable'));
       doShare.then(() => {
+        if (shared) return;
         const originalHTML = btn.innerHTML;
         btn.classList.add('copied');
         btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Copied!`;
         showToast('Link copied');
         setTimeout(() => { btn.innerHTML = originalHTML; btn.classList.remove('copied'); }, 2000);
-      }).catch(() => {});
+      }).catch((err) => {
+        // AbortError is the visitor dismissing the share sheet, not a failure.
+        if (err?.name !== 'AbortError') showToast('No se pudo copiar el enlace');
+      });
       return;
     }
     if (e.target.closest('#diagramBack')) {
