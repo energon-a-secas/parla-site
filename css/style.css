@@ -1471,7 +1471,13 @@ body.mode-expressions #categorySelect { display: none; }
   transition: opacity var(--dur) var(--ease-out);
 }
 
-.diagram-node { position: relative; }
+/* No `position: relative` here. `.diagram-node` is already `position: absolute`
+   (see the base rule above), which is itself a containing block for the
+   absolutely positioned `.node-info` badge. Re-declaring it as relative had
+   equal specificity and came later, so it won: every node dropped out of
+   absolute positioning into inline-block flow, `left`/`top` written by
+   layoutDiagram became offsets from a flow position, and the cards landed in a
+   row across the top instead of over their countries. */
 .diagram-node.has-usage { padding-right: 26px; }
 .diagram-node:hover .node-info,
 .diagram-node:focus-visible .node-info { opacity: 1; }

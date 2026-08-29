@@ -368,8 +368,17 @@ function layoutDiagram(container, center, nodesWrap, linesSvg, count) {
   const padH = isMobile ? 40 : 55;
   const usableW = (rect.width - padW * 2) / 2;
   const usableH = (rect.height - padH * 2) / 2;
-  const maxR = Math.min(usableW, usableH);
-  const minR = maxR * 0.5;
+  // An ellipse, not a circle. The stage is far wider than it is tall (about
+  // 1470x400 on a laptop, and shorter still since the hero card gained its
+  // usage line), so a circular ring of radius min(w, h) throws away roughly
+  // 500px of horizontal room and stacks every card into a narrow column. The
+  // separation solver then cannot untangle them inside a band that narrow, and
+  // clamping to bounds each pass fights it the whole way. Using the axis each
+  // direction actually has costs nothing and is what keeps cards apart.
+  const maxRx = usableW;
+  const maxRy = usableH;
+  const minRx = maxRx * 0.5;
+  const minRy = maxRy * 0.5;
 
   // Compute initial positions based on country proximity
   const positions = [];
@@ -390,9 +399,10 @@ function layoutDiagram(container, center, nodesWrap, linesSvg, count) {
     // Distance: single-country nodes are closer, multi-country further out
     const countrySpan = cs.length;
     const t = countrySpan <= 1 ? 0.65 : countrySpan <= 2 ? 0.8 : 1.0;
-    const r = minR + (maxR - minR) * t;
+    const rx = minRx + (maxRx - minRx) * t;
+    const ry = minRy + (maxRy - minRy) * t;
 
-    positions.push({ x: cx + r * Math.cos(finalAngle), y: cy + r * Math.sin(finalAngle) });
+    positions.push({ x: cx + rx * Math.cos(finalAngle), y: cy + ry * Math.sin(finalAngle) });
   });
 
   // Measure actual rendered node sizes (they vary by content length)
