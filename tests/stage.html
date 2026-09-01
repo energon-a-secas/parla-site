@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-title" content="Parla">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="neo-mark" content="on">
+<meta charset="UTF-8">
+<title>Parla stage checks</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin: 0; padding: 24px; background: #040714; color: #e7e9f3;
+         font: 14px/1.5 ui-sans-serif, system-ui, sans-serif; }
+  h1 { font-size: 18px; margin: 0 0 4px; }
+  p.lede { color: #9aa0b5; margin: 0 0 20px; max-width: 60ch; }
+  .case { border: 1px solid rgba(255,255,255,.1); border-radius: 10px;
+          padding: 12px 14px; margin-bottom: 10px; background: #0a0d1c; }
+  .case h2 { font-size: 14px; margin: 0 0 8px; font-weight: 600; }
+  .case h2 small { color: #9aa0b5; font-weight: 400; }
+  ul { margin: 0; padding-left: 18px; }
+  li { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12.5px; }
+  li.pass::marker { content: "✔ "; color: #4ade80; }
+  li.fail::marker { content: "✖ "; color: #f87171; }
+  li.fail { color: #f87171; }
+  li.skip::marker { content: "▲ "; color: #fbbf24; }
+  li.skip { color: #fbbf24; }
+  #summary { position: sticky; top: 0; padding: 10px 14px; margin-bottom: 16px;
+             border-radius: 10px; font-weight: 600; background: #0a0d1c;
+             border: 1px solid rgba(255,255,255,.22); }
+  #stage { position: fixed; left: -10000px; top: 0; }
+  iframe { border: 0; }
+</style>
+</head>
+<body>
+<h1>Parla stage checks</h1>
+<p class="lede">
+  Runtime invariants the node suite cannot see: they need a laid-out page at a
+  real viewport size. Each case boots the app in a sized iframe with a known
+  localStorage, then asserts against what actually rendered. Serve the site
+  (<code>make serve</code>) and open this page; every line must be green.
+</p>
+<div id="summary">running…</div>
+<div id="out"></div>
+<div id="stage"></div>
+
+<script type="module">
+// Same origin as the app, so the harness can read the iframe's DOM directly.
+// It deliberately reaches for nothing but what a visitor can see: no test hook
+// is exported from the app, so these checks cannot pass by agreeing with an
+// implementation that is itself wrong.
+
+const APP = new URL('../index.html', location.href).href;
+const out = document.getElementById('out');
+const stage = document.getElementById('stage');
+let passed = 0;
+let skipped = 0;
+let failed = 0;
+
+/** Keeps the word-of-day dialog shut: it is modal and would cover the dock. */
+function wodKey() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+
+function seed(saved) {
+  localStorage.setItem('parla-wod-dismissed', wodKey());
+  if (saved) localStorage.setItem('parla-state', JSON.stringify(saved));
+  else localStorage.removeItem('parla-state');
+}
+
+function boot({ width, height, query = '', saved = null }) {
+  seed(saved);
+  return new Promise((resolve) => {
+    const frame = document.createElement('iframe');
+    frame.width = width;
+    frame.height = height;
+    frame.src = APP + query;
+    frame.addEventListener('load', () => {
+      // The globe boots behind a dynamic import of three plus two fetches, and
+      // trackDock only delivers the inset once the ResizeObserver has fired.
+      setTimeout(() => resolve(frame), 1600);
+    }, { once: true });
+    stage.replaceChildren(frame);
+  });
+}
+
+function alpha(color) {
+  const m = color.match(/rgba?\(([^)]+)\)/);
+  if (!m) return 1;
+  const parts = m[1].split(/[,/]/).map((v) => parseFloat(v));
+  return parts.length > 3 ? parts[3] : 1;
+}
+
+function runCase(title, note) {
+  const box = document.createElement('div');
+  box.className = 'case';
+  box.innerHTML = `<h2>${title} <small>${note}</small></h2>`;
+  const list = document.createElement('ul');
+  box.append(list);
+  out.append(box);
+  const check = (label, ok, detail = '') => {
+    const li = document.createElement('li');
+    li.className = ok ? 'pass' : 'fail';
+    li.textContent = ok ? label : `${label}: ${detail}`;
+    list.append(li);
+    if (ok) passed++; else failed++;
+  };
+  // Only for a check the environment made impossible to run, never for one
+  // that could have failed. The hover case is the only caller: it needs the
+  // globe's render loop, and a browser that has this page in a background tab
+  // stops rAF, so the tip can never appear however correct the code is. The
+  // caller proves rAF is dead before reaching for this.
+  check.skip = (label, why) => {
+    const li = document.createElement('li');
+    li.className = 'skip';
+    li.textContent = `${label}: SKIPPED, ${why}`;
+    list.append(li);
+    skipped++;
+  };
+  return check;
+}
+
+/** Does this document get animation frames at all? */
+function rafAlive(win, budgetMs = 1500) {
+  return new Promise((res) => {
+    let done = false;
+    win.requestAnimationFrame(() => { done = true; res(true); });
+    win.setTimeout(() => (done ? null : res(false)), budgetMs);
+  });
+}
+
+
+/**
+ * Find a country on the globe by sweeping the canvas until the hover tip
+ * appears, and hand back everything worth asserting about it.
+ *
+ * There is no test hook into the globe: the sweep dispatches the same
+ * pointermove a mouse does and reads what a visitor would see, so these checks
+ * cannot pass by agreeing with a wrong implementation.
+ */
+async function hoverForTip(win, doc) {
+  const canvas = doc.querySelector('#globeStage canvas');
+  const card = doc.getElementById('globeCard');
+  if (!canvas) return null;
+  const r = canvas.getBoundingClientRect();
+  const shown = () => !card.classList.contains('hidden');
+
+  const move = (x, y) => canvas.dispatchEvent(new win.PointerEvent('pointermove', {
+    clientX: x, clientY: y, pointerType: 'mouse', buttons: 0, bubbles: true,
+  }));
+
+  // Ordered from the middle outward rather than raster-scanned from a corner.
+  // The globe centres Latin America, so the first few probes are over land and
+  // the sweep costs a handful of frames instead of eighty. That matters: each
+  // probe has to wait for the globe's render loop to resolve the pick, and a
+  // browser that has throttled this page gives out frames slowly.
+  const probes = [[0, 0]];
+  for (const ring of [0.12, 0.24, 0.36]) {
+    for (let a = 0; a < 12; a++) {
+      probes.push([Math.cos((a * Math.PI) / 6) * ring, Math.sin((a * Math.PI) / 6) * ring]);
+    }
+  }
+
+  for (const [dx, dy] of probes) {
+    {
+      const x = r.left + r.width * (0.5 + dx);
+      const y = r.top + r.height * (0.5 + dy);
+      move(x, y);
+      await waitFor(win, shown, 400);
+      if (shown()) {
+        return {
+          at: [x, y],
+          rect: card.getBoundingClientRect(),
+          head: card.querySelector('.globe-card-head').textContent.trim(),
+          terms: [...card.querySelectorAll('.globe-card-term')].map((e) => e.textContent).join(', '),
+          // Reads back what the tip says after moving to (px, py), or null if
+          // no tip is up. `want` lets the caller wait for a specific answer
+          // instead of racing the render loop: without it, "the tip went away"
+          // and "the frame that would have shown it has not run yet" are the
+          // same observation.
+          hover: async (px, py, want) => {
+            const terms = () => (shown() ? [...card.querySelectorAll('.globe-card-term')]
+              .map((e) => e.textContent).join(', ') : null);
+            move(px, py);
+            await waitFor(win, () => (want === undefined ? true : terms() === want), 2000);
+            return terms();
+          },
+        };
+      }
+    }
+  }
+  return null;
+}
+
+/**
+ * Wait for `test()` to come true, or give up.
+ *
+ * Deliberately not a plain rAF wait. The globe resolves hovers inside its
+ * render loop, so a hover needs frames to land, but a browser that has this
+ * page in a background tab stops rAF entirely and clamps setTimeout to a
+ * second. Racing the two means the harness is slow in that case rather than
+ * hanging forever on a frame that is never coming.
+ */
+function waitFor(win, test, timeoutMs = 2000) {
+  return new Promise((res) => {
+    const started = Date.now();
+    const poll = () => {
+      if (test()) return res(true);
+      if (Date.now() - started > timeoutMs) return res(false);
+      win.requestAnimationFrame(poll);
+      win.setTimeout(poll, 50);
+    };
+    poll();
+  });
+}
+
+/** Assertions every stage-mode case shares. */
+function stageInvariants(check, win) {
+  const doc = win.document;
+  const bar = doc.querySelector('.command-bar');
+  const input = doc.getElementById('searchInput');
+  const dock = doc.querySelector('.dock');
+
+  // The reported symptom was "the main search bar disappeared". It was never
+  // removed from the layout, so both halves of that are checked: it is on
+  // screen, and it is legible against the globe rather than a wash of the
+  // page background inside a hairline.
+  const b = bar.getBoundingClientRect();
+  check('search bar is fully inside the viewport',
+    b.width > 0 && b.height > 0 && b.top >= -1 && b.bottom <= win.innerHeight + 1
+      && b.left >= -1 && b.right <= win.innerWidth + 1,
+    `rect ${JSON.stringify({ t: Math.round(b.top), b: Math.round(b.bottom), h: Math.round(b.height) })} in ${win.innerWidth}x${win.innerHeight}`);
+
+  const i = input.getBoundingClientRect();
+  check('search input is on screen and typeable',
+    i.width > 80 && i.height > 20 && i.bottom <= win.innerHeight + 1,
+    `${Math.round(i.width)}x${Math.round(i.height)} at y=${Math.round(i.top)}`);
+
+  const cs = win.getComputedStyle(bar);
+  check('search bar is opaque over the globe', alpha(cs.backgroundColor) === 1,
+    `background ${cs.backgroundColor} composites into the ocean`);
+  check('search bar border is the strong token', alpha(cs.borderTopColor) >= 0.2,
+    `border ${cs.borderTopColor} is a hairline against a dark globe`);
+
+  // trackDock feeds the same measurement to the camera and to CSS. If these
+  // disagree the globe is being fitted to a stage shape that is not the one
+  // on screen, which is the whole family of bugs this file exists for.
+  const published = parseFloat(win.getComputedStyle(doc.documentElement).getPropertyValue('--dock-height'));
+  const measured = dock.getBoundingClientRect().height;
+  check('the dock height the globe was given matches the dock',
+    Math.abs(published - measured) <= 2,
+    `published ${published}px, measured ${Math.round(measured)}px`);
+}
+
+async function main() {
+  const sizes = [
+    ['desktop', 1440, 900],
+    ['short laptop', 1280, 560],
+    ['portrait phone', 390, 780],
+  ];
+
+  for (const [name, w, h] of sizes) {
+    const frame = await boot({ width: w, height: h });
+    const win = frame.contentWindow;
+    const doc = win.document;
+    const check = runCase(name, `${w}×${h}, no saved state`);
+
+    check('the stage came up in globe mode', doc.body.classList.contains('globe-mode'),
+      `body is "${doc.body.className}"`);
+    stageInvariants(check, win);
+
+    // The reset control offering to reset a view that is already reset is how
+    // a broken home fit shows itself: isHomeView() answers no on the opening
+    // view because the camera was never refitted for the dock.
+    check('"Ver todos los países" is hidden on the opening view',
+      doc.getElementById('globeReset').classList.contains('hidden'),
+      'the control is offering to reset a view nobody has moved');
+    check('no country filter is applied', doc.getElementById('countrySelect').value === '',
+      `filter is "${doc.getElementById('countrySelect').value}"`);
+  }
+
+  // A country restored from localStorage keeps its filter and its highlight,
+  // but must not open the map flown into one country with no others in view.
+  {
+    const frame = await boot({ width: 1440, height: 900, saved: { activeCountry: 'BR', activeCategory: null, mode: 'words' } });
+    const doc = frame.contentWindow.document;
+    const check = runCase('returning visitor', '1440×900, saved activeCountry=BR');
+    stageInvariants(check, frame.contentWindow);
+    check('the saved filter is still applied', doc.getElementById('countrySelect').value === 'BR',
+      `filter is "${doc.getElementById('countrySelect').value}"`);
+    check('the reset control is offered, so the filter is escapable',
+      !doc.getElementById('globeReset').classList.contains('hidden'),
+      'a filter is on and nothing on screen clears it');
+
+    // The sheet is the country's panel. It used to say which country only in a
+    // select, under an intro line still telling the visitor to pick one.
+    // Read through optional chaining throughout: a panel that failed to render
+    // has no children, and a check that throws on that takes the whole harness
+    // down with it, hiding every case after this one.
+    const panel = doc.getElementById('countryPanel');
+    const panelName = panel?.querySelector('.country-panel-name')?.textContent.trim();
+    const panelTally = panel?.querySelector('.country-panel-tally')?.textContent ?? '';
+    check('the country panel names the filtered country',
+      panel && !panel.classList.contains('hidden') && panelName === 'Brasil',
+      `panel says "${panelName}"${panel?.classList.contains('hidden') ? ' and is hidden' : ''}`);
+    check('the panel counts what the list below it is showing',
+      /\d+ palabras en \d+ conceptos/.test(panelTally),
+      `tally reads "${panelTally}"`);
+    check('the panel offers its own way out of the filter',
+      !!panel?.querySelector('#countryPanelClear'),
+      'the only clear control is the one on the stage');
+    check('the intro no longer asks for a country that is already chosen',
+      !!doc.getElementById('introState')?.classList.contains('hidden'),
+      'both the panel and "toca un pais" are on screen at once');
+  }
+
+  // The sheet is the state the framing was worst in: it covers most of the
+  // stage, and the search bar sits directly under it.
+  {
+    const frame = await boot({ width: 1440, height: 900 });
+    const win = frame.contentWindow;
+    const doc = win.document;
+    doc.getElementById('sheetToggle').click();
+    await new Promise((r) => setTimeout(r, 700));
+    const check = runCase('Explore sheet open', '1440×900');
+    check('the sheet is open', doc.getElementById('resultsSheet').classList.contains('is-open'));
+    stageInvariants(check, win);
+    const sheet = doc.getElementById('resultsSheet').getBoundingClientRect();
+    const bar = doc.querySelector('.command-bar').getBoundingClientRect();
+    check('the sheet does not cover the search bar', sheet.bottom <= bar.top + 1,
+      `sheet ends at ${Math.round(sheet.bottom)}, bar starts at ${Math.round(bar.top)}`);
+  }
+
+  // The hover tip. The reported bug was that clicking a country and then
+  // hovering "starts glitching showing multiple words", which was two defects
+  // compounding: the tip was placed on top of the pointer and had
+  // pointer-events:auto, so it took the pointer, the canvas fired
+  // pointerleave, the overlay hid the tip and the pointer was over the canvas
+  // again; and every re-show drew a fresh random five.
+  {
+    const frame = await boot({ width: 1440, height: 900 });
+    const win = frame.contentWindow;
+    const doc = win.document;
+    const check = runCase('country hover tip', '1440×900');
+    const animating = await rafAlive(win);
+    const tip = animating ? await hoverForTip(win, doc) : null;
+    if (!animating) {
+      check.skip('the country hover tip',
+        'this document is getting no animation frames, so the globe cannot resolve a hover. '
+        + 'Run this page in a visible foreground tab (make check-stage).');
+    } else {
+      check('hovering a country shows a tip', !!tip, 'swept the canvas and never saw one');
+    }
+    if (tip) {
+      // The property that actually stops the flicker. With pointer-events:auto
+      // the tip is what the pointer hits, which is the whole feedback loop.
+      const mid = doc.elementFromPoint(
+        tip.rect.left + tip.rect.width / 2, tip.rect.top + tip.rect.height / 2);
+      check('the tip does not take the pointer that summoned it',
+        !doc.getElementById('globeCard').contains(mid),
+        `the point at the tip's centre hits <${mid?.tagName.toLowerCase()} class="${mid?.className}">`);
+
+      // It is z-index 2 under a sticky header and sits over a dock that covers
+      // the foot of the stage. Clamped to the viewport alone it slid under the
+      // header and lost the country name it exists to give.
+      const header = doc.querySelector('.header-bar').getBoundingClientRect();
+      const dock = doc.querySelector('.dock').getBoundingClientRect();
+      check('the tip clears the header',
+        tip.rect.top >= header.bottom - 1,
+        `tip top ${Math.round(tip.rect.top)} vs header bottom ${Math.round(header.bottom)}`);
+      check('the tip clears the dock',
+        tip.rect.bottom <= dock.top + 1,
+        `tip bottom ${Math.round(tip.rect.bottom)} vs dock top ${Math.round(dock.top)}`);
+      check('the tip is a tip, not a panel',
+        tip.rect.width <= 260 && tip.rect.height <= 220,
+        `${Math.round(tip.rect.width)}×${Math.round(tip.rect.height)} is panel-sized`);
+
+      // The "multiple words" half: leave the country, come back, same words.
+      const away = await tip.hover(4, win.innerHeight / 2, null);
+      const again = await tip.hover(tip.at[0], tip.at[1], tip.terms);
+      check('leaving and returning shows the same words',
+        again === tip.terms,
+        `first "${tip.terms}", then "${again}" (away: ${away === null ? 'tip hidden' : away})`);
+
+      // Clicking a country opens the panel on it, so a floating tip repeating
+      // three of its words is noise. It is also the state the flicker was
+      // reported from: a selected country fills the zoomed stage.
+      const canvas = doc.querySelector('#globeStage canvas');
+      for (const type of ['pointerdown', 'pointerup']) {
+        canvas.dispatchEvent(new win.PointerEvent(type, {
+          clientX: tip.at[0], clientY: tip.at[1], pointerType: 'mouse', bubbles: true,
+        }));
+      }
+      await new Promise((r) => setTimeout(r, 900));
+      const still = await tip.hover(tip.at[0], tip.at[1], null);
+      check('the selected country shows no tip, its panel is already open',
+        still === null && doc.getElementById('countryPanel').classList.contains('hidden') === false,
+        `tip reads "${still}"`);
+    }
+  }
+
+  // The radial fallback shares this stylesheet, so a stage-only rule that
+  // leaks into it is a regression nobody would see.
+  {
+    const frame = await boot({ width: 1280, height: 800, query: '?nogl=1' });
+    const win = frame.contentWindow;
+    const doc = win.document;
+    const check = runCase('no WebGL', '1280×800, ?nogl=1');
+    check('the fallback layout is applied', doc.body.classList.contains('no-webgl')
+      && !doc.body.classList.contains('globe-mode'), `body is "${doc.body.className}"`);
+    const b = doc.querySelector('.command-bar').getBoundingClientRect();
+    check('search bar is on screen', b.height > 0 && b.top >= -1 && b.bottom <= win.innerHeight + 1,
+      `rect top ${Math.round(b.top)} bottom ${Math.round(b.bottom)}`);
+    check('the sheet toggle is gone, there being no sheet to toggle',
+      win.getComputedStyle(doc.getElementById('sheetToggle')).display === 'none');
+    check('the browse list rendered', doc.querySelectorAll('#browseArea .browse-card').length > 0,
+      'no concept cards in the fallback');
+  }
+
+  seed(null);
+  const summary = document.getElementById('summary');
+  const tail = skipped ? `, ${skipped} skipped` : '';
+  summary.textContent = failed
+    ? `${failed} failed, ${passed} passed${tail}`
+    : `${passed} checks passed${tail}`;
+  // Amber, not green: a run with skips has not tested what it claims to.
+  const colour = failed ? '#f87171' : skipped ? '#fbbf24' : '#4ade80';
+  summary.style.borderColor = colour;
+  summary.style.color = colour;
+  document.title = failed
+    ? `✖ ${failed} failed, Parla stage checks`
+    : skipped ? `▲ ${skipped} skipped, Parla stage checks` : '✔ Parla stage checks';
+  window.__parlaChecks = { passed, failed, skipped };
+}
+
+main().catch((err) => {
+  document.getElementById('summary').textContent = `harness error: ${err.message}`;
+  document.getElementById('summary').style.color = '#f87171';
+  window.__parlaChecks = { passed, failed: failed + 1, error: String(err) };
+});
+</script>
+</body>
+</html>

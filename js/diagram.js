@@ -85,6 +85,11 @@ export async function initStage(dictionary) {
     overlay.attach(...pendingConcept);
     pendingConcept = null;
   }
+  // Report the opening view once the stage exists. The reset control used to
+  // learn where the camera was only from a settle or a drag, so a country
+  // restored from localStorage left it hidden until the visitor moved the
+  // globe: a filter was on, and the one control that clears it was not there.
+  onViewChanged?.(globe.isHomeView());
   return stage;
 }
 
@@ -115,12 +120,17 @@ function fallback(reason) {
 
 // -- Public API, both modes ------------------------------------------------
 
-export function focusCountry(code) {
-  stage?.focusCountry(code || null);
-  if (stage) {
-    overlay?.setActiveCountry(code || null);
-    if (!overlay?.hasConcept()) stage.setSelection({ country: code || null });
-  }
+/**
+ * Make `code` the active country: highlight it, and unless `move` is false,
+ * send the camera to it. Boot passes move:false, so a country restored from
+ * localStorage keeps its filter and its highlight without opening the map
+ * zoomed onto one country with nothing on screen to explain why.
+ */
+export function focusCountry(code, { move = true } = {}) {
+  if (!stage) return;
+  if (move) stage.focusCountry(code || null);
+  overlay?.setActiveCountry(code || null);
+  if (!overlay?.hasConcept()) stage.setSelection({ country: code || null });
 }
 
 export function showConcept(concept, matchedVariant, groupedVariants, s) {

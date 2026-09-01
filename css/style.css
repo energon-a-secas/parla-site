@@ -82,16 +82,32 @@ main#main {
   touch-action: none;   /* OrbitControls needs the gestures */
 }
 
+/* The hover tip. Small on purpose: the sheet is the country's panel, and this
+   only says which country you are over and how it says three things.
+   `pointer-events: none` is load-bearing, not tidiness. With `auto` the tip
+   took the pointer that summoned it, the canvas fired `pointerleave`, the
+   overlay hid the tip, and the pointer was over the canvas again: a flicker
+   that re-rolled its word list on every cycle. Nothing in here is clickable,
+   so there is nothing to lose by making it transparent to the pointer. */
 .globe-card {
   position: fixed;
   z-index: 2;
-  max-width: 280px;
-  padding: var(--space-3) var(--space-4);
+  width: max-content;
+  max-width: 240px;
+  padding: var(--space-3);
   background: var(--surface-solid);
   border: 1px solid var(--border-strong);
   border-radius: var(--radius);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
-  pointer-events: auto;
+  pointer-events: none;
+}
+
+.globe-card-hint {
+  margin: var(--space-2) 0 0;
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--border-subtle);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
 }
 
 .globe-card-head {
@@ -107,11 +123,19 @@ main#main {
   padding: 0;
 }
 
+/* One row per line, term then meaning, rather than the meaning stacked under
+   the term. Stacked, three rows plus a head came to 229px, and with the sheet
+   open the band between the header and the dock is about 156px, so the tip was
+   clipped by the dock it had just been clamped against. Expressions keep the
+   stacked layout below: a phrase and its reading are both sentences. */
 .globe-card-terms li {
-  padding: 6px 0;
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  padding: 5px 0;
   border-top: 1px solid var(--border-subtle);
   font-size: var(--text-xs);
-  line-height: 1.45;
+  line-height: 1.4;
 }
 
 .globe-card-terms li:first-child {
@@ -120,15 +144,35 @@ main#main {
 }
 
 .globe-card-term {
-  display: block;
   font-weight: 600;
   color: var(--accent-bright);
-  margin-bottom: 2px;
+  flex: 0 0 auto;
 }
 
 .globe-card-meaning {
-  display: block;
   color: var(--text-muted);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* A phrase and its meaning are both sentences, so they go back to stacked.
+   The spans need it too: the row above is a flex container, so its children
+   are blockified by the flex layout rather than by any rule of their own.
+   Putting the `li` back to `display: block` un-blockifies them, and the phrase
+   and its reading render as one run of text with no space between them. */
+.globe-card-terms--stacked li {
+  display: block;
+}
+
+.globe-card-terms--stacked .globe-card-term {
+  display: block;
+}
+
+.globe-card-terms--stacked .globe-card-meaning {
+  white-space: normal;
+  overflow: visible;
 }
 
 /* -- Command bar (search + sheet toggle) -- */
@@ -435,6 +479,83 @@ main#main {
 }
 
 /* -- Intro state -- */
+/* -- Country panel --
+   The head of the sheet when a country is filtered. It takes the intro line's
+   slot rather than sitting above it: the intro asks you to pick a country, and
+   this is what the sheet says once you have. Sticky, because the browse list
+   below it is long and the answer to "which country am I looking at" should
+   not scroll away. */
+.country-panel {
+  margin-bottom: var(--space-4);
+  padding: var(--space-3) 0;
+  background: var(--surface-solid);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+/* Sticky only on the stage. The fallback has no scrolling ancestor for it to
+   stick within, so `position: sticky` there pins it to the viewport, where
+   main#main's own stacking context traps it under the header and the command
+   bar and its Quitar button stops being clickable for the whole scroll. */
+body.globe-mode .country-panel {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.country-panel-id {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.country-panel-flag {
+  font-size: 2rem;
+  line-height: 1;
+  flex: 0 0 auto;
+}
+
+.country-panel-text {
+  min-width: 0;
+  flex: 1;
+}
+
+.country-panel-name {
+  margin: 0;
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.country-panel-tally {
+  margin: 2px 0 0;
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+/* min-height, not padding: the label is one short word, so padding alone left
+   a 28px target. The kit's controls are 40px desktop / 36px mobile and this
+   sits among them. */
+.country-panel-clear {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 var(--space-3);
+  font: inherit;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: color var(--dur), border-color var(--dur);
+}
+
+.country-panel-clear:hover {
+  color: var(--text-primary);
+  border-color: var(--accent-bright);
+}
+
 .intro-state {
   text-align: center;
   padding: var(--space-4) 0 var(--space-6);
@@ -1033,6 +1154,21 @@ body.globe-mode .dock {
 
 body.globe-mode .dock > * { pointer-events: auto; }
 
+/* The bar floats over the globe. Its glass fill composites to rgb(7,12,28)
+   over an ocean of rgb(11,18,38), inside a .07 white hairline: the whole
+   control is within four levels of the thing behind it, and it reads as
+   absent. The reset button 40px away already uses the solid surface and the
+   strong border. On the stage this gets the same, which also means the blur
+   is doing nothing but costing a composite. The fallback layout keeps the
+   glass: there it sits on the page background, where it is legible. */
+body.globe-mode .command-bar {
+  background: var(--surface-solid);
+  border-color: var(--border-strong);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
+}
+
 /* -- Sheet -- */
 .sheet { min-height: 0; }
 
@@ -1198,6 +1334,12 @@ body.globe-mode .diagram-node {
   body.globe-mode .sheet,
   body.globe-mode .sheet-inner { max-height: 46vh; }
 }
+
+/* One line, two readings. The stage tells you to touch the globe; the fallback
+   has no globe, so it points at the filter instead. */
+.only-stage, .only-fallback { display: none; }
+body.globe-mode .only-stage,
+body.no-webgl .only-fallback { display: inline; }
 
 /* -- No WebGL: the radial diagram, in the original document flow. -- */
 body.no-webgl .globe-stage,

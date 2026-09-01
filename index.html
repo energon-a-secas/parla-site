@@ -149,11 +149,23 @@
             </div>
           </div>
           <div class="sheet-body">
+            <!-- The country panel. Clicking a country on the globe opens the
+                 sheet on it, and this is the head that says which country you
+                 are now looking at and how much of it there is. Hidden, and
+                 replaced by the intro line, when no country is filtered. -->
+            <div class="country-panel hidden" id="countryPanel"></div>
             <!-- A sibling of #resultsArea, not a child. renderBrowse clears
                  #resultsArea, so nesting the intro inside it destroyed the copy
                  and the example pills on the first render of every visit. -->
             <div class="intro-state" id="introState">
-              <p class="intro-text">Toca un país en el globo, o busca una palabra</p>
+              <!-- Two readings of one line: without WebGL there is no globe to
+                   touch, and the sentence was telling the visitor to do
+                   something the page could not do. CSS picks one; both are in
+                   the markup so neither can be forgotten. -->
+              <p class="intro-text">
+                <span class="only-stage">Toca un país en el globo, o busca una palabra</span>
+                <span class="only-fallback">Elige un país en el filtro, o busca una palabra</span>
+              </p>
               <div class="intro-examples" id="introExamples"></div>
             </div>
             <div class="results-area" id="resultsArea"></div>

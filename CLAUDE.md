@@ -10,7 +10,9 @@ US is the Spanglish entry: US Spanish shares most of its slang with Mexico, plus
 
 **Run:** `make serve` (port 8817): ES modules require an HTTP server, not `file://`.
 
-No build step and no tests. One vendored runtime dependency: **three.js r160** in `vendor/three/`, resolved through an importmap in `index.html` and copied from the sibling `headpain-site` (same version, same pattern). Only `addons/controls/OrbitControls.js` is vendored alongside it.
+No build step and no npm. One vendored runtime dependency: **three.js r160** in `vendor/three/`, resolved through an importmap in `index.html` and copied from the sibling `headpain-site` (same version, same pattern). Only `addons/controls/OrbitControls.js` is vendored alongside it.
+
+**Tests:** `make check` runs `tests/camerafit.test.mjs` under `node --test`, no dependencies. `make check-stage` opens `tests/stage.html`, which boots the app in sized iframes and asserts the layout invariants a node process cannot see. Both are described under Testing below.
 
 ---
 
@@ -39,13 +41,57 @@ Standard modular ES module app. Entry point is `js/app.js`.
 - Scene layers, outward: ocean sphere (r=1.000) · graticule · world land (1.002) · other-Americas land (1.003) · focus country fill (1.006) · side wall · border · atmosphere (1.09). The raised plateau with a lit wall is what makes a country read as a solid, and it removes z-fighting.
 - Country geometry is triangulated **in the browser** via `THREE.ShapeUtils.triangulateShape` (three bundles earcut), then each triangle is subdivided until every edge is under 1.5 degrees and projected onto the sphere. Without that subdivision **every one of the eight** sinks: a flat chord across the US spans 41 degrees and its midpoint sits 5.9% *below* the ocean radius, Brazil 5.3%, Chile 4.7%, and even Venezuela at 13 degrees does not clear it. The sea punches through the middle of the country. Subdivided, the residual sag is 8.6e-5 of the radius.
 - The camera centres a country by **longitude and latitude**, interpolating in spherical coordinates so north stays up. The retired 2D globe rotated about one axis, so focusing a country only aligned its longitude: latitude stayed at -sin(lat) of the radius, leaving Mexico 33% above the centre and Argentina 57% below it, 90% of the radius apart while both were reported as centred. `frameCountries()` fits the view to a set; the home view uses a wider cap so all of Latin America fits.
+- **Every camera fit is solved against the band the dock leaves visible, not the canvas** (`camerafit.js`, a pure module with no three and no DOM, which is why it is testable). The dock covers the foot of the stage and `setBottomInset()` offsets the frustum to compensate, but the frustum's field of view still spans the whole canvas: a fit that ignores the inset draws the globe at up to twice the size the visitor can see. With the Explore sheet open the dock is 0.625 of the stage, so a selected country was drawn at roughly 2x with its neighbours off every edge. `MAX_INSET_FRACTION` (0.7) keeps a floor under the band, because the fit distance goes to infinity as the band goes to zero.
+- **One country is framed at a fixed `FOCUS_FIT_ANGLE` (30 degrees), never to its own bounds.** Fitting each country to itself made the zoom a function of country size: Colombia is 9.8 degrees from Bogota and Chile 22.5 from Santiago, so clicking Colombia put the camera more than twice as close, and neither left a neighbour on screen to click next. 30 is the smallest angle containing every country whole except the US (40.3 degrees from Los Angeles), which is a declared exception in the test. A concept spanning several countries still fits them all, capped at `HOME_FIT_ANGLE`.
 - Rotation is clamped so Latin America cannot leave the screen: azimuth +/-32 degrees around 75W, polar 0.95 to 2.40 rad. **The azimuth window must never straddle +/-pi** or r160's angle normalisation locks rotation completely. The polar bounds must also admit every country anchor, or focusing one gets clamped short of centring it: Los Angeles at 34.05 N is the northern constraint, Buenos Aires at 34.6 S the southern one.
 - `applyView()` flushes OrbitControls' damped momentum before moving the camera. Damping keeps applying leftover velocity from the user's last drag, which otherwise tugs every programmatic move off target and leaves it short.
 - The home distance is derived from the aspect ratio, so **it changes on resize**. `resize()` refits when the camera was already home, `homeDistance()` clamps to what the controls actually allow, and `maxDistance` grows for portrait viewports. Comparing against the unclamped fit made `isHomeView()` permanently false on phones, so the reset control never went away.
-- **Clicking a country sets the filter and opens the Explore sheet on it**; clicking the same country again clears both. The `#globeReset` control ("Ver todos los paises") clears the filter and returns home, and shows itself only when one of those would change something.
+- **Clicking a country sets the filter and opens the Explore sheet on it**; clicking the same country again clears both. The `#globeReset` control ("Ver todos los paises") clears the filter and returns home, and shows itself only when one of those would change something. `Escape` is the fast route to the same place: it walks the word-of-day dialog, the open concept, the sheet, the query, and finally the country filter.
+- **A country restored from localStorage keeps its filter and its highlight but does not move the camera.** `app.js` boots it with `focusCountry(code, { move: false })`. Flying into it opened the map on one country with no others in view and nothing on screen explaining why, which is the state most of this section's bugs were reported from.
 - Render-on-demand: frames are drawn only while something moves. There is deliberately **no idle spin**.
 - `overlay.js` pins each term card to the screen centroid of its countries, draws a leader line per country, and pushes cards apart with `collide.js#separate` (shared with the radial fallback, so the two cannot drift). Card sizes are measured once per concept; re-measuring `offsetWidth` per frame would force a reflow at 60fps. Far-side cards are **rim-pinned, not hidden**. A term vanishing would break the cross-country mapping the map exists to show.
 - Positions are written with the independent `translate` CSS property, which composes with the stylesheet's centring `transform` and stays a compositor-only write.
+
+**The country surface is two things, and they used to be one.** Clicking a country
+sets the filter and opens the Explore sheet on it, so the **sheet is the country's
+panel**: `render.js#renderCountryPanel` puts a head on it with the flag, the name,
+the variety and a tally counted in the current mode ("192 palabras en 181
+conceptos", or "9 expresiones"), plus a `Quitar` that runs the identical path as
+the stage's `#globeReset`. It takes the intro line's slot rather than sitting above
+it, because that line asks the visitor to pick a country they have just picked.
+**Hovering is only a tip**: which country this is, and three of its words.
+
+That split is a fix, not a preference. The tip used to be 275x295px of
+`pointer-events: auto` positioned at `projectCountry(code).x + 18`, so on a
+zoomed-in country it landed under the pointer that summoned it, took the pointer,
+and the canvas fired `pointerleave`; the overlay hid it and the pointer was over
+the canvas again. It did not come back until the mouse moved, because
+`processHover()` only re-picks on a fresh `pointermove`, so the visible behaviour
+was a flash-and-vanish on every twitch. Four rules keep it fixed, and each has a
+test:
+
+- **`pointer-events: none` on `.globe-card` is load-bearing.** Nothing in the tip
+  is clickable, so it costs nothing, and it is the whole feedback loop. The stage
+  suite asserts the property directly: `elementFromPoint` at the tip's centre must
+  not land inside the tip.
+- **`previewTerms()` in `data.js` replaced `sampleTerms()`**, which shuffled the
+  country's entire variant list with `Math.random()` and took five. Every re-show
+  drew a fresh five from every row the country appears in, which put `temprano`
+  and `pedazo de mierda` in a tooltip about as often as actual slang. The rule now
+  is the first concept of each category in file order, which is flagship order, so
+  every country answers the same three questions and sweeping the pointer across
+  the map shows one idea changing its word. `tests/preview.test.mjs` pins all 8x3
+  words literally and keeps the retired shuffle around to prove the determinism
+  check can fail.
+- **No tip for the selected country.** Its panel is already open, and that is the
+  state the flicker was reported from.
+- **The tip is repositioned every frame and clamped into the band between the
+  header and the dock.** It was placed once on show, so it was stale from the
+  first frame of the tween `focusCountry()` starts; and being `z-index: 2` under a
+  sticky header, a tall one clamped only to the viewport slid under the header and
+  lost the country name it exists to give. Rows are one line each (term, then
+  meaning) for the same reason: stacked, three rows came to 229px against a band
+  of about 156px with the sheet open.
 
 **Layout**: `body.globe-mode` makes the globe a full-viewport stage: search collapses to a floating bottom bar, results and browse live in a collapsible `.dock` sheet above it, and the footer runs `data-footer-mode="app" data-stick="off"`. The globe is centred in the band the dock leaves visible via a frustum offset (`setBottomInset`), not by aiming the camera off-centre.
 
@@ -95,7 +141,7 @@ The second half of the app, reached by the `Palabras` / `Expresiones` switch in 
 - `expressions.js` scans all 71 rows per keystroke rather than building an inverted index. Most people arrive from the *meaning*, not the phrase, and an index over 71 rows buys nothing measurable.
 - **Cards are closed until asked.** The phrase is the question and the reading plus the meaning are the answer; printing all three at once on 71 cards gives the reader no reason to look. One card is open at a time, and opening one sends the camera to its country **without** touching the country filter, so the list does not vanish underneath you.
 - The collapse uses the `0fr`/`1fr` grid trick, which needs **exactly one child** (`.expr-reveal-inner`). A second child lands in an implicit `auto` row and every closed card keeps its full height. Only `opacity` is transitioned: Firefox does not interpolate `fr` track sizes.
-- The globe's hover card (`overlay.js#showCountryCard`) reads `state.mode` and previews expressions instead of dictionary terms while the mode is on.
+- The globe's hover tip (`overlay.js#showCountryCard`) reads `state.mode` and previews expressions instead of dictionary terms while the mode is on.
 - Switching modes clears the open concept and expression, and keeps the query, which is re-run against the other data set.
 
 ---
@@ -130,6 +176,18 @@ One short sentence per variant, showing the word in a situation rather than defi
 
 ---
 
+## Testing
+
+Two layers, because the failures came in two kinds and neither layer can see the other's.
+
+**`make check`** runs every `tests/*.test.mjs` under `node --test`: the camera-fit suite and the hover-preview suite. It covers `js/camerafit.js`, which exists precisely so the camera arithmetic can be tested without a WebGL context: no three, no DOM, no dependencies, no `package.json`. It also reads the real `data/americas.json` and `api/v1/dictionary.json`, so **adding a country or moving an anchor is checked against the same numbers the globe uses**. Two assertions carry the camera fit, and it takes both. That a fitted cap never subtends more than the band the dock leaves is one-sided, and both of its terms come from `fitDistance`, so it reduces to `min(vertical, horizontal) <= vertical` and cannot fail whatever `fitDistance` does: it catches over-fitting and is blind to under-fitting. The second asserts the cap *fills* the binding axis, measured against `visibleHalfAngle`, which does not go through `fitDistance` and is therefore an independent number. Squaring `visible` inside `fitDistance` draws the globe at a fraction of the band, passes the first and fails the second. A third test keeps the pre-fix formula around and asserts it *fails* the one-sided check, so that one cannot quietly stop meaning anything either.
+
+**`make check-stage`** opens `tests/stage.html` against the dev server. It boots the app in sized iframes (desktop, short laptop, portrait phone, a returning visitor with a saved filter, sheet open, the country hover tip, `?nogl=1`) and asserts what actually rendered: the search bar is on screen and opaque, `--dock-height` matches the dock, the reset control is not offering to reset an untouched view, a saved filter is still escapable, the country panel names the country the list below it is showing, and the hover tip is click-through and sits in the band between the header and the dock. It exports no test hook from the app and reads only what a visitor can see, so it cannot pass by agreeing with a wrong implementation. 53 checks when every case runs, 7 of them in the hover case; every line must be green.
+
+**The hover-tip case needs a foreground tab and says so.** The globe resolves hovers inside its render loop, and a browser that has the page backgrounded stops `requestAnimationFrame`, so the tip can never appear however correct the code is. The case proves rAF is dead before reaching for `check.skip`, which prints an amber SKIPPED line with the reason and turns the summary amber rather than green. A skip is never used for a check that could have failed: with frames running, no tip is a failure.
+
+Both suites were verified by reverting each fix and confirming the relevant checks go red. A guard nobody has seen fail is not a guard.
+
 ## Key gotchas
 
 - `$(id)` in `utils.js` caches element references by ID: do not call it before the DOM is ready, and avoid re-using IDs across dynamic re-renders.
@@ -140,4 +198,7 @@ One short sentence per variant, showing the word in a situation rather than defi
 - **To add a new country: add one entry to `api/v1/dictionary.json` under `countries` (with its `anchor` lon/lat), then run `make geometry`.** That is the whole procedure. The anchor is the single source of truth that `render.js`, the globe and the geometry build all read; it used to be duplicated in three places.
 - `make coverage` validates every country code in the data and **exits non-zero on an unknown one**. This is the guard for the `_CL` class of typo, which rendered as literal text where a flag belonged and made the variant invisible to the CL filter.
 - `scripts/build_geometry.py` re-downloads Natural Earth 1:50m. Its Douglas-Peucker has a zero-length-baseline guard: GeoJSON rings are closed, so `pts[0] == pts[-1]` and without the guard **every ring silently collapses to two points**. The script asserts a point-count floor to catch it.
-- Categories now include `daily` ("Cotidiano"), ten concepts that carry a term for **all eight** countries. Opening one lights up the whole globe, which is the clearest demo of the map.
+- Categories now include `daily` ("Cotidiano"), 18 concepts that carry a term for **all eight** countries. Opening one lights up the whole globe, which is the clearest demo of the map. The original ten were the Spanglish set (`to-park`, `la troca`, `la marketa`); the eight added on 2026-09-01 are the everyday objects and drinks the region disagrees about most (`trash-can`, `popcorn`, `drinking-straw`, `t-shirt`, `flip-flops`, `beer`, `coffee`, `bus`), which is where `la caneca` lives. Some of those terms deliberately collide with another concept, and each carries a `note` pointing at the other reading: `la camioneta` is a bus in Venezuela and a pickup across most of the region, Venezuela included, so that one term answers to both concepts there, `el guayoyo` is weak black coffee in Venezuela and already an insult under `watered-down`, and `el basurero` is the kitchen bin in Chile and the municipal dump in Colombia.
+- **`resize()` in `globe3d.js` takes an optional `wasHome`, so its ResizeObserver must be wrapped**: `new ResizeObserver(resize)` hands the callback `(entries, observer)`, and `entries` is a truthy array that would land in `wasHome` and force `goHome(false)` on every container resize. It is `() => resize()`.
+- **`setBottomInset()` reads `isHomeView()` before it mutates `bottomInset`.** `homeDistance()` is fitted to the visible band, so asking afterwards compares the camera against a home it has not been sent to yet: the answer is always no, the refit never runs, and the camera is stranded at a distance fitted for a stage the dock was not covering. The visible symptom is `isHomeView()` false on the opening view, and the reset control offering to reset a view nobody moved.
+- **The command bar is deliberately solid on the stage and glass in the fallback.** `rgba(4,7,20,.55)` composites to rgb(7,12,28) over an ocean of rgb(11,18,38), inside a `.07` hairline: on the globe the whole control is within a few levels of what is behind it and reads as missing. On the page background of the fallback the same glass is legible, so only `body.globe-mode .command-bar` is overridden. `tests/stage.html` asserts both alpha values.

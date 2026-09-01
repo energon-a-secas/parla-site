@@ -129,22 +129,44 @@ export function browseConcepts(dict, countryFilter, categoryFilter) {
 }
 
 /**
- * A few random terms for one country, for the globe's hover card.
- * Ported from the retired 2D globe, which built these buckets on every init.
+ * The terms a country shows in the globe's hover tip.
+ *
+ * Deterministic by construction: one country always previews the same words.
+ * The previous version shuffled the country's entire variant list with
+ * Math.random() and took five, which had two consequences. The tip re-rolled
+ * on every hover, so a country that flickered showed a different five each
+ * time; and the draw was uniform over every row the country appears in, so a
+ * country's shop window opened on `temprano` or on the strongest insult in the
+ * file about as often as on its actual slang.
+ *
+ * The rule is the first concept of each category, in file order, which is
+ * flagship order: the first adjective is `cool`, the first greeting is
+ * `hey-casual`, the first thing you can do wrong is `mess-up`. So every
+ * country answers the same three questions, and sweeping the pointer across
+ * the map shows one idea changing its word, which is what this site is for.
+ *
+ * Taking one concept per category is also what keeps the crude end of the
+ * insults out of a tip nobody asked for: at three rows the walk never reaches
+ * the insults category at all, and at more it would stop at `idiot`. A
+ * `preview: false` flag was added to the ten strongest concepts to enforce
+ * that and then removed, because it changed the output for none of the eight
+ * countries at any size, and a guard that cannot fail gets quoted as if it
+ * were doing something. The ordering is the guard; tests/preview.test.mjs
+ * pins the result so a reordering of the file cannot quietly change it.
  */
-export function sampleTerms(dict, code, n = 5) {
+export function previewTerms(dict, code, n = 3) {
   if (!dict?.concepts || !code) return [];
-  const pool = [];
+  const out = [];
+  const categories = new Set();
   for (const concept of dict.concepts) {
-    for (const v of concept.variants) {
-      if (v.countries.includes(code)) pool.push({ term: v.term, meaning: concept.meaning_en });
-    }
+    if (categories.has(concept.category)) continue;
+    const variant = concept.variants.find((v) => v.countries.includes(code));
+    if (!variant) continue;               // category is claimed on a hit, not a miss
+    categories.add(concept.category);
+    out.push({ term: variant.term, meaning: concept.meaning_en });
+    if (out.length === n) break;
   }
-  for (let i = pool.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [pool[i], pool[j]] = [pool[j], pool[i]];
-  }
-  return pool.slice(0, n);
+  return out;
 }
 
 /**

@@ -26,7 +26,12 @@ export function bindEvents(s) {
     // contents stay in the tab order: the mode switch, both filters and every
     // rendered browse card, invisible, inside a zero-height box. Measured at
     // 200 reachable controls in Expresiones mode.
-    sheet.inert = !open;
+    // Only the stage's sheet collapses. In the fallback it is not a sheet at
+    // all, it is the page: nothing hides it and `body.no-webgl .sheet-toggle`
+    // is display:none, so marking it inert at bind time left every browse
+    // card, both filters and the mode switch visible and unclickable, with no
+    // control anywhere on the page able to undo it.
+    sheet.inert = !open && document.body.classList.contains('globe-mode');
   }
   setSheet(false);   // the sheet ships closed, and nothing else calls this at boot
   function sheetOpen() {
@@ -114,11 +119,25 @@ export function bindEvents(s) {
 
   setViewChangeHandler(syncResetControl);
 
-  $('globeReset')?.addEventListener('click', () => {
-    selectCountry(null);   // clears the filter and sends the camera home
+  // Delegated: renderCountryPanel() rebuilds the button on every country
+  // change, so a listener bound to the element would be thrown away with it.
+  $('countryPanel')?.addEventListener('click', (e) => {
+    if (!e.target.closest('#countryPanelClear')) return;
+    clearCountry();             // identical to the stage's reset control
+  });
+
+  $('globeReset')?.addEventListener('click', clearCountry);
+
+  /** Drop the country filter, send the camera home, put the sheet away.
+   *  Two controls offer this (the stage's reset and the panel's Quitar) and
+   *  they have to do the same thing: the panel lives inside the sheet, so a
+   *  version that cleared the filter and left the sheet open left the visitor
+   *  looking at the empty space its own head had just vacated. */
+  function clearCountry() {
+    selectCountry(null);
     resetView();
     setSheet(false);
-  });
+  }
 
   /** Single path for changing the active country, whatever triggered it. */
   function selectCountry(code) {
@@ -480,7 +499,14 @@ export function bindEvents(s) {
       }
       if (s.query) {
         clearBtn.click();
+        return;
       }
+      // Last rung: a country filter is a thing the visitor is inside, so Escape
+      // gets them out of it. The reset control is the discoverable route and
+      // this is the fast one; both end at the same place, which is why both go
+      // through clearCountry(). Its setSheet(false) is a no-op here, the sheet
+      // rung above having already closed it.
+      if (s.activeCountry) clearCountry();
       return;
     }
 

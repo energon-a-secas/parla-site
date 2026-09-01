@@ -24,3 +24,6 @@ __pycache__/
 *.py[cod]
 skills-archived/
 *.log
+
+# ── Generated code map (atlas skill): a local scan, stale as soon as it lands ─
+docs/atlas/

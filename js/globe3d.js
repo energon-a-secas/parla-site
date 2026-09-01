@@ -12,6 +12,10 @@ import {
   DEG, lonLatToVec3, vec3ToLonLat, greatCircleDeg, sphericalCentroid,
   buildLandGeometry, buildWallGeometry, buildBorderGeometry,
 } from './geo.js';
+import {
+  FOV, HOME_FIT_ANGLE, MIN_CAMERA_DISTANCE, fitDistance, fitAngle, fitPad,
+  visibleFraction, clampInset, maxCameraDistance,
+} from './camerafit.js';
 
 const OCEAN_COLOR = 0x0b1226;
 const WORLD_COLOR = 0x161d33;
@@ -32,7 +36,6 @@ const MAX_EDGE_FOCUS = 1.5;
 const MAX_EDGE_CONTEXT = 3;
 const MAX_EDGE_WORLD = 4;
 
-const FOV = 35;
 const HOME = { lon: -75, lat: -12 };
 // A flat duration made a Colombia-to-Venezuela nudge take exactly as long as a
 // Los Angeles-to-Buenos Aires swing. Scaled to the arc actually travelled plus
@@ -48,11 +51,6 @@ const TWEEN_MS_PER_DIST = 260;
 // from the same country used to block settle for 700ms while nothing moved.
 const TWEEN_EPS_DEG = 0.05;
 const TWEEN_EPS_DIST = 0.002;
-const MAX_FIT_ANGLE = 26;   // a huge country must not shrink the globe to a marble
-// The home view frames Latin America, which is the product. The US takes part
-// but must not drag the default camera up over North America.
-const HOME_FIT_ANGLE = 44;
-const FIT_PAD = 6;
 
 // Plateau heights, as a scale on the base focus radius.
 const LIFT_BASE = 1;
@@ -117,8 +115,8 @@ export function createGlobe3D(container, { countries, geometry, reducedMotion = 
   controls.enablePan = false;           // panning would slide the globe off centre
   controls.rotateSpeed = 0.55;
   controls.zoomSpeed = 0.7;
-  controls.minDistance = 1.45;
-  controls.maxDistance = 4.2;
+  controls.minDistance = MIN_CAMERA_DISTANCE;
+  controls.maxDistance = maxCameraDistance({ aspect: 1, visible: 1 });
   // Rotation is bounded so Latin America cannot leave the screen. The earlier
   // +/-60 degree azimuth combined with a wide polar range let a single drag
   // swing South America off the limb and leave the user staring at open ocean
@@ -261,7 +259,7 @@ export function createGlobe3D(container, { countries, geometry, reducedMotion = 
    */
   function homeDistance() {
     return THREE.MathUtils.clamp(
-      fitDistance(HOME_FIT_ANGLE, HOME_FIT_ANGLE),
+      fit(HOME_FIT_ANGLE),
       controls.minDistance,
       controls.maxDistance,
     );
@@ -348,15 +346,24 @@ export function createGlobe3D(container, { countries, geometry, reducedMotion = 
   // whenever the loop is throttled, and the reset control would never appear.
   controls.addEventListener('end', () => api.onViewChange?.(isHomeView()));
 
-  /** Distance at which a cap of angular radius `deg` exactly fills the frame. */
-  function fitDistance(deg, cap = MAX_FIT_ANGLE) {
-    const a = Math.min(deg, cap) * DEG
-      // A portrait viewport fits on its narrow horizontal axis, so it already
-      // pulls back a long way. Extra padding there just pushes the globe away.
-      + (container.clientWidth < 600 ? 4 : FIT_PAD) * DEG;
-    const aspect = camera.aspect || 1;
-    const halfV = Math.atan(Math.tan((FOV * DEG) / 2) * Math.min(1, aspect));
-    return Math.cos(a) + Math.sin(a) / Math.tan(halfV);
+  // The dock covers the foot of the stage, so the globe is centred in the band
+  // that is actually visible rather than in the canvas, and fitted to it too.
+  // Offsetting the frustum (rather than aiming the camera further south) keeps
+  // the geographic centre honest: the country you selected is still the one
+  // facing you. Set by setBottomInset(), below.
+  let bottomInset = 0;
+
+  /**
+   * Distance at which a cap of angular radius `deg` exactly fills the band the
+   * dock leaves visible. The arithmetic lives in camerafit.js; this supplies
+   * the three measurements it needs from the live stage.
+   */
+  function fit(deg) {
+    return fitDistance(deg, {
+      aspect: camera.aspect || 1,
+      visible: visibleFraction(container.clientHeight, bottomInset),
+      pad: fitPad(container.clientWidth),
+    });
   }
 
   function frameCountries(codes, { weight = null, animate = true } = {}) {
@@ -377,11 +384,7 @@ export function createGlobe3D(container, { countries, geometry, reducedMotion = 
         if (d > radius) radius = d;
       }
     }
-    // A single country caps tight, so one huge country cannot shrink the globe
-    // to a marble. A concept spanning several countries has to show all of
-    // them, and US to Chile is roughly 90 degrees of arc.
-    const cap = known.length > 1 ? HOME_FIT_ANGLE : MAX_FIT_ANGLE;
-    setView(centre.lon, centre.lat, fitDistance(radius, cap), animate);
+    setView(centre.lon, centre.lat, fit(fitAngle(known.length, radius)), animate);
   }
 
   function focusCountry(code, animate = true) {
@@ -602,46 +605,58 @@ export function createGlobe3D(container, { countries, geometry, reducedMotion = 
     }
   }
 
-  // The dock covers the foot of the stage, so the globe is centred in the
-  // band that is actually visible rather than in the canvas. Offsetting the
-  // frustum (rather than aiming the camera further south) keeps the geographic
-  // centre honest: the country you selected is still the one facing you.
-  let bottomInset = 0;
-
   function applyViewOffset(w, h) {
     if (bottomInset > 0) camera.setViewOffset(w, h, 0, Math.round(bottomInset / 2), w, h);
     else camera.clearViewOffset();
   }
 
   function setBottomInset(px) {
-    const next = Math.max(0, Math.min(px || 0, container.clientHeight * 0.5));
+    const next = clampInset(px, container.clientHeight);
     if (Math.abs(next - bottomInset) < 1) return;
+    // Read before the inset moves. homeDistance() is fitted to the visible
+    // band, so once bottomInset changes the camera is being compared against a
+    // home it has not been sent to yet: the answer is always no, the refit
+    // never happens, and the camera is stranded at a distance fitted for a
+    // stage the dock was not covering. That left isHomeView() false on the
+    // opening view, and the reset control visible with nothing to reset.
+    const wasHome = isHomeView();
     bottomInset = next;
-    resize();
+    resize(wasHome);
   }
 
-  function resize() {
+  /**
+   * @param {boolean} [wasHome] whether the camera was on the home view before
+   *   whatever prompted this. Defaults to asking now, which is right for a
+   *   container resize and wrong for an inset change, where the question has
+   *   to be asked before the inset moves.
+   */
+  function resize(wasHome = isHomeView()) {
     const w = container.clientWidth;
     const h = container.clientHeight;
     if (!w || !h) return;
 
-    // The home distance is derived from the aspect ratio, so a resize changes
-    // what "home" means. Refit when we were already there, otherwise rotating a
-    // phone leaves the camera at a stale distance and every is-home check fails.
-    const wasHome = isHomeView();
-
+    // The home distance is derived from the aspect ratio and the visible band,
+    // so this changes what "home" means. Refit when we were already there,
+    // otherwise rotating a phone leaves the camera at a stale distance and
+    // every is-home check fails.
     renderer.setSize(w, h);
     camera.aspect = w / h;
     applyViewOffset(w, h);
     camera.updateProjectionMatrix();
-    controls.maxDistance = Math.max(4.2, fitDistance(HOME_FIT_ANGLE, HOME_FIT_ANGLE) * 1.02);
+    controls.maxDistance = maxCameraDistance({
+      aspect: camera.aspect,
+      visible: visibleFraction(h, bottomInset),
+      pad: fitPad(w),
+    });
 
     if (wasHome) goHome(false);
     requestRender();
     api.onViewChange?.(isHomeView());
   }
 
-  const ro = new ResizeObserver(resize);
+  // Wrapped, not passed: a ResizeObserver hands its callback (entries,
+  // observer), and entries is a truthy array that would land in wasHome.
+  const ro = new ResizeObserver(() => resize());
   ro.observe(container);
 
   const api = {

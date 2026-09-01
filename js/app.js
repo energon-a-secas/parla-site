@@ -30,7 +30,11 @@ async function init() {
   // Must run after loadDictionary (it needs country colours and anchors) and
   // before openFromHash, so a deep link lands on a stage that already exists.
   await initStage(state.dictionary);
-  focusCountry(state.activeCountry);
+  // move:false deliberately. A country restored from localStorage still filters
+  // and still lights up, but the camera opens on the whole region: flying into
+  // a country the visitor did not just pick shows them one country, no others,
+  // and no cause.
+  focusCountry(state.activeCountry, { move: false });
   openFromHash(state);
 
   // Deliberately not awaited and deliberately last: examples are only needed

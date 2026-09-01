@@ -7339,6 +7339,397 @@
           ]
         }
       ]
+    },
+    {
+      "id": "trash-can",
+      "meaning_en": "trash can, rubbish bin",
+      "category": "daily",
+      "variants": [
+        {
+          "term": "el basurero",
+          "countries": [
+            "CL"
+          ],
+          "note": "el tarro de la casa; en Colombia el basurero es el vertedero"
+        },
+        {
+          "term": "la caneca",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "el tacho",
+          "countries": [
+            "AR",
+            "PE"
+          ]
+        },
+        {
+          "term": "el bote de basura",
+          "countries": [
+            "MX",
+            "US"
+          ],
+          "note": "a secas, el bote"
+        },
+        {
+          "term": "el pipote",
+          "countries": [
+            "VE"
+          ],
+          "note": "el grande; la papelera es la de papeles"
+        },
+        {
+          "term": "a lixeira",
+          "countries": [
+            "BR"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "popcorn",
+      "meaning_en": "popcorn",
+      "category": "daily",
+      "variants": [
+        {
+          "term": "las cabritas",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "las crispetas",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "los pochoclos",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "las palomitas",
+          "countries": [
+            "MX",
+            "US"
+          ]
+        },
+        {
+          "term": "la canchita",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "las cotufas",
+          "countries": [
+            "VE"
+          ]
+        },
+        {
+          "term": "a pipoca",
+          "countries": [
+            "BR"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "drinking-straw",
+      "meaning_en": "drinking straw",
+      "category": "daily",
+      "variants": [
+        {
+          "term": "la bombilla",
+          "countries": [
+            "CL"
+          ],
+          "note": "en Argentina la bombilla es la del mate"
+        },
+        {
+          "term": "el pitillo",
+          "countries": [
+            "CO",
+            "VE"
+          ]
+        },
+        {
+          "term": "la pajita",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "el popote",
+          "countries": [
+            "MX",
+            "US"
+          ]
+        },
+        {
+          "term": "la cañita",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "o canudo",
+          "countries": [
+            "BR"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "t-shirt",
+      "meaning_en": "t-shirt",
+      "category": "daily",
+      "variants": [
+        {
+          "term": "la polera",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "la camiseta",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "la remera",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "la playera",
+          "countries": [
+            "MX",
+            "US"
+          ]
+        },
+        {
+          "term": "el polo",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "la franela",
+          "countries": [
+            "VE"
+          ]
+        },
+        {
+          "term": "a camiseta",
+          "countries": [
+            "BR"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "flip-flops",
+      "meaning_en": "flip-flops, sandals",
+      "category": "daily",
+      "variants": [
+        {
+          "term": "las hawaianas",
+          "countries": [
+            "CL"
+          ],
+          "note": "por la marca brasileña; también las chalas"
+        },
+        {
+          "term": "las chanclas",
+          "countries": [
+            "CO",
+            "MX",
+            "US"
+          ]
+        },
+        {
+          "term": "las ojotas",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "las sayonaras",
+          "countries": [
+            "PE"
+          ]
+        },
+        {
+          "term": "las cholas",
+          "countries": [
+            "VE"
+          ]
+        },
+        {
+          "term": "as havaianas",
+          "countries": [
+            "BR"
+          ],
+          "note": "la marca que le dio el nombre a media región"
+        }
+      ]
+    },
+    {
+      "id": "beer",
+      "meaning_en": "beer, a cold one",
+      "category": "daily",
+      "variants": [
+        {
+          "term": "la chela",
+          "countries": [
+            "CL",
+            "MX",
+            "PE",
+            "US"
+          ]
+        },
+        {
+          "term": "la pola",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "la birra",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "la fría",
+          "countries": [
+            "VE"
+          ],
+          "note": "se pide así: dame una fría"
+        },
+        {
+          "term": "a breja",
+          "countries": [
+            "BR"
+          ],
+          "note": "también a gelada"
+        }
+      ]
+    },
+    {
+      "id": "coffee",
+      "meaning_en": "coffee, a cup of coffee",
+      "category": "daily",
+      "variants": [
+        {
+          "term": "el tinto",
+          "countries": [
+            "CO"
+          ],
+          "note": "café negro; en el resto de la región el tinto es vino"
+        },
+        {
+          "term": "el cortado",
+          "countries": [
+            "CL",
+            "AR"
+          ]
+        },
+        {
+          "term": "el café de olla",
+          "countries": [
+            "MX"
+          ],
+          "note": "con piloncillo y canela, en olla de barro"
+        },
+        {
+          "term": "el cafecito",
+          "countries": [
+            "US"
+          ],
+          "note": "el espresso cubano de Miami"
+        },
+        {
+          "term": "el café pasado",
+          "countries": [
+            "PE"
+          ],
+          "note": "esencia colada, con agua caliente aparte"
+        },
+        {
+          "term": "el guayoyo",
+          "countries": [
+            "VE"
+          ],
+          "note": "café negro suave; de ahí sale el insulto"
+        },
+        {
+          "term": "o cafezinho",
+          "countries": [
+            "BR"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bus",
+      "meaning_en": "bus, city bus",
+      "category": "daily",
+      "variants": [
+        {
+          "term": "la micro",
+          "countries": [
+            "CL"
+          ]
+        },
+        {
+          "term": "la buseta",
+          "countries": [
+            "CO"
+          ]
+        },
+        {
+          "term": "el bondi",
+          "countries": [
+            "AR"
+          ]
+        },
+        {
+          "term": "el camión",
+          "countries": [
+            "MX",
+            "US"
+          ],
+          "note": "en el resto de la región un camión es de carga"
+        },
+        {
+          "term": "la combi",
+          "countries": [
+            "PE"
+          ],
+          "note": "la chica, la que para donde sea"
+        },
+        {
+          "term": "la camioneta",
+          "countries": [
+            "VE"
+          ],
+          "note": "en casi toda la región una camioneta es una pickup"
+        },
+        {
+          "term": "o busão",
+          "countries": [
+            "BR"
+          ]
+        }
+      ]
     }
   ]
 }

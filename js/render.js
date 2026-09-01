@@ -12,7 +12,59 @@ import { $, escHtml, categoryLabel, categoryIcon } from './utils.js';
 export function render(s) {
   renderCountryFilters(s);
   renderCategoryFilters(s);
+  renderCountryPanel(s);
   renderBrowse(s);
+}
+
+/**
+ * The head of the country panel: which country the sheet is showing, and how
+ * much of it there is.
+ *
+ * Clicking a country already filtered the sheet to it, but the sheet said so
+ * only in a select, under an intro line still telling the visitor to pick a
+ * country they had just picked. Everything that changes the country routes
+ * through render(), so this cannot fall out of step with the filter.
+ */
+export function renderCountryPanel(s) {
+  const el = $('countryPanel');
+  if (!el) return;
+  const code = s.activeCountry;
+  const meta = code && s.dictionary?.countries?.[code];
+  if (!meta) {
+    el.classList.add('hidden');
+    el.innerHTML = '';
+    return;
+  }
+
+  // Counted through the category filter as well as the country one, because
+  // the list immediately below honours both. Chile plus Trabajo read
+  // "253 palabras en 180 conceptos" over a list headed "Trabajo (16)".
+  let terms = 0;
+  let concepts = 0;
+  for (const concept of s.dictionary.concepts) {
+    if (s.activeCategory && concept.category !== s.activeCategory) continue;
+    const hits = concept.variants.filter((v) => v.countries.includes(code)).length;
+    if (hits) concepts++;
+    terms += hits;
+  }
+  const phrases = (s.expressions || []).filter((e) => e.country === code).length;
+
+  // Counted in the mode the visitor is in. Announcing 71 expressions on a
+  // panel that is listing words reads as a promise the list below is breaking.
+  const tally = s.mode === 'expressions'
+    ? `${phrases} ${phrases === 1 ? 'expresión' : 'expresiones'}`
+    : `${terms} palabras en ${concepts} conceptos`;
+
+  el.innerHTML = `
+    <div class="country-panel-id">
+      <span class="country-panel-flag" aria-hidden="true">${meta.flag}</span>
+      <div class="country-panel-text">
+        <h2 class="country-panel-name">${escHtml(meta.name)}</h2>
+        <p class="country-panel-tally">${meta.variety ? `${escHtml(meta.variety)} · ` : ''}${tally}</p>
+      </div>
+      <button type="button" class="country-panel-clear" id="countryPanelClear">Quitar</button>
+    </div>`;
+  el.classList.remove('hidden');
 }
 
 const PROMPTS = [
@@ -561,7 +613,10 @@ export function renderBrowse(s) {
 
   browse.innerHTML = html;
   browse.classList.remove('hidden');
-  intro.classList.remove('hidden');
+  // The intro asks the visitor to pick a country. Once one is picked the panel
+  // above answers that, and leaving both up told them to do what they had
+  // just done.
+  intro.classList.toggle('hidden', !!s.activeCountry);
   diagram.classList.add('hidden');
   area.innerHTML = '';
 }
@@ -632,7 +687,7 @@ function renderBrowseExpressions(s) {
 
   area.innerHTML = '';
   diagram.classList.add('hidden');
-  intro.classList.remove('hidden');
+  intro.classList.toggle('hidden', !!s.activeCountry);   // same trade as in renderBrowse
   browse.classList.remove('hidden');
 
   const countries = getCountries(s.dictionary);
