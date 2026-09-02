@@ -140,6 +140,12 @@ test('the three previewed terms come from three different categories', () => {
   }
 });
 
+// Behaviour, not a guard. previewTerms opens with `if (!dict?.concepts || !code)`,
+// and the `|| !code` half of that is unobservable from out here: a null country
+// matches no variant, so the loop returns [] with or without it. Dropping that
+// half leaves this file green, which was measured, not assumed. The assertions
+// are kept because the behaviour is worth pinning, and named here because a test
+// that cannot fail should never be counted as coverage of the line above it.
 test('a country with no data, and a missing dictionary, return nothing', () => {
   assert.deepEqual(previewTerms(dict, 'ZZ', 3), []);
   assert.deepEqual(previewTerms(dict, null, 3), []);

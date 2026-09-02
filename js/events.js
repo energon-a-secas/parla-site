@@ -286,7 +286,7 @@ export function bindEvents(s) {
     }
   }
 
-  // Back & share buttons (delegated on diagramArea — controls live inside diagramCenter)
+  // Back & share buttons (delegated on diagramArea; controls live inside diagramCenter)
   $('diagramArea').addEventListener('click', (e) => {
     if (e.target.closest('#diagramShare')) {
       const btn = e.target.closest('#diagramShare');
